@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect("mongodb://127.0.0.1:27017/community-help-api", (err) => {
+mongoose.connect("mongodb+srv://shivam:nayak@cluster0.fjg0d.mongodb.net/nayak", (err) => {
   
     if (err) throw err;
     console.log("connected to MongoDB");
