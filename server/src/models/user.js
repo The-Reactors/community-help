@@ -13,6 +13,14 @@ const userSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    googleId:{
+        type:String,
+        required:false
+    },
+    profilePicLink:{
+        type:String,
+        required:false  
+    },
     email: {
         type: String,
         required: true,
@@ -27,7 +35,7 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: true,
+        required: false,
         trim: true,
         minlength:6
     },

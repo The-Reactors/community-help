@@ -2,7 +2,10 @@ const express = require('express')
 require('./db/mongoose')
 const cors = require("cors");
 const User = require('./models/user')
-const userRouter = require('./routes/user')
+const passport = require("passport");
+const session = require("express-session");
+const cookieSession = require("cookie-session")
+const userRoutes = require('./routes/user')
 const envConfig = {
     path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
   };
@@ -10,6 +13,15 @@ require("dotenv").config(envConfig);
 const app = express()
 const port = process.env.PORT || 5000
 
+// * Passport Setup
+require("./config/passport-config");
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(cookieSession({
+   maxAge:24 * 60 * 60 * 1000,
+   keys: [process.env.COOKIE_KEY],
+}))
 app.use(cors({ origin: `${process.env.CLIENT_URL}`, credentials: true }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", `${process.env.CLIENT_URL}`);
@@ -24,7 +36,7 @@ app.use((req, res, next) => {
 
 
 app.use(express.json())
-app.use(userRouter)
+app.use(userRoutes)
 
 
 app.listen(port, ()=>{

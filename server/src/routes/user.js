@@ -1,8 +1,47 @@
 const express = require('express')
 const User = require('../models/user')
 const auth = require('../middleware/auth')
+const passport = require("passport")
 const router = new express.Router()
 
+router.get(
+    "/login/google",
+    passport.authenticate("google", {scope:["profile","email" ] })
+);
+router.get(
+    "/auth/login/callback", (req, res, next) => {
+    passport.authenticate(
+        "google", {
+            scope: ["profile", "email"],
+        },
+        function(err, user, info) {
+            console.log(err, user, info);
+            if (!user)
+                return res.redirect(
+                    `${process.env.CLIENT_URL}/error?err=${info?.message}`
+                );
+            req.logIn(user, function(err) {
+                if (err) {
+                    return next(err);
+                }
+                console.log(req.user);
+                return res.redirect(`${process.env.CLIENT_URL}/`);
+            });
+        }
+    )(req, res, next);
+
+
+    // passport.authenticate("google", {
+    //     failureMessage:"Cannot Login Right Now Please Try Again !",
+    //     failureRedirect: '/loginFailed',
+    //     successRedirect:'/welcome'
+    //  }),
+    //  (req,res) => {
+    //      console.log("User: ", req.user);
+    //      res.send("Thank you For Signing In")
+    //  }
+
+});
 router.post('/users', async (req,res) =>{
     const user = new User(req.body)
 
