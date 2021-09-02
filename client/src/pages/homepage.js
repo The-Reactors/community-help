@@ -16,25 +16,25 @@ const Homepage = () => {
                     <h1><a href="index.html" className="logo">Portfolio <span>Portfolio Agency</span></a></h1>
                     <ul className="list-unstyled components mb-5">
                         <li className="active">
-                            <a href="#"><span className="fa fa-home mr-3"></span> Home</a>
+                            <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-user mr-3"></span> About</a>
+                            <a href="/"><span className="fa fa-user mr-3"></span> About</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-briefcase mr-3"></span> Works</a>
+                            <a href="/"><span className="fa fa-briefcase mr-3"></span> Works</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-sticky-note mr-3"></span> Blog</a>
+                            <a href="/"><span className="fa fa-sticky-note mr-3"></span> Blog</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-suitcase mr-3"></span> Gallery</a>
+                            <a href="/"><span className="fa fa-suitcase mr-3"></span> Gallery</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-cogs mr-3"></span> Services</a>
+                            <a href="/"><span className="fa fa-cogs mr-3"></span> Services</a>
                         </li>
                         <li>
-                            <a href="#"><span className="fa fa-paper-plane mr-3"></span> Contacts</a>
+                            <a href="/"><span className="fa fa-paper-plane mr-3"></span> Contacts</a>
                         </li>
                     </ul>
                 </div>
