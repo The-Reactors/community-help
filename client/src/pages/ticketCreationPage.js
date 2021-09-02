@@ -33,9 +33,8 @@ const TicketCreationPage = () => {
       const data = new FormData()
       for(var x = 0; x<imageState.length; x++) {
         data.append('file', imageState[x])
-        console.log("h")
         
-   }
+      }
       console.log(data)
       console.log(imageState) 
       
