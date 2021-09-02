@@ -1,7 +1,7 @@
 import "../assets/css/style.css"
-import "../assets/css/bootstrap/bootstrap.min.css"
+import "../assets/css/bootstrap.min.css"
 
-const ticketCreationPage = () => {
+const TicketCreationPage = () => {
     return ( 
  <div className="container">
     <div className="row">
@@ -71,4 +71,4 @@ const ticketCreationPage = () => {
   );
 }
  
-export default ticketCreationPage ;
+export default TicketCreationPage ;

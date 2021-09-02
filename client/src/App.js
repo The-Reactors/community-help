@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import Homepage from './pages/homepage';
+import TicketCreationPage from "./pages/ticketCreationPage";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
           <Switch>
             <Route path="/" exact>
               <Homepage />
+            </Route>
+            <Route path="/createTicket">
+              <TicketCreationPage/>
             </Route>
           </Switch>
         </Router>
