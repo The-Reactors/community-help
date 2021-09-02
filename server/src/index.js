@@ -6,6 +6,7 @@ const passport = require("passport");
 const session = require("express-session");
 const cookieSession = require("cookie-session")
 const userRoutes = require('./routes/user')
+const problemRoutes = require('./routes/problem')
 const envConfig = {
     path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
   };
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 app.use(userRoutes)
+app.use(problemRoutes)
 
 
 app.listen(port, ()=>{
