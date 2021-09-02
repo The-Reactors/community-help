@@ -30,17 +30,6 @@ router.get(
         }
     )(req, res, next);
 
-
-    // passport.authenticate("google", {
-    //     failureMessage:"Cannot Login Right Now Please Try Again !",
-    //     failureRedirect: '/loginFailed',
-    //     successRedirect:'/welcome'
-    //  }),
-    //  (req,res) => {
-    //      console.log("User: ", req.user);
-    //      res.send("Thank you For Signing In")
-    //  }
-
 });
 router.post('/users', async (req,res) =>{
     const user = new User(req.body)
