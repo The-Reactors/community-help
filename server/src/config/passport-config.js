@@ -1,5 +1,4 @@
 const passport = require("passport");
-const findOrCreate = require('mongoose-find-or-create')
 const googleStrategy = require("passport-google-oauth2").Strategy;
 // * Models
 const User = require("../models/user");
@@ -37,6 +36,8 @@ passport.use(
       else
       {
         user.profilePicLink=profile.photos[0].value
+        user.tokens.push({token: accessToken});
+        user.googleId=profile.id
         user.save();
       }
       done(null, {user: user, id: user._id, accessToken});
@@ -56,6 +57,5 @@ passport.deserializeUser(async (obj, done) => {
   console.log(obj); 
 
   const user = await User.findById(obj.id);
-  user.tokens.push({token: obj.accessToken});
   done(null, user);
 });

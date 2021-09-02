@@ -22,6 +22,7 @@ app.use(cookieSession({
    maxAge:24 * 60 * 60 * 1000,
    keys: [process.env.COOKIE_KEY],
 }))
+
 app.use(cors({ origin: `${process.env.CLIENT_URL}`, credentials: true }));
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", `${process.env.CLIENT_URL}`);
