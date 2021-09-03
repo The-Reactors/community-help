@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
+import URL from '../URL'
 
 const TicketCreationPage = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         title : "",
         description : "",
-        priority: "",
-        status : "",
-        category : "",
-        kind : "",
+        priority: "emergency",
+        status : "pending",
+        category : "land issue",
+        kind : "issue",
         image : ""
     })
     const [imageState, setimageState] = useState()
@@ -19,6 +20,22 @@ const TicketCreationPage = () => {
         setuserEnteredData({...userEnteredData, [name]:value })
 
     }
+    const selectCategoryHandler = (e) => {
+      setuserEnteredData((prev) => {
+        return {
+          ...prev,
+          category : e.target.value,
+        };
+      });
+    };
+    const selectPriorityHandler = (e) => {
+      setuserEnteredData((prev) => {
+        return {
+          ...prev,
+          priority : e.target.value,
+        };
+      });
+    };
 
     const fileHandler = (event) =>
     {
@@ -37,10 +54,36 @@ const TicketCreationPage = () => {
       }
       console.log(data)
       console.log(imageState) 
-      
-    }
-
-
+      console.log(userEnteredData.category)
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json',
+                    'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTJmZTEzNmJkMDM3NWEwNGNiMjg4OTgiLCJpYXQiOjE2MzA1Mjc3OTl9.G0d5jAINbQbCwUenBk0ZWlJIZla-X6Hwr6enAfZ_FhM'
+                 },
+        body: JSON.stringify({ 
+          'title':userEnteredData.title,
+          'description':userEnteredData.description,
+          'priority':userEnteredData.priority,
+          'status':userEnteredData.status,
+          'category':userEnteredData.category,
+          'kind':userEnteredData.kind
+         }),
+        credentials: "include"
+        };
+        fetch(`http://localhost:5000/problems`, requestOptions )
+        .then(async response => {
+            if(response.ok){
+                console.log("Response Is Succesfully Done! ")
+             }
+            else{
+                throw response.json();
+            }
+          })
+          .catch(async (error) => {
+              const errorMessage = await error;
+              console.log(errorMessage);
+          })
+        }
     return (
         <div>
            <form action="" encType = "multipart/form-data">
@@ -60,24 +103,24 @@ const TicketCreationPage = () => {
                 name = "description"
                 />
                 <label htmlFor="priority">Select your Ticket Priority
-               <select onChange = {handleInput}>
-                <option value="emergency" name = " emergency">emergency</option>
-                <option value="urgent" name = " urgent ">urgent</option>
-                <option value="not urgent" name = " not urgent ">not urgent</option>
-                <option value="baad mein karwalenge" name = " baad mein karwalenge">baad mein karwalenge</option>
+               <select onChange={(e) => selectPriorityHandler(e)}>
+                <option value="emergency" name = "priority">emergency</option>
+                <option value="urgent" name = "priority">urgent</option>
+                <option value="not urgent" name = "priority">not urgent</option>
+                <option value="baad mein karwalenge" name = "priority">baad mein karwalenge</option>
                 </select>
                 </label>
                 <label htmlFor="category">Select your category:
-               <select onChange = {handleInput}>
-               <option value = " land issue " name = " land issue ">land issue</option>
-                <option value = " water issue " name = " water issue">water issue</option>
-                <option value = " public health " name = " public health ">public health</option>
-                <option value = " sanitation " name = " sanitation ">sanitation</option>
-                <option value = " pollution " name = " pollution ">Pollution</option>
-                <option value = " healthcare issue " name = " healthcare issue ">healthcare issue</option>
-                <option value = " electricity " name = " electricity ">Electricity</option>
-                <option value = " road blockage " name = " road blockage ">Road Blockage</option>
-                <option value = " waste management " name = " waste management ">waste management</option>
+               <select onChange={(e) => selectCategoryHandler(e)}>
+                <option value = " land issue " name = "category">land issue</option>
+                <option value = " water issue " name = "category">water issue</option>
+                <option value = " public health " name = "category">public health</option>
+                <option value = " sanitation " name = "category">sanitation</option>
+                <option value = " pollution " name = "category">Pollution</option>
+                <option value = " healthcare issue " name = "category">healthcare issue</option>
+                <option value = " electricity " name = "category">Electricity</option>
+                <option value = " road blockage " name = "category">Road Blockage</option>
+                <option value = " waste management " name = "category">waste management</option>
                 </select>
                 </label>
                 <p>
