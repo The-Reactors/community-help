@@ -11,8 +11,11 @@ const Navbar = (props) => {
                     </button>
                 </div>
                 <div className="p-4">
-                    <h1><a href="index.html" className="logo">Portfolio <span>Portfolio Agency</span></a></h1>
+                    <h1><a href="/" className="logo">Nayak <span>Community help service</span></a></h1>
                     <ul className="list-unstyled components mb-5">
+                        <li>
+                            <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
+                        </li>
                         <li className="active">
                             <a href="/register"><span className="fa fa-pencil mr-3"></span> Register</a>
                         </li>
@@ -37,7 +40,7 @@ const Navbar = (props) => {
                     </ul>
                 </div>
                 <div className="mb-5">
-                    <h3 className="h6 mb-3">Subscribe for newsletter</h3>
+                    <h3 className="h6 mb-3">Contact the NAYAK Team</h3>
                     <form action="#" className="subscribe-form">
                         <div className="form-group d-flex">
                             <div className="icon"><span className="icon-paper-plane"></span></div>
@@ -46,9 +49,9 @@ const Navbar = (props) => {
                     </form>
                 </div>
 
-                <div className="footer">
+                {/* <div className="footer">
                     <p>Copyright ©2021 All rights reserved | This template is made with by </p>
-                </div>
+                </div> */}
             </nav>
             {props.children} 
 	    </div>
