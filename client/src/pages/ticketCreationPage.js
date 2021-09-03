@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import URL from '../URL'
-
+import swal from 'sweetalert';
 const TicketCreationPage = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         title : "",
@@ -9,7 +9,6 @@ const TicketCreationPage = () => {
         status : "pending",
         category : "land issue",
         kind : "issue",
-        image : ""
     })
     const [imageState, setimageState] = useState()
     const handleInput = (event) =>
@@ -47,41 +46,66 @@ const TicketCreationPage = () => {
     const fileSubmitHandler = (e) =>
     {
       e.preventDefault();
-      const data = new FormData()
-      for(var x = 0; x<imageState.length; x++) {
-        data.append('file', imageState[x])
-        
+      let data = new FormData()
+      data.append('title',userEnteredData.title)
+      data.append('description',userEnteredData.description)
+      data.append('priority',userEnteredData.priority)
+      data.append('status',userEnteredData.status)
+      data.append('category',userEnteredData.category)
+      data.append('kind',userEnteredData.kind)
+      if(imageState !== undefined)
+      {
+          for(var x = 0; x<imageState.length; x++) {
+            data.append('problemImage', imageState[x])
+          }
       }
       console.log(data)
       console.log(imageState) 
       console.log(userEnteredData.category)
       const requestOptions = {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json',
+        headers: {
                     'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTJmZTEzNmJkMDM3NWEwNGNiMjg4OTgiLCJpYXQiOjE2MzA1Mjc3OTl9.G0d5jAINbQbCwUenBk0ZWlJIZla-X6Hwr6enAfZ_FhM'
                  },
-        body: JSON.stringify({ 
-          'title':userEnteredData.title,
-          'description':userEnteredData.description,
-          'priority':userEnteredData.priority,
-          'status':userEnteredData.status,
-          'category':userEnteredData.category,
-          'kind':userEnteredData.kind
-         }),
+        body:data,  
         credentials: "include"
         };
         fetch(`http://localhost:5000/problems`, requestOptions )
         .then(async response => {
             if(response.ok){
                 console.log("Response Is Succesfully Done! ")
+                swal({
+                  title: "Success!",
+                  text: "Ticket Raised Successfully",
+                  icon: "success",
+                });
              }
             else{
                 throw response.json();
             }
           })
           .catch(async (error) => {
-              const errorMessage = await error;
-              console.log(errorMessage);
+            const errorMessage = await error;
+            console.log(errorMessage)
+            if(!(typeof errorMessage.error.code === 'string') && !(errorMessage.error.code instanceof String))  
+            {
+              swal({
+                title: "Error!",
+                text: "Unknown Error Has Occured !",
+                icon: "error",
+              });
+            }
+            else
+            {
+              if((errorMessage.error.code.localeCompare("LIMIT_FILE_SIZE") === 0) ||(errorMessage.error.code.localeCompare("LIMIT_UNEXPECTED_FILE") === 0) )
+              {
+                swal({
+                  title: "Error!",
+                  text: "Maximumm Number Of 3 Images Can Be Uploaded",
+                  icon: "error",
+                });
+              }
+            }
           })
         }
     return (
