@@ -8,6 +8,7 @@ import TicketCreationPage from "./pages/ticketCreationPage";
 import Login from "./pages/login/login";
 import Register from "./pages/login/register";
 import LandingPage from "./pages/login/landingPage";
+import Navbar from "./components/navbar";
 
 function App() {
   return (
@@ -18,16 +19,24 @@ function App() {
               <Homepage />
             </Route>
             <Route path="/createTicket">
-              <TicketCreationPage/>
+            <Navbar>
+                <TicketCreationPage />
+              </Navbar>
             </Route>
             <Route path="/login">
-              <Login />
+              <Navbar>
+                <Login />
+              </Navbar>
             </Route>
             <Route path="/register">
-              <Register/>
+              <Navbar>
+                <Register />
+              </Navbar>
             </Route>
             <Route path="/landingPage">
-              <LandingPage/>
+            <Navbar>
+                <LandingPage />
+              </Navbar>
             </Route>
           </Switch>
         </Router>
