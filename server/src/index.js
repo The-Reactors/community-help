@@ -1,28 +1,27 @@
 const express = require('express')
 require('./db/mongoose')
 const cors = require("cors");
-const User = require('./models/user')
 const passport = require("passport");
 const session = require("express-session");
-const cookieSession = require("cookie-session")
+// const cookieSession = require("cookie-session")
+const cookieParser = require("cookie-parser");
 const userRoutes = require('./routes/user')
 const problemRoutes = require('./routes/problem')
+const bodyParser = require("body-parser");
+
+
 const envConfig = {
     path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
   };
 require("dotenv").config(envConfig);
+
+
 const app = express()
 const port = process.env.PORT || 5000
 
 // * Passport Setup
-require("./config/passport-config");
-app.use(passport.initialize());
-app.use(passport.session());
-
-app.use(cookieSession({
-   maxAge:24 * 60 * 60 * 1000,
-   keys: [process.env.COOKIE_KEY],
-}))
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors({ origin: `${process.env.CLIENT_URL}`, credentials: true }));
 app.use((req, res, next) => {
@@ -36,8 +35,27 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(
+  session({
+    secret: process.env.SECRET_KEY,
+    resave: true,
+    saveUninitialized: true,
+  })
+);
+app.use(cookieParser(process.env.SECRET_KEY));
+app.use(passport.initialize());
+app.use(passport.session());
+require("./config/passport-config");
 
-app.use(express.json())
+// app.use(cookieSession({
+//    maxAge:24 * 60 * 60 * 1000,
+//    keys: [process.env.COOKIE_KEY],
+// }))
+
+
+
+
+
 app.use(userRoutes)
 app.use(problemRoutes)
 

@@ -2,6 +2,10 @@ const express = require('express')
 const multer = require('multer')
 const Problem = require('../models/problem')
 const auth = require('../middleware/auth')
+const envConfig = {
+    path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
+  };
+require("dotenv").config(envConfig);
 
 const router = new express.Router()
 
@@ -21,6 +25,10 @@ const problemImage = multer({
 router.post('/problems', auth, problemImage.array('problemImage',3), async (req,res) =>{
     
     const imagesArray = []
+    const token = req.header('Authorization').replace('Bearer ', '')
+    const decoded = jwt.verify(token,process.env.SECRET_KEY);
+    var userId = decoded.id
+    console.log(userId)
     if(req.files === undefined)
     {
         const problem = new Problem({
@@ -31,7 +39,7 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             kind:req.body.kind,
-            creatorId:req.user._id,
+            creatorId:userId
         })
             try{
                 await problem.save()

@@ -8,7 +8,7 @@ const envConfig = {
 require("dotenv").config(envConfig);
 
 // * Gettingup Passport google strategy
-passport.use(
+passport.use( 
   new googleStrategy(
     {
       clientID: process.env.AUTH_CLIENT_ID,
@@ -30,13 +30,11 @@ passport.use(
       });
       if(!user){
         user = new User(defaultUser)
-        user.tokens.push({token: accessToken});
         user.save();
       }
       else
       {
-        user.profilePicLink=profile.photos[0].value
-        user.tokens.push({token: accessToken});
+        user.profilePicLink=profile.photos[0].value 
         user.googleId=profile.id
         user.save();
       }
@@ -54,8 +52,5 @@ passport.serializeUser((obj, done) => {
 // * Passport deserializeUser
 passport.deserializeUser(async (obj, done) => {
   console.log("Deserlializing");
-  console.log(obj); 
-
-  const user = await User.findById(obj.id);
-  done(null, user);
+  done(null, obj);
 });

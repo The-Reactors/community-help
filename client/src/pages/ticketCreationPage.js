@@ -65,7 +65,7 @@ const TicketCreationPage = () => {
       const requestOptions = {
         method: 'POST',
         headers: {
-                    'Authorization':'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MTJmZTEzNmJkMDM3NWEwNGNiMjg4OTgiLCJpYXQiOjE2MzA1Mjc3OTl9.G0d5jAINbQbCwUenBk0ZWlJIZla-X6Hwr6enAfZ_FhM'
+                    'Authorization':'Bearer '
                  },
         body:data,  
         credentials: "include"

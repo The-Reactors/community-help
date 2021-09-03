@@ -1,11 +1,15 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const envConfig = {
+    path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
+  };
+require("dotenv").config(envConfig);
 
 const auth = async (req, res, next) => {
-    
+    console.log(req.user);
     try{
         const token = req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, 'Nayak')
+        const decoded = jwt.verify(token, process.env.SECRET_KEY)
         const user = await User.findOne({_id:decoded._id, 'tokens.token':token})
         
         if(!user){

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-
+import swal from "sweetalert"
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
-        phone: "",
+        email: "",
         password: ""
     })
     const handleInput = (event) =>
@@ -13,14 +13,55 @@ const Login = () => {
         setuserEnteredData({...userEnteredData, [name]:value })
 
     }
+
+    const submitHandler = (event) =>
+    {
+        event.preventDefault()
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify({
+                'email':userEnteredData.email,
+                'password':userEnteredData.password
+            }),  
+            credentials: "include"
+            };
+            fetch(`http://localhost:5000/localusers/login`, requestOptions )
+            .then(async response => {
+                if(response.ok){
+                    console.log("Response Is Succesfully Done! ")
+                    response.json().then(data => {
+                        console.log(data);
+                      });
+                    swal({
+                      title: "Success!",
+                      text: "Logged in Successfully",
+                      icon: "success",
+                    });
+                 }
+                else{
+                  swal({
+                    title: "Failed!",
+                    text: "Login Credentials Could Not Be Verified",
+                    icon: "error",
+                  });
+                    throw response.json();
+                }
+              })
+              .catch(async (error) => {
+                const errorMessage = await error;
+                console.log(errorMessage)
+              })
+    }
+
     return (
         <div>
            <form action="">
-               <label htmlFor="phone">Phone</label>
+               <label htmlFor="phone">Email Address</label>
                <input
-                   type = "number"
-                   name = "phone"
-                   value = {userEnteredData.phone}
+                   type = "String"
+                   name = "email"
+                   value = {userEnteredData.email}
                    onChange = {handleInput}
                />
                <label htmlFor="password">Password</label>
@@ -31,6 +72,7 @@ const Login = () => {
                 onChange = {handleInput}
                 name = "password"
                 />
+                <button onClick={submitHandler}>Submit</button>
            </form> 
         </div>
     )
