@@ -1,26 +1,5 @@
-const jwt = require('jsonwebtoken')
-const User = require('../models/user')
-const envConfig = {
-    path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
-  };
-require("dotenv").config(envConfig);
-
-const auth = async (req, res, next) => {
-    console.log(req.user);
-    try{
-        const token = req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.SECRET_KEY)
-        const user = await User.findOne({_id:decoded._id, 'tokens.token':token})
-        
-        if(!user){
-            throw new Error()
-        }
-
-        req.user = user
-        next()
-    }catch(e){
-        res.status(401).send({error:'Please authenticate'})
-    }
-}
-
-module.exports = auth
+module.exports = function(req, res, next) {
+    if (!req.isAuthenticated()) return res.status(401).send("Unauthenticated");
+    console.log("is authenticated")
+    next();
+};

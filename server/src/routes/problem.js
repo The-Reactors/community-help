@@ -25,12 +25,10 @@ const problemImage = multer({
 router.post('/problems', auth, problemImage.array('problemImage',3), async (req,res) =>{
     
     const imagesArray = []
-    const token = req.header('Authorization').replace('Bearer ', '')
-    const decoded = jwt.verify(token,process.env.SECRET_KEY);
-    var userId = decoded.id
-    console.log(userId)
+    
     if(req.files === undefined)
     {
+        console.log(req.user.name)
         const problem = new Problem({
 
             title:req.body.title,
@@ -39,7 +37,7 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             kind:req.body.kind,
-            creatorId:userId
+            creatorId:req.user._id
         })
             try{
                 await problem.save()

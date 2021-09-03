@@ -25,14 +25,25 @@ passport.use(new LocalStrategy({
     });
   }
 ));
-  passport.serializeUser((user, cb) => {
-    console.log(user);
-    cb(null, user);
+//   passport.serializeUser((user, cb) => {
+//     console.log(user);
+//     cb(null, user);
+//   });
+//   passport.deserializeUser((obj, cb) => {
+//     User.findOne({ _id: obj.id }, (err, user) => {
+//       cb(err, user);
+//     });
+//   });
+
+passport.serializeUser((obj, done) => {
+    console.log("Serializing User: ",obj)
+    done(null, obj);
   });
-  passport.deserializeUser((obj, cb) => {
-    User.findOne({ _id: obj.id }, (err, user) => {
-      cb(err, user);
-    });
+  
+  // * Passport deserializeUser
+  passport.deserializeUser(async (obj, done) => {
+    console.log("Deserlializing");
+    done(null, obj);
   });
 
 router.get(
@@ -88,23 +99,23 @@ router.post('/users', async (req,res) =>{
 
     try{
         await user.save()
-        const token = await user.generateAuthToken()
-        res.status(201).send({user,token})
+        //const token = await user.generateAuthToken()
+        res.status(201).send(user)
     }catch(e){
         res.status(400).send(e)
     }
 
 })
 
-router.post('/users/login', async (req,res) => {
-    try{
-        const user = await User.findByCredentials(req.body.email,req.body.password)
-        const token = await user.generateAuthToken()
-        res.send({user,token})
-    }catch (e){
-        res.status(400).send()
-    }
-})
+// router.post('/users/login', async (req,res) => {
+//     try{
+//         const user = await User.findByCredentials(req.body.email,req.body.password)
+//         const token = await user.generateAuthToken()
+//         res.send({user,token})
+//     }catch (e){
+//         res.status(400).send()
+//     }
+// })
 
 router.get('/users', auth, async (req, res) => {
     console.log(req.user);

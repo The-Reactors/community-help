@@ -64,9 +64,6 @@ const TicketCreationPage = () => {
       console.log(userEnteredData.category)
       const requestOptions = {
         method: 'POST',
-        headers: {
-                    'Authorization':'Bearer '
-                 },
         body:data,  
         credentials: "include"
         };
