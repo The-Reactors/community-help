@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
+import swal from "sweetalert"
 
 const Register = () => {
 
     const [userEnteredData, setuserEnteredData] = useState({
-        username: " ",
-        email: " ",
-        phone: " ",
-        password: " "
+        username: "",
+        email: "",
+        phone: "",
+        password: ""
     })
+    const [responseBody, setResponseBody] = useState()
 
     const handleInput = (event) =>
     {
@@ -17,6 +19,54 @@ const Register = () => {
         setuserEnteredData({...userEnteredData, [name]:value })
 
     }
+
+
+    const submitHandler = (event) =>
+    {
+        event.preventDefault()
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify({
+                'email':userEnteredData.email,
+                'password':userEnteredData.password,
+                'name':userEnteredData.username,
+                'phoneNo':userEnteredData.phone
+            }),  
+            credentials: "include"
+            };
+            fetch(`http://localhost:5000/users`, requestOptions )
+            .then(async response => {
+                response.json().then(data =>  {
+                    console.log(data);
+                    //setResponseBody(data)
+                    if(response.ok){
+                        console.log("User created successfully")
+                        
+                        swal({
+                          title: "Success!",
+                          text: "User Created Successfully",
+                          icon: "success",
+                        });
+                     }
+                    else{
+                      swal({
+                        title: "Failed!",
+                        text: data._message == undefined ? "Already registered Email Address":data._message,
+                        icon: "error",
+                      });
+                        //throw response.json();
+                    }
+                  });
+                
+              })
+              .catch(async (error) => {
+                const errorMessage = await error;
+                console.log(errorMessage)
+                
+              })
+    }
+
     return (
         <div>
         <h2>Registration Portal</h2>
@@ -61,7 +111,7 @@ const Register = () => {
                 name = "password"
                 />
             </div>
-                <button type = "submit">Register</button>
+                <button type = "submit" onClick={submitHandler}>Register</button>
             </form>
             </div>
     )
