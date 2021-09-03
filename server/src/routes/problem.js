@@ -37,7 +37,7 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             kind:req.body.kind,
-            creatorId:req.user._id
+            creatorId:req.user.id == undefined ? req.user._id : req.user.id
         })
             try{
                 await problem.save()
@@ -56,7 +56,7 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             kind:req.body.kind,
-            creatorId:req.user._id,
+            creatorId:req.user.id == undefined ? req.user._id : req.user.id,
             images:imagesArray
         })
         try{
@@ -68,5 +68,5 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
     }
 }, (err,req,res,next) => res.status(405).send({error:err}))
 
-
+  
 module.exports = router

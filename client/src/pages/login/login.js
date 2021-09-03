@@ -74,6 +74,11 @@ const Login = () => {
                 />
                 <button onClick={submitHandler}>Submit</button>
            </form> 
+           <a href = "http://localhost:5000/login/google">
+           <button type = "submit">
+             google sign in
+           </button>
+           </a>
         </div>
     )
 }

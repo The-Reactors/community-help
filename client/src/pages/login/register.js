@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import swal from "sweetalert"
 
+
+
 const Register = () => {
 
     const [userEnteredData, setuserEnteredData] = useState({
@@ -113,6 +115,10 @@ const Register = () => {
             </div>
                 <button type = "submit" onClick={submitHandler}>Register</button>
             </form>
+            <p>OR</p>
+                <a href = "/login">
+                <button >Login</button>
+                </a>
             </div>
     )
 }

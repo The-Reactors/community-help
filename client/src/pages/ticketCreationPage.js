@@ -77,6 +77,13 @@ const TicketCreationPage = () => {
                   icon: "success",
                 });
              }
+             else if(response.status === 401){
+              swal({
+                title: "Unauthorised!",
+                text: "Please Login",
+                icon: "error",
+              });
+             }
             else{
                 throw response.json();
             }
