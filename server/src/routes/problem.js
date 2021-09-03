@@ -21,7 +21,7 @@ const problemImage = multer({
 router.post('/problems', auth, problemImage.array('problemImage',3), async (req,res) =>{
     
     const imagesArray = []
-    if(req.files === undefined )
+    if(req.files === undefined)
     {
         const problem = new Problem({
 
