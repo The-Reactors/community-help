@@ -31,6 +31,20 @@ const problemSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    location:{
+        type:String,
+        required:true,
+    },
+    latitude:
+    {
+        type:String,
+        required:true,
+    },
+    longitude:
+    {
+        type:String,
+        required:true,
+    },
     createdAt:{
         type:Date,
         default:Date.now()

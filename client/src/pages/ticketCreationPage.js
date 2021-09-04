@@ -8,9 +8,12 @@ const TicketCreationPage = () => {
         priority: "emergency",
         status : "pending",
         category : "land issue",
+        location:"",
         kind : "issue",
     })
     const [imageState, setimageState] = useState()
+    const [latitude, setLatitude] = useState()
+    const [longitude, setLongitude] = useState()
     const handleInput = (event) =>
     {
         const name = event.target.name;
@@ -35,7 +38,25 @@ const TicketCreationPage = () => {
         };
       });
     };
-
+    const locationHandler = async (e) =>
+    {
+        e.preventDefault();
+        await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
+        .then(response => {
+          if(response.ok){
+            return response.json();
+          }
+          throw response;
+        })
+        .then(data=> {
+          console.log(data);
+          setLatitude(data.items[0].position.lat)
+          setLongitude(data.items[0].position.lng)
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      }
     const fileHandler = (event) =>
     {
       console.log(event.target.files)
@@ -51,6 +72,7 @@ const TicketCreationPage = () => {
       data.append('description',userEnteredData.description)
       data.append('priority',userEnteredData.priority)
       data.append('status',userEnteredData.status)
+      data.append('location',userEnteredData.location)
       data.append('category',userEnteredData.category)
       data.append('kind',userEnteredData.kind)
       if(imageState !== undefined)
@@ -130,6 +152,15 @@ const TicketCreationPage = () => {
                 onChange = {handleInput}
                 name = "description"
                 />
+                <label htmlFor="location">Location</label>
+                <input 
+                type="text" 
+                autoComplete = "off"
+                onChange = {handleInput}
+                value = {userEnteredData.location}
+                name = "location"
+                />
+                <button onClick = {locationHandler}>Show On Map</button>
                 <label htmlFor="priority">Select your Ticket Priority
                <select onChange={(e) => selectPriorityHandler(e)}>
                 <option value="emergency" name = "priority">emergency</option>
