@@ -37,6 +37,8 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             location:req.body.location,
+            latitude:req.body.latitude,
+            longitude:req.body.longitude,
             kind:req.body.kind,
             creatorId:req.user.id == undefined ? req.user._id : req.user.id
         })
@@ -57,6 +59,8 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
             status:req.body.status,
             category:req.body.category,
             location:req.body.location,
+            latitude:req.body.latitude,
+            longitude:req.body.longitude,
             kind:req.body.kind,
             creatorId:req.user.id == undefined ? req.user._id : req.user.id,
             images:imagesArray
