@@ -46,15 +46,15 @@ const TicketCreationPage = () => {
     };
 
 
-    const createMap = () =>
-    {
-        map.current = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: 'mapbox://styles/mapbox/streets-v11',
-        center: [longitude,latitude],
-        zoom: 12
-        });
-    }
+    // const createMap = () =>
+    // {
+    //     map.current = new mapboxgl.Map({
+    //     container: mapContainer.current,
+    //     style: 'mapbox://styles/mapbox/streets-v11',
+    //     center: [77.22955,28.61312],
+    //     zoom: 12
+    //     });
+    // }
     // const firstMapUpdate= useRef(true)
 
     // useEffect(() => {
@@ -66,15 +66,44 @@ const TicketCreationPage = () => {
      
     //   },[showMap]);
 
-      const problemCreator = () => {
+
+    const getLocation =  () =>{
+      fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
+      .then((response) => {
+        response.json().then((locationData) =>{
+          console.log("lat", locationData.items[0].position.lat)
+
+
+          setLongitude(locationData.items[0].position.lng)
+          setLatitude(locationData.items[0].position.lat)
+
+          map.current = new mapboxgl.Map({
+            container: mapContainer.current,
+            style: 'mapbox://styles/mapbox/streets-v11',
+            center: [locationData.items[0].position.lng,locationData.items[0].position.lat],
+            zoom: 15
+            });
+
+            if(userEnteredData.title == ""||
+            userEnteredData.description == ""||
+            userEnteredData.location == "" ){
+
+              swal({
+                title: "Error!",
+                text: "Please fill the required fields",
+                icon: "error",
+              });
+              return new Error()
+            }
+
         let data = new FormData()
         data.append('title',userEnteredData.title)
         data.append('description',userEnteredData.description)
         data.append('priority',userEnteredData.priority)
         data.append('status',userEnteredData.status)
         data.append('location',userEnteredData.location)
-        data.append('latitude',latitude)
-        data.append('longitude',longitude)
+        data.append('latitude',locationData.items[0].position.lat)
+        data.append('longitude',locationData.items[0].position.lng)
         data.append('category',userEnteredData.category)
         data.append('kind',userEnteredData.kind)
         if(imageState !== undefined)
@@ -93,6 +122,8 @@ const TicketCreationPage = () => {
           };
           fetch(`http://localhost:5000/problems`, requestOptions )
           .then(async response => {
+
+           
               if(response.ok){
                   console.log("Response Is Succesfully Done! ")
                   swal({
@@ -101,7 +132,7 @@ const TicketCreationPage = () => {
                     icon: "success",
                   })
                     
-                  createMap();
+                  
                }
                else if(response.status === 401){
                 swal({
@@ -141,24 +172,11 @@ const TicketCreationPage = () => {
               }
              
             }) 
-    }
 
-    const getLocation = async () =>{
-      await fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
-      .then(response => {
-        if(response.ok){
-          return response.json();
-        }
-        throw response;
+
+        })
       })
-      .then(data=> {
-        console.log(data);
-        setLatitude(data.items[0].position.lat)
-        setLongitude(data.items[0].position.lng)
-      })
-      .catch(error => {
-        console.log(error);
-      });
+      
     }
       
     const fileHandler = (event) =>
@@ -168,12 +186,12 @@ const TicketCreationPage = () => {
       setimageState(file)
     }
 
-    const fileSubmitHandler = async(e) =>
+    const fileSubmitHandler = (e) =>
     {
       e.preventDefault();
 
-      await getLocation()
-      problemCreator();
+      getLocation()
+      
     }
     // const url="https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed"
     return (
