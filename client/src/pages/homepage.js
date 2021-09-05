@@ -4,32 +4,23 @@ import Navbar from "../components/navbar";
 
 const Homepage = () => {
 
-    const [refresh, setRefresh] = useState(false)
-    const [issues, setIssues] = useState()
+    // const [refresh, setRefresh] = useState(false)
+    const [issues, setIssues] = useState([])
 
     let issuesList = []
 
     useEffect(() =>{
 
-        fetch("http://localhost:5000/problems", {credentials: "include"})
+        fetch("http://localhost:5000/fetchProblems", {credentials: "include"})
         .then((response) => {
             response.json().then((problems) => {
                 setIssues(problems)
-                for(let i = 0; i < problems.length; i++){
-
-                    issuesList.push(problems[i].title)
-                }
-
-                console.log(issuesList)
-                
-                
+                console.log(problems);
             })
         })
 
-    }, [refresh])
+    }, [])
 
-    
-    
 
     // const test = () =>{
     //     console.log("here",problems)
@@ -44,16 +35,28 @@ const Homepage = () => {
               
                 
             <div id="content" className="p-4 p-md-5 pt-5">
-                <h2 className="mb-4">Sidebar #05</h2>
-                <p>Lorem ipsums dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                {
+                issues.map((issue, index) => {
+                    return <div key={index}>
+                        ***********Ticket {index+1} **************
+                        <h3>Title: {issue.title}</h3>
+                        <h4> Description: {issue.description}</h4> 
+                        <h5>Priority: {issue.priority}</h5>
+                        <h5>Status: {issue.status}</h5>
+                        <h5>Category: {issue.category}</h5>
+                        <h5>Location: {issue.location}</h5>
+                        
+                    </div>
+                })}
             </div> 
+            
             <div>
             
             
             </div>
 
             </Navbar>
+    
         </div>
         )
 };

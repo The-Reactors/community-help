@@ -212,7 +212,7 @@ const TicketCreationPage = () => {
               {
                 swal({
                   title: "Error!",
-                  text: "Unknown Error Has Odfaccured !",
+                  text: "Unknown Error Has Occured !",
                   icon: "error",
                 });
                 setIsModalOpen(false)

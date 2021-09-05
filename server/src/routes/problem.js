@@ -21,13 +21,13 @@ const problemImage = multer({
     }
 })
 
-router.get('/problems', async (req, res) => {
+router.get('/fetchProblems', async (req, res) => {
     //console.log(req.user);
     try{
         const problems = await Problem.find({})
         res.send(problems)
     }catch(e){
-        res.status(500).send()
+        res.status(400).send()
     }
 })
 
