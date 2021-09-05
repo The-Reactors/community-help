@@ -21,6 +21,16 @@ const problemImage = multer({
     }
 })
 
+router.get('/problems', async (req, res) => {
+    //console.log(req.user);
+    try{
+        const problems = await Problem.find({})
+        res.send(problems)
+    }catch(e){
+        res.status(500).send()
+    }
+})
+
 
 router.post('/problems', auth, problemImage.array('problemImage',3), async (req,res) =>{
     
