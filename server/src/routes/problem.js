@@ -21,11 +21,47 @@ const problemImage = multer({
     }
 })
 
-router.get('/fetchProblems', async (req, res) => {
+function deg2rad(deg) {
+    return deg * (Math.PI/180)
+  }
+
+function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+
+
+router.get('/fetchProblems/:lat/:lng/:filter', async (req, res) => {
     //console.log(req.user);
+    const lat = req.params.lat
+    const lng = req.params.lng
+    const filter = req.params.filter
+    console.log(lat,lng)
+    
+
     try{
+        let filteredProblems = []
         const problems = await Problem.find({})
-        res.send(problems)
+
+        for(let i = 0; i < problems.length; i++){
+
+            console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
+
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < filter){
+                filteredProblems.push(problems[i])
+            }
+        }
+        
+        res.send(filteredProblems)
     }catch(e){
         res.status(400).send()
     }
