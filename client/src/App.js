@@ -7,7 +7,7 @@ import Homepage from './pages/homepage';
 import TicketCreationPage from "./pages/ticketCreationPage";
 import Login from "./pages/login/login";
 import Register from "./pages/login/register";
-import LandingPage from "./pages/login/landingPage";
+import MyTickets from "./pages/myTickets";
 import Navbar from "./components/navbar";
 
 function App() {
@@ -33,9 +33,9 @@ function App() {
                 <Register />
               </Navbar>
             </Route>
-            <Route path="/landingPage">
-            <Navbar>
-                <LandingPage />
+            <Route path="/myTickets">
+              <Navbar>
+                <MyTickets />
               </Navbar>
             </Route>
           </Switch>

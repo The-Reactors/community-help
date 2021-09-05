@@ -54,7 +54,7 @@ const Register = () => {
                     else{
                       swal({
                         title: "Failed!",
-                        text: data._message == undefined ? "Already registered Email Address":data._message,
+                        text: data._message === undefined ? "Already registered Email Address":data._message,
                         icon: "error",
                       });
                         //throw response.json();

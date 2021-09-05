@@ -48,29 +48,6 @@ const TicketCreationPage = () => {
     };
 
 
-    // const createMap = () =>
-    // {
-    //     map.current = new mapboxgl.Map({
-    //     container: mapContainer.current,
-    //     style: 'mapbox://styles/mapbox/streets-v11',
-    //     center: [77.22955,28.61312],
-    //     zoom: 12
-    //     });
-    // }
-    // const firstMapUpdate= useRef(true)
-
-    // useEffect(() => {
-    //   if (map.current) return; // initialize map only once
-    //   if(firstMapUpdate.current){
-    //     firstMapUpdate.current =false 
-    //     return
-    //   }
-     
-    //   },[showMap]);
-
-
-    
-    
     const getLocation =  () =>{
       fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
       .then((response) => {
@@ -89,9 +66,9 @@ const TicketCreationPage = () => {
             zoom: 15
             });
 
-            if(userEnteredData.title == ""||
-            userEnteredData.description == ""||
-            userEnteredData.location == "" ){
+            if(userEnteredData.title === ""||
+            userEnteredData.description === ""||
+            userEnteredData.location === "" ){
 
               swal({
                 title: "Error!",
@@ -101,29 +78,6 @@ const TicketCreationPage = () => {
               setIsModalOpen(false)
               return new Error()
             }
-
-        // let data = new FormData()
-        // data.append('title',userEnteredData.title)
-        // data.append('description',userEnteredData.description)
-        // data.append('priority',userEnteredData.priority)
-        // data.append('status',userEnteredData.status)
-        // data.append('location',userEnteredData.location)
-        // data.append('latitude',locationData.items[0].position.lat)
-        // data.append('longitude',locationData.items[0].position.lng)
-        // data.append('category',userEnteredData.category)
-        // data.append('kind',userEnteredData.kind)
-        // if(imageState !== undefined)
-        // {
-        //     for(var x = 0; x<imageState.length; x++) {
-        //       data.append('problemImage', imageState[x])
-        //     }
-        // }
-        // console.log("sdfsfsf",data.title)
-        // console.log(imageState) 
-        // console.log(userEnteredData.category)
-        
-
-
         })
       })
       
