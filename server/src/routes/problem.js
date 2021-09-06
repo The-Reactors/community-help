@@ -66,7 +66,7 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
 
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 50){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 10){
                 filteredProblems.push(problems[i])
             }
         }
@@ -147,8 +147,6 @@ router.post('/upvotesUpdate', auth, async (req,res) =>{
  
 })
 
-
-
 router.post('/downvotesUpdate', auth, async (req,res) =>{
 
 
@@ -190,12 +188,8 @@ router.post('/downvotesUpdate', auth, async (req,res) =>{
             const problem = await Problem.findOne({_id:problemId})
             problem.downvotes = problem.downvotes - 1
             await problem.save()
-            
-    
-        
+                
     }
-    console.log("yep2")
-
 
     if(upvoteProblemsList !== undefined){
         //to check if a downvote exist by the user for the particular problems
@@ -213,86 +207,14 @@ router.post('/downvotesUpdate', auth, async (req,res) =>{
             
         }
     }
-    console.log("yep")
     res.status(200).send("Upvote successfull")
 
 }catch(e){
     console.log(e)
     res.status(400).send(e)
 }
-
-    
-    
-    
-
-    
-    
+  
 })
-
-
-// router.post('/downvotesUpdate', auth, async (req,res) =>{
-
-//     const upvoteProblemsList = req.user.upvoteProblemsList
-//     const downvoteProblemsList = req.user.downvoteProblemsList
-//     const problemId = req.body.problemId
-//     const upvoteProblemsListIndex = upvoteProblemsList.indexOf(problemId)
-//     const downvoteProblemsListIndex = downvoteProblemsList.indexOf(problemId)
-
-//     //if downvote doesnt exit already for the particular problem
-//     if(downvoteProblemsListIndex === -1){
-//         try{
-//             const problem = await Problem.find({_id:problemId})
-//             const user = await User.find({_id:req.user.id == undefined ? req.user._id : req.user.id})
-//             user.downvoteProblemsList.push(problemId)
-//             await user.save()
-//             problem.downvote = problem.downvote + 1
-//             await problem.save()
-            
-    
-//         }catch(e){
-//             res.status(400).send(e)
-//         }
-//     }else{
-//         //if downvote exits already for the particular problem
-//         try{
-//             const user = await User.find({_id:req.user.id == undefined ? req.user._id : req.user.id})
-//             user.downvoteProblemsList.splice(downvoteProblemsListIndex,1)
-//             await user.save()
-//             const problem = await Problem.find({_id:problemId})
-            
-//             problem.downvote = problem.downvote - 1
-//             await problem.save()
-            
-    
-//         }catch(e){
-//             res.status(400).send(e)
-//         }
-//     }
-
-//     //to check if a upvote exist by the user for the particular problems
-//     if(upvoteProblemsListIndex !== -1){
-//         try{
-//             const user = await User.find({_id:req.user.id == undefined ? req.user._id : req.user.id})
-//             user.upvoteProblemsList.splice(upvoteProblemsListIndex,1)
-//             await user.save()
-
-//             const problem = await Problem.find({_id:problemId})
-            
-//             problem.upvote = problem.upvote - 1
-//             await problem.save()
-        
-//         }catch(e){
-//             res.status(400).send(e)
-//         }
-//     }else{
-
-//     }
-//     res.status(200).send("Downvote successfull")
-
-    
-    
-// })
-
 
 router.post('/problems', auth, problemImage.array('problemImage',3), async (req,res) =>{
     

@@ -1,10 +1,8 @@
 import React from "react"
 import {Card} from "react-bootstrap"
-import Button from 'react-bootstrap/Button';
 import swal from 'sweetalert';
 
 const ProblemCard = (props) => {
-
 
 
 const upvoteProblem = () => {
@@ -33,8 +31,8 @@ const upvoteProblem = () => {
                  }
                 else{
                   swal({
-                    title: "Failed!",
-                    text: "Login Credentials Could Not Be Verified",
+                    title: "Unauthorized !",
+                    text: "Please Login To Continue",
                     icon: "error",
                   });
                     throw response.json();
@@ -44,9 +42,6 @@ const upvoteProblem = () => {
                 const errorMessage = await error;
                 console.log(errorMessage)
               })
-
-
-
 
 }
 
@@ -88,12 +83,7 @@ const downvoteProblem = () => {
                 console.log(errorMessage)
               })
 
-
-
-
 }
-
-
 
     return <div style={{marginBottom:"10px"}}>
         <Card style={{ width: '18rem' }}>
@@ -114,8 +104,8 @@ const downvoteProblem = () => {
     <Card.Text>
       {props.location}
     </Card.Text>
-    <a style={{margin:"20px"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> Upvote</a>
-    <a onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> Downvote</a>
+    <a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> Upvote</a>
+    <a style={{cursor:"pointer"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> Downvote</a>
   </Card.Body>
 </Card>
     </div>
