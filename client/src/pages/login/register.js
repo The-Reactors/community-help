@@ -96,6 +96,7 @@ const Register = () => {
             <div>
                 <label htmlFor="phone">Phone</label>
                 <input 
+                maxLength="10"
                 type="number" 
                 autoComplete = "off"
                 value = {userEnteredData.phone}

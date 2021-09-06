@@ -73,7 +73,7 @@ const Homepage = () => {
                     return <div key={index}>
                         
                         <ProblemCard title={issue.title} description={issue.description} 
-                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id}></ProblemCard>
+                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images}></ProblemCard>
                         
                     </div>
                 })}

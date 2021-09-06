@@ -50,6 +50,17 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     }
 })  
 
+router.get('/noOfUpAndDownVotes/:problemId', async (req, res) => {
+    try{
+    const {problemId} = req.params
+    const problem = await Problem.findOne({_id:problemId})
+    res.status(200).send([problem.upvotes,problem.downvotes])
+    }catch(e){
+        res.status(400).send()
+    }
+})  
+
+
 router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
     //console.log(req.user);
     const lat = req.params.lat
@@ -114,7 +125,11 @@ router.post('/upvotesUpdate', auth, async (req,res) =>{
             await user.save()
 
             const problem = await Problem.findOne({_id:problemId})
-            problem.upvotes = problem.upvotes - 1
+            if(problem.upvotes-1 >=0)
+            {
+                problem.upvotes = problem.upvotes - 1
+            }
+           
             await problem.save()
             
         
@@ -132,7 +147,10 @@ router.post('/upvotesUpdate', auth, async (req,res) =>{
                 await user.save()
     
                 const problem = await Problem.findOne({_id:problemId}) 
-                problem.downvotes = problem.downvotes - 1
+                if(problem.downvotes-1 >=0)
+                 {
+                    problem.downvotes = problem.downvotes - 1
+                }   
                 await problem.save()
             
             
@@ -157,11 +175,7 @@ router.post('/downvotesUpdate', auth, async (req,res) =>{
     const problemId = req.body.problemId
 
     const upvoteProblemsListIndex = upvoteProblemsList.indexOf(problemId)
-    const downvoteProblemsListIndex = downvoteProblemsList.indexOf(problemId)
-
-
-    //console.log("upvoteProblemsListIndex", upvoteProblemsListIndex)
-  
+    const downvoteProblemsListIndex = downvoteProblemsList.indexOf(problemId)  
 
     try{
     //if upvote doesnt exit already for the particular problem
@@ -186,7 +200,10 @@ router.post('/downvotesUpdate', auth, async (req,res) =>{
             await user.save()
 
             const problem = await Problem.findOne({_id:problemId})
-            problem.downvotes = problem.downvotes - 1
+            if(problem.downvotes-1 >=0)
+            {
+               problem.downvotes = problem.downvotes - 1
+            }   
             await problem.save()
                 
     }
@@ -201,7 +218,10 @@ router.post('/downvotesUpdate', auth, async (req,res) =>{
                 await user.save()
     
                 const problem = await Problem.findOne({_id:problemId}) 
+                if(problem.upvotes-1 >=0)
+                {
                 problem.upvotes = problem.upvotes - 1
+                }
                 await problem.save()
             
             
