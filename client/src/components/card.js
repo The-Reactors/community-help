@@ -1,8 +1,100 @@
 import React from "react"
 import {Card} from "react-bootstrap"
 import Button from 'react-bootstrap/Button';
+import swal from 'sweetalert';
 
 const ProblemCard = (props) => {
+
+
+
+const upvoteProblem = () => {
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:JSON.stringify({
+        'problemId':props.problemId,
+    }),  
+    credentials: "include"
+    };
+    fetch(`http://localhost:5000/upvotesUpdate`, requestOptions )
+            .then(async response => {
+                if(response.ok){
+                    
+                    response.json().then(data => {
+
+                      console.log(data)
+                    });
+                    swal({
+                      title: "Success!",
+                      text: "Upvoted Successfully",
+                      icon: "success",
+                    });
+                 }
+                else{
+                  swal({
+                    title: "Failed!",
+                    text: "Login Credentials Could Not Be Verified",
+                    icon: "error",
+                  });
+                    throw response.json();
+                }
+              })
+              .catch(async (error) => {
+                const errorMessage = await error;
+                console.log(errorMessage)
+              })
+
+
+
+
+}
+
+const downvoteProblem = () => {
+
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body:JSON.stringify({
+        'problemId':props.problemId,
+    }),  
+    credentials: "include"
+    };
+    fetch(`http://localhost:5000/downvotesUpdate`, requestOptions )
+            .then(async response => {
+                if(response.ok){
+                    
+                    response.json().then(data => {
+
+                      console.log(data)
+                    });
+                    swal({
+                      title: "Success!",
+                      text: "Downvoted Successfully",
+                      icon: "success",
+                    });
+                 }
+                else{
+                  swal({
+                    title: "Failed!",
+                    text: "Login Credentials Could Not Be Verified",
+                    icon: "error",
+                  });
+                    throw response.json();
+                }
+              })
+              .catch(async (error) => {
+                const errorMessage = await error;
+                console.log(errorMessage)
+              })
+
+
+
+
+}
+
+
+
     return <div style={{marginBottom:"10px"}}>
         <Card style={{ width: '18rem' }}>
   <Card.Body>
@@ -22,8 +114,8 @@ const ProblemCard = (props) => {
     <Card.Text>
       {props.location}
     </Card.Text>
-    <a style={{margin:"20px"}}href="/"><span className="fa fa-thumbs-up mr-3"></span> Upvote</a>
-    <a href="/"><span className="fa fa-thumbs-down mr-3"></span> Downvote</a>
+    <a style={{margin:"20px"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> Upvote</a>
+    <a onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> Downvote</a>
   </Card.Body>
 </Card>
     </div>

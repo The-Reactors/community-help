@@ -40,6 +40,17 @@ const problemSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
+    upvotes:
+    {
+        default:0,
+        type:Number,
+        
+    },
+    downvotes:
+    {
+        type:Number,
+        default:0,
+    },
     longitude:
     {
         type:String,

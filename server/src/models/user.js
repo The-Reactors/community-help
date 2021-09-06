@@ -43,6 +43,17 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength:6
     },
+
+    upvoteProblemsList: {
+        
+        type:[],
+        default:[0]
+    },
+    downvoteProblemsList: {
+        type:[],
+        default:[0]
+        
+    }
     // tokens: [{
     //     token: {
     //         type:String,
