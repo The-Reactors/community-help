@@ -9,6 +9,7 @@ import Login from "./pages/login/login";
 import Register from "./pages/login/register";
 import MyTickets from "./pages/myTickets";
 import Navbar from "./components/navbar";
+import RightCard from "./components/rightCard";
 
 
 function App() {

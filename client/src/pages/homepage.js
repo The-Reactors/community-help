@@ -3,6 +3,8 @@ import "../assets/css/style.css"
 import Modal from 'react-modal'
 import Navbar from "../components/navbar";
 import ProblemCard from "../components/card"
+import RightCard from "../components/rightCard";
+import "../assets/css/rightCard.css";
 
 const Homepage = () => {
 
@@ -77,6 +79,9 @@ const Homepage = () => {
                         
                     </div>
                 })}
+            <div className = "rightCard">
+            <RightCard />
+            </div>
             </div> 
             
             <div>
