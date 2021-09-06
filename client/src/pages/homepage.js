@@ -14,15 +14,17 @@ const Homepage = () => {
 
     useEffect(() =>{
 
-        navigator.geolocation.getCurrentPosition(function (position) {
+        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
+        navigator.geolocation.getCurrentPosition((position) => 
+        {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
 
             fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}`, {credentials: "include"})
-        .then((response) => {
-            response.json().then((problems) => {
-                setIssues(problems)
-                console.log(problems);
+            .then((response) => {
+                response.json().then((problems) => {
+                    setIssues(problems)
+                    console.log(problems);
             })
         })
 
@@ -30,9 +32,12 @@ const Homepage = () => {
             
             setIsModalOpen(true)
             
+        },
+        {
+            enableHighAccuracy: true,
+            timeout: 20000,
+            maximumAge: 0
         });
-
-        
 
     }, [])
 

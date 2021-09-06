@@ -3,10 +3,10 @@ import {Card} from "react-bootstrap"
 import Button from 'react-bootstrap/Button';
 
 const ProblemCard = (props) => {
-    return <div>
+    return <div style={{marginBottom:"10px"}}>
         <Card style={{ width: '18rem' }}>
   <Card.Body>
-    <Card.Title>{props.title}</Card.Title>
+    <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
     <Card.Text>
       {props.description}
     </Card.Text>
@@ -22,9 +22,8 @@ const ProblemCard = (props) => {
     <Card.Text>
       {props.location}
     </Card.Text>
-    
-    <i className="fas fa-thumbs-up"></i>
-    
+    <a style={{margin:"20px"}}href="/"><span className="fa fa-thumbs-up mr-3"></span> Upvote</a>
+    <a href="/"><span className="fa fa-thumbs-down mr-3"></span> Downvote</a>
   </Card.Body>
 </Card>
     </div>

@@ -47,7 +47,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     }catch(e){
         res.status(400).send()
     }
-})
+})  
 
 router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
     //console.log(req.user);
@@ -65,7 +65,7 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
 
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 5){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 10){
                 filteredProblems.push(problems[i])
             }
         }
