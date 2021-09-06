@@ -10,6 +10,7 @@ import Register from "./pages/login/register";
 import MyTickets from "./pages/myTickets";
 import Navbar from "./components/navbar";
 
+
 function App() {
   return (
     <div className="App">
