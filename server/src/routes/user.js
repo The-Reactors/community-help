@@ -36,13 +36,13 @@ passport.use(new LocalStrategy({
 //   });
 
 passport.serializeUser((obj, done) => {
-    console.log("Serializing User: ",obj)
+   // console.log("Serializing User: ",obj)
     done(null, obj);
   });
   
   // * Passport deserializeUser
   passport.deserializeUser(async (obj, done) => {
-    console.log("Deserlializing");
+   // console.log("Deserlializing");
     done(null, obj);
   });
 
@@ -57,7 +57,7 @@ router.get(
             scope: ["profile", "email"],
         },
         function(err, user, info) {
-            console.log(err, user, info);
+            //console.log(err, user, info);
             if (!user)
                 return res.redirect(
                     `${process.env.CLIENT_URL}/error?err=${info?.message}`
@@ -66,7 +66,7 @@ router.get(
                 if (err) {
                     return next(err);
                 }
-                console.log(req.user);
+                //console.log(req.user);
                 return res.redirect(`${process.env.CLIENT_URL}/`);
             });
         }
@@ -118,7 +118,7 @@ router.post('/users', async (req,res) =>{
 // })
 
 router.get('/users', auth, async (req, res) => {
-    console.log(req.user);
+    //console.log(req.user);
     try{
         const users = await User.find({})
         res.send(users)

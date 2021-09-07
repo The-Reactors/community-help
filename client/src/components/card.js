@@ -7,7 +7,7 @@ const ProblemCard = (props) => {
 
   const[upVotes,setUpVotes] = useState()
   const[downVotes,setDownVotes] = useState()
-  const[image,setImage]=useState()
+  const[image,setImage]=useState([])
 
   const noOfUpAndDownVotesUpdate = () =>{
     fetch(`http://localhost:5000/noOfUpAndDownVotes/${props.problemId}`)
@@ -30,9 +30,26 @@ const ProblemCard = (props) => {
   }
 useEffect(() => {
   noOfUpAndDownVotesUpdate()
-  console.log("Images",props.images[0]) 
-  setImage(new Buffer(props.images[0]).toString("base64"))
-  console.log(image)
+  console.log("Images",props.images) 
+  let imagesInitial = props.images
+  //imagesInitial.map(image => {new Buffer(image).toString("base64")})
+
+  
+
+  let imagesFinal = []
+
+  if(props.images !== undefined){
+
+    for(let i = 0; i < props.images.length; i++){
+      imagesFinal[i] = new Buffer(imagesInitial[i]).toString("base64")
+    }
+  
+    setImage(imagesFinal)
+  }
+  
+
+  //setImage(new Buffer(props.images[0]).toString("base64"))
+  
 },[])
 
 const upvoteProblem = () => {
@@ -115,9 +132,12 @@ const downvoteProblem = () => {
 
 }
 
+  const imageValidation =image.length === 0 ? null :<Card.Img variant="top" src={`data:image/png;base64,${image[0]}`} />
+
+
     return <div style={{marginBottom:"10px"}}>
         <Card style={{ width: '18rem' }}>
-        <Card.Img variant="top" src={`data:image/png;base64,${image}`} />
+        {imageValidation}
   <Card.Body>
     <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
     <Card.Text>

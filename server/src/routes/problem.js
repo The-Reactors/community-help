@@ -42,8 +42,8 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   router.get('/MyTickets',auth, async (req, res) => {
     try{
         const problems = await Problem.find({creatorId:req.user.id == undefined ? req.user._id : req.user.id})
-        console.log(problems);
-        console.log(req.user);
+        //console.log(problems);
+        //console.log(req.user);
         res.send(problems)
     }catch(e){
         res.status(400).send()
@@ -77,7 +77,7 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
 
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 10){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 100){
                 filteredProblems.push(problems[i])
             }
         }
