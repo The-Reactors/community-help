@@ -5,7 +5,6 @@ import Carousel from "./carousel";
 
 
 const ProblemCard = (props) => {
-
   const[upVotes,setUpVotes] = useState()
   const[downVotes,setDownVotes] = useState()
   const[image,setImage]=useState([])
@@ -137,7 +136,8 @@ const downvoteProblem = () => {
 
     return <div style={{marginBottom:"10px"}}>
         <Card style={{ width: '28rem' }}>
-        <Carousel carouselId={props.problemId}/>
+          
+        <Carousel carouselId={props.problemId} images={image}/>
   <Card.Body>
     <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
     <Card.Text>
