@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import {Card} from "react-bootstrap"
 import swal from 'sweetalert';
+import Carousel from "./carousel";
 
 
 const ProblemCard = (props) => {
@@ -131,13 +132,12 @@ const downvoteProblem = () => {
               })
 
 }
-
   const imageValidation =image.length === 0 ? null :<Card.Img variant="top" src={`data:image/png;base64,${image[0]}`} />
 
 
     return <div style={{marginBottom:"10px"}}>
-        <Card style={{ width: '18rem' }}>
-        {imageValidation}
+        <Card style={{ width: '28rem' }}>
+        <Carousel carouselId={props.problemId}/>
   <Card.Body>
     <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
     <Card.Text>

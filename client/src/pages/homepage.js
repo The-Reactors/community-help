@@ -5,6 +5,8 @@ import Navbar from "../components/navbar";
 import ProblemCard from "../components/card"
 import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
+import Carousel from "../components/carousel";
+
 
 const Homepage = () => {
 
@@ -68,8 +70,6 @@ const Homepage = () => {
                 </Modal>
                 
             <div id="content" className="p-4 p-md-5 pt-5">
-            
-
                 {
                 issues.map((issue, index) => {
                     return <div key={index}>

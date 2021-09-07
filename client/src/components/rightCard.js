@@ -17,7 +17,7 @@ const RightCard = (props) => {
         <div>
         <Card style={{ width: '18rem' }}>
             <Card.Body>
-                <Card.Title style = {{alignContent:"centre",padding:"2rem"}} ><i class="fas fa-filter"></i> Filters</Card.Title>
+                <Card.Title style = {{alignContent:"centre",padding:"2rem"}} ><i className="fas fa-filter"></i> Filters</Card.Title>
             
                      
                 <Button variant="secondary" style = {{marginLeft:"1rem"}}>
