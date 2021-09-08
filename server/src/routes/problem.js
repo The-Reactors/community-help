@@ -46,6 +46,26 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     }
 })  
 
+router.post('/updateStatus', async (req,res) =>{
+    try{
+        const problem = await Problem.findOne({_id:req.body.problemId})
+        problem.status = "Solved"
+        await problem.save()
+    }catch(e){
+        res.status(400).send()
+    }
+})
+
+router.get('/problemStatus/:problemId', async (req, res) => {
+    try{
+    const {problemId} = req.params
+    const problem = await Problem.findOne({_id:problemId})
+    res.status(200).send(problem.status)
+    }catch(e){
+        res.status(400).send()
+    }
+})  
+
 router.get('/noOfUpAndDownVotes/:problemId', async (req, res) => {
     try{
     const {problemId} = req.params
