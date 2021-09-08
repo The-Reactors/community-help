@@ -5,16 +5,11 @@ import Navbar from "../components/navbar";
 import ProblemCard from "../components/card"
 import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
-import Carousel from "../components/carousel";
-
 
 const Homepage = () => {
 
-    // const [refresh, setRefresh] = useState(false)
     const [issues, setIssues] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
-
-    let issuesList = []
 
     useEffect(() =>{
 
@@ -46,13 +41,6 @@ const Homepage = () => {
     }, [])
 
 
-    // const test = () =>{
-    //     console.log("here",problems)
-        
-    //     // setProblemsList(problemList)
-    //     // console.log("there",problemsList)
-    // }
-
     return (
         
         <div>
@@ -70,6 +58,7 @@ const Homepage = () => {
                 </Modal>
                 
             <div id="content" className="p-4 p-md-5 pt-5">
+                <div className="col-md-10">
                 {
                 issues.map((issue, index) => {
                     return <div key={index}>
@@ -79,14 +68,13 @@ const Homepage = () => {
                         
                     </div>
                 })}
-            <div className = "rightCard">
+            </div>
+            <div className="col-md-2">
             <RightCard />
             </div>
             </div> 
             
             <div>
-            
-            
             </div>
 
             </Navbar>

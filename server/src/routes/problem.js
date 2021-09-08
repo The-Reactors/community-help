@@ -3,10 +3,6 @@ const multer = require('multer')
 const Problem = require('../models/problem')
 const auth = require('../middleware/auth')
 const User = require('../models/user')
-const envConfig = {
-    path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
-  };
-require("dotenv").config(envConfig);
 
 const router = new express.Router()
 

@@ -1,3 +1,7 @@
+const envConfig = {
+  path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
+};
+require("dotenv").config(envConfig);
 const express = require('express')
 require('./db/mongoose')
 const cors = require("cors");
@@ -10,10 +14,6 @@ const problemRoutes = require('./routes/problem')
 const bodyParser = require("body-parser");
 
 
-const envConfig = {
-    path: process.env.NODE_ENV === "production" ? "prod.env" : ".env",
-  };
-require("dotenv").config(envConfig);
 
 
 const app = express()

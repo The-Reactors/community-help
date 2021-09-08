@@ -40,15 +40,11 @@ const MyTickets = () => {
                     
                 issues.map((issue, index) => {
                     return <div key={index}>
-                        <ProblemCard title={issue.title} description={issue.description} 
+                        <ProblemCard  title={issue.title} description={issue.description} 
                         priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images}></ProblemCard>
                     </div>
                 })}
             </div> 
-            
-            <div>
-
-            </div>
 
     
         </div>

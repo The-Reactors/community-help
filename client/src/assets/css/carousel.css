@@ -8,6 +8,15 @@
 }
 
 .size{
-    max-width: 200px !important;
+    /* max-width: 200px !important; */
     max-height: 200px !important;
 }
+.card-spacing
+{
+    margin-bottom: 10px;
+   
+}
+/* .card-column-count
+{
+    column-count: 1 !important;
+} */

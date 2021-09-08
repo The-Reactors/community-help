@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react"
-import {Card} from "react-bootstrap"
+import {Card, CardColumns} from "react-bootstrap"
 import swal from 'sweetalert';
 import Carousel from "./carousel";
+import RightCard from "./rightCard";
 
 
 const ProblemCard = (props) => {
@@ -47,8 +48,6 @@ useEffect(() => {
     setImage(imagesFinal)
   }
   
-
-  //setImage(new Buffer(props.images[0]).toString("base64"))
   
 },[])
 
@@ -131,34 +130,33 @@ const downvoteProblem = () => {
               })
 
 }
-  const imageValidation =image.length === 0 ? null :<Card.Img variant="top" src={`data:image/png;base64,${image[0]}`} />
 
 
-    return <div style={{marginBottom:"10px"}}>
-        <Card style={{ width: '28rem' }}>
-          
-        <Carousel carouselId={props.problemId} images={image}/>
-  <Card.Body>
-    <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
-    <Card.Text>
-      {props.description}
-    </Card.Text>
-    <Card.Text>
-      {props.category}
-    </Card.Text>
-    <Card.Text>
-      {props.priority}
-    </Card.Text>
-    <Card.Text>
-      {props.status}
-    </Card.Text>
-    <Card.Text>
-      {props.location}
-    </Card.Text>
-    <a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>
-    <a style={{cursor:"pointer"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>
-  </Card.Body>
-</Card>
+    return <div>
+      
+            <Card className="card-spacing">   
+            <Carousel carouselId={props.problemId} images={image}/>
+      <Card.Body>
+        <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
+        <Card.Text>
+          {props.description}
+        </Card.Text>
+        <Card.Text>
+          {props.category}
+        </Card.Text>
+        <Card.Text>
+          {props.priority}
+        </Card.Text>
+        <Card.Text>
+          {props.status}
+        </Card.Text>
+        <Card.Text>
+          {props.location}
+        </Card.Text>
+        <a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>
+        <a style={{cursor:"pointer"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>
+      </Card.Body>
+    </Card>
     </div>
 }
 

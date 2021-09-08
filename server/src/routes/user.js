@@ -25,24 +25,14 @@ passport.use(new LocalStrategy({
     });
   }
 ));
-//   passport.serializeUser((user, cb) => {
-//     console.log(user);
-//     cb(null, user);
-//   });
-//   passport.deserializeUser((obj, cb) => {
-//     User.findOne({ _id: obj.id }, (err, user) => {
-//       cb(err, user);
-//     });
-//   });
+
 
 passport.serializeUser((obj, done) => {
-   // console.log("Serializing User: ",obj)
     done(null, obj);
   });
   
   // * Passport deserializeUser
   passport.deserializeUser(async (obj, done) => {
-   // console.log("Deserlializing");
     done(null, obj);
   });
 
@@ -107,16 +97,6 @@ router.post('/users', async (req,res) =>{
 
 })
 
-// router.post('/users/login', async (req,res) => {
-//     try{
-//         const user = await User.findByCredentials(req.body.email,req.body.password)
-//         const token = await user.generateAuthToken()
-//         res.send({user,token})
-//     }catch (e){
-//         res.status(400).send()
-//     }
-// })
-
 router.get('/users', auth, async (req, res) => {
     //console.log(req.user);
     try{
@@ -130,6 +110,10 @@ router.get('/users', auth, async (req, res) => {
 router.get('/users/me', auth, async (req, res) => {
 
     res.send(req.user)
+})
+router.get('/users/logout', auth, async (req, res) => {
+  req.logout();
+  res.redirect(`${process.env.CLIENT_URL}/`);
 })
 
 module.exports = router
