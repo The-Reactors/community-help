@@ -6,3 +6,8 @@
 {
     border-radius: 25px;
 }
+
+.size{
+    max-width: 200px !important;
+    max-height: 200px !important;
+}
