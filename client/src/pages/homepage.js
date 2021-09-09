@@ -5,25 +5,34 @@ import Navbar from "../components/navbar";
 import ProblemCard from "../components/card"
 import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
+import Loader from "../components/loaderGeneral";
 
 const Homepage = () => {
 
     const [issues, setIssues] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isLoadingHome, setIsLoadingHome] = useState(true);
+    
 
+    
+      
     useEffect(() =>{
-
+        
         navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
         navigator.geolocation.getCurrentPosition((position) => 
         {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
-
+            
             fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}`, {credentials: "include"})
             .then((response) => {
                 response.json().then((problems) => {
                     setIssues(problems)
-                    console.log(problems);
+                    console.log(problems)
+                    setIsLoadingHome(false)
+                    setIsLoadingHome(false)
+                     
+                    
             })
         })
 
@@ -56,9 +65,12 @@ const Homepage = () => {
                     <button onClick = {() =>{setIsModalOpen(false)}}>OK</button>
                 </div>
                 </Modal>
+
+                
                 
             <div id="content" className="p-4 p-md-5 pt-5">
-                <div className="col-md-10">
+            {isLoadingHome && <Loader/>}
+                {!isLoadingHome && <div className="col-md-10">
                 {
                 issues.map((issue, index) => {
                     return <div key={index}>
@@ -68,9 +80,10 @@ const Homepage = () => {
                         
                     </div>
                 })}
-            </div>
-            <div className="col-md-2">
-            <RightCard />
+            </div>}
+            <div className="col-md-2" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
+            {!isLoadingHome && <RightCard />}
+            
             </div>
             </div> 
             
@@ -78,7 +91,7 @@ const Homepage = () => {
             </div>
 
             </Navbar>
-    
+            
         </div>
         )
 };

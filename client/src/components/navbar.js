@@ -2,17 +2,21 @@ import React from 'react'
 
 const Navbar = (props) => {
     return (
-            <div className="wrapper d-flex align-items-stretch">
-            <nav id="sidebar">
-                <div className="custom-menu">
-                    <button type="button" id="sidebarCollapse" className="btn btn-primary">
+            <div className="wrapper d-flex align-items-stretch" >
+            <nav id="sidebar" >
+                <div>
+                <div className="custom-menu" >
+                    <button type="button" id="sidebarCollapse" className="btn btn-primary" >
                         <i className="fa fa-bars"></i>
-                        <span className="sr-only">Toggle Menu</span>
+                        <span className="sr-only" >Toggle Menu</span>
                     </button>
+                
                 </div>
-                <div className="p-4">
+                <div>
+                <div className="p-4" >
                     <h1><a href="/" className="logo">Nayak <span>Community help service</span></a></h1>
                     <ul className="list-unstyled components mb-5">
+                        
                         <li>
                             <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
                         </li>
@@ -28,6 +32,7 @@ const Navbar = (props) => {
                         <li>
                             <a href="/myTickets"><span className="fa fa-suitcase mr-3"></span> My Tickets</a>
                         </li>
+                        
                         {/* <li>
                             <a href="/"><span className="fa fa-suitcase mr-3"></span> Gallery</a>
                         </li>
@@ -38,7 +43,8 @@ const Navbar = (props) => {
                             <a href="/"><span className="fa fa-paper-plane mr-3"></span> Contacts</a>
                         </li> */}
                     </ul>
-                </div>
+                    </div>
+                
                 <div className="mb-5">
                     <h3 className="h6 mb-3">Contact the NAYAK Team</h3>
                     <form action="#" className="subscribe-form">
@@ -48,10 +54,12 @@ const Navbar = (props) => {
                         </div>
                     </form>
                 </div>
-
+                </div>
+                
                 {/* <div className="footer">
                     <p>Copyright ©2021 All rights reserved | This template is made with by </p>
                 </div> */}
+                </div>   
             </nav>
             {props.children} 
 	    </div>

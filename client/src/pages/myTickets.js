@@ -3,9 +3,11 @@ import swal from "sweetalert";
 import "../assets/css/style.css"
 import Navbar from "../components/navbar";
 import ProblemCard from "../components/card";
+import LoaderGeneral from "../components/loaderGeneral";
 const MyTickets = () => {
 
     const [issues, setIssues] = useState([])
+    const [isLoading,setIsloading] = useState(true)
 
     useEffect(() =>{
 
@@ -21,6 +23,7 @@ const MyTickets = () => {
             response.json().then((problems) => {
                 setIssues(problems)
                 console.log(problems);
+                setIsloading(false)
                 
             })
         }).catch((error) => {
@@ -34,7 +37,8 @@ const MyTickets = () => {
 
     return (
         <div>
-            <div id="content" className="p-4 p-md-5 pt-5">
+            {isLoading && <LoaderGeneral/>}
+            {!isLoading && <div id="content" className="p-4 p-md-5 pt-5">
                 <h1 style={{textAlign:"center"}}>My Tickets</h1>
                 {
                     
@@ -44,7 +48,7 @@ const MyTickets = () => {
                         priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} showStatusButton = {true}></ProblemCard>
                     </div>
                 })}
-            </div> 
+            </div> }
 
     
         </div>
