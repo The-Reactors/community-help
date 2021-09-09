@@ -2,39 +2,21 @@ import React, { useEffect, useState } from "react"
 import {Card, CardColumns} from "react-bootstrap"
 import swal from 'sweetalert';
 import Carousel from "./carousel";
-import RightCard from "./rightCard";
+import ConfirmModal from './confirmModal'
+
+
 
 
 const ProblemCard = (props) => {
   const[upVotes,setUpVotes] = useState()
   const[downVotes,setDownVotes] = useState()
   const[image,setImage]=useState([])
-  const[status,setStatus] = useState()
+  const[status,setStatus] = useState(props.status)
+  const[showModal,setShowModal] = useState(false)
 
 
- 
-  const getProblemStatus = () =>{
-    
-    fetch(`http://localhost:5000/problemStatus/${props.problemId}`)
-    .then(async response => {
-        if(response.ok){
-          
-            return response.json().then(data => {
-             console.log("sdfsfsf",data)
-              setStatus(data)
-            });
-         }
-        else{
-            throw response.json();
-        }
-      })
-      .catch(async (error) => {
-        const errorMessage = await error;
-        console.log(errorMessage)
-      })
-  }
-
-
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
 
 
   const noOfUpAndDownVotesUpdate = () =>{
@@ -63,10 +45,6 @@ const ProblemCard = (props) => {
 useEffect(() => {
   
   noOfUpAndDownVotesUpdate()
-  
-  if(props.showStatusButton == true){
-    getProblemStatus()
-  }
   
   console.log("Images",props.images) 
   let imagesInitial = props.images
@@ -171,7 +149,8 @@ const downvoteProblem = () => {
 
 
   const updateStatus = () => {
-    
+
+    console.log("updating status")
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -180,10 +159,14 @@ const downvoteProblem = () => {
       }),  
       credentials: "include"
       };
+      
       fetch(`http://localhost:5000/updateStatus`, requestOptions )
             .then(async response => {
+              
                 if(response.ok){
-                  getProblemStatus()
+                  
+                  console.log("yepppy")
+                  setStatus("Solved")
                     response.json().then(data => {
 
                       // console.log(data)
@@ -208,16 +191,19 @@ const downvoteProblem = () => {
                 const errorMessage = await error;
                 console.log(errorMessage)
               })
+              handleClose()
   }
 
-  const statusButton = (props.showStatusButton == true && status == "pending") ? <a onClick={updateStatus}><span className="fa fa-check mr-3"></span>Mark as Solved</a> : null
+  const statusButton = (props.showStatusButton == true && status == "pending") ? <a onClick={handleShow}><span className="fa fa-check mr-3"></span>Mark as Solved</a> : null
 
 
 
     return <div>
-      
-            <Card className="card-spacing">   
-            <Carousel carouselId={props.problemId} images={image}/>
+
+      <ConfirmModal showModal={showModal} closeModal={()=>handleClose()} proceedingFxn={()=>updateStatus()}></ConfirmModal>
+    
+      <Card className="card-spacing">   
+          <Carousel carouselId={props.problemId} images={image}/>
       <Card.Body>
         <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
         <Card.Text>

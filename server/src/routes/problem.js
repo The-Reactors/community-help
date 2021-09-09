@@ -48,9 +48,11 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
 
 router.post('/updateStatus', async (req,res) =>{
     try{
+        
         const problem = await Problem.findOne({_id:req.body.problemId})
         problem.status = "Solved"
         await problem.save()
+        res.status(200).send()
     }catch(e){
         res.status(400).send()
     }
@@ -92,8 +94,10 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
         for(let i = 0; i < problems.length; i++){
 
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
+            
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 100){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 100 && problems[i].status == "pending"){
+                
                 filteredProblems.push(problems[i])
             }
         }
