@@ -120,22 +120,71 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
     const lng = req.params.lng
     // const filter = req.params.filter
     console.log(lat,lng)
+
+    let proximity = 15
+
+    let clusterOne = []
+    let clusterTwo = []
+    let clusterThree = []
     
 
     try{
         let filteredProblems = []
         const problems = await Problem.find({})
 
+        
+
         for(let i = 0; i < problems.length; i++){
 
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
             
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < 100 && problems[i].status == "pending"){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity/3) && problems[i].status == "pending"){
                 
-                filteredProblems.push(problems[i])
+                clusterOne.push(problems[i])
+                
+            }
+
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < ((2*proximity)/3) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (proximity/3) && problems[i].status == "pending"){
+                
+                clusterTwo.push(problems[i])
+            }
+
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (2*(proximity)/3) && problems[i].status == "pending"){
+                
+                clusterThree.push(problems[i])
             }
         }
+
+        
+        clusterOne.sort(function(a, b){return b.upvotes - a.upvotes})
+        clusterTwo.sort(function(a, b){return b.upvotes - a.upvotes})
+        clusterThree.sort(function(a, b){return b.upvotes - a.upvotes})
+
+
+        for(let i = 0; i < clusterOne.length; i++){
+            filteredProblems.push(clusterOne[i])
+        }
+        for(let i = 0; i < clusterTwo.length; i++){
+            filteredProblems.push(clusterTwo[i])
+        }
+        for(let i = 0; i < clusterThree.length; i++){
+            filteredProblems.push(clusterThree[i])
+        }
+        // if(clusterOne.length !== 0){
+            
+        //     filteredProblems.push(clusterOne)
+        //     //clusterOne.map((problem) => {filteredProblems.push(problem)})
+        // }
+        // if(clusterTwo.length !== 0){
+        //     filteredProblems.push(clusterTwo)
+        // }
+        // if(clusterThree.length !== 0){
+        //     filteredProblems.push(clusterThree)
+        // }
+        
+
+        //console.log(filteredProblems)
         
         res.send(filteredProblems)
     }catch(e){
