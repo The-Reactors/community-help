@@ -4,15 +4,14 @@ import swal from 'sweetalert';
 import Carousel from "./carousel";
 import ConfirmModal from './confirmModal'
 
-
-
-
 const ProblemCard = (props) => {
   const[upVotes,setUpVotes] = useState()
   const[downVotes,setDownVotes] = useState()
   const[image,setImage]=useState([])
   const[status,setStatus] = useState(props.status)
   const[showModal,setShowModal] = useState(false)
+  const [upStatus,setUpStatus]= useState(false)
+  const [downStatus,setDownStatus]= useState(false)
 
 
   const handleClose = () => setShowModal(false);
@@ -39,13 +38,39 @@ const ProblemCard = (props) => {
       })
   }
 
-
-
+  const statusOfUpAndDownVotes = () =>{
+    fetch(`http://localhost:5000/statusOfUpAndDownVotes/${props.problemId}`,{
+      method:"GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Cache': 'no-cache'
+      },
+      credentials: 'include'
+    })
+    .then(async response => {
+        if(response.ok){
+            
+            response.json().then(data => {
+              console.log("Status",data)
+              setUpStatus(data[0])
+              setDownStatus(data[1])
+            });
+         }
+        else{
+            throw response.json();
+        }
+      })
+      .catch(async (error) => {
+        const errorMessage = await error;
+        console.log(errorMessage)
+      })
+  }
 
 useEffect(() => {
   
   noOfUpAndDownVotesUpdate()
-  
+  statusOfUpAndDownVotes()
   console.log("Images",props.images) 
   let imagesInitial = props.images
   //imagesInitial.map(image => {new Buffer(image).toString("base64")})
@@ -79,6 +104,7 @@ const upvoteProblem = () => {
     fetch(`http://localhost:5000/upvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
+                  statusOfUpAndDownVotes()
                   noOfUpAndDownVotesUpdate()
                     response.json().then(data => {
               
@@ -118,6 +144,7 @@ const downvoteProblem = () => {
     fetch(`http://localhost:5000/downvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
+                  statusOfUpAndDownVotes()
                   noOfUpAndDownVotesUpdate()
                     response.json().then(data => {
 
@@ -221,8 +248,8 @@ const downvoteProblem = () => {
         <Card.Text>
           {props.location}
         </Card.Text>
-        <a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>
-        <a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>
+         {upStatus?<a style={{margin:"20px", cursor:"pointer",color:"blue"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>:<a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>}
+        {downStatus?<a style={{cursor:"pointer", marginRight : "10px",color:"blue"}} onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>:<a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>}
         {statusButton}
       </Card.Body>
     </Card>

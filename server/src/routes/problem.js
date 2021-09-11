@@ -46,7 +46,7 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
     }
 })  
 
-router.post('/updateStatus', async (req,res) =>{
+router.post('/updateStatus',auth, async (req,res) =>{
     try{
         
         const problem = await Problem.findOne({_id:req.body.problemId})
@@ -60,6 +60,7 @@ router.post('/updateStatus', async (req,res) =>{
 
 router.get('/problemStatus/:problemId', async (req, res) => {
     try{
+        
     const {problemId} = req.params
     const problem = await Problem.findOne({_id:problemId})
     res.status(200).send(problem.status)
@@ -70,17 +71,51 @@ router.get('/problemStatus/:problemId', async (req, res) => {
 
 router.get('/noOfUpAndDownVotes/:problemId', async (req, res) => {
     try{
+        // console.log(req.user)
     const {problemId} = req.params
     const problem = await Problem.findOne({_id:problemId})
     res.status(200).send([problem.upvotes,problem.downvotes])
     }catch(e){
         res.status(400).send()
     }
-})  
+}) 
+
+router.get('/statusOfUpAndDownVotes/:problemId', async (req, res) => {
+    let problemId=req.params
+    let isUpvoted = false
+    let isDownvoted = false
+    try
+    {
+        if(req.user)
+        { 
+
+            const latestUser=await User.findOne({_id: req.user.id == undefined ? req.user._id : req.user.id})
+            const upVoteList= await latestUser.upvoteProblemsList
+            const downVoteList=await latestUser.downvoteProblemsList
+            if(upVoteList.indexOf(problemId.problemId) !== -1)
+            {
+                // console.log("Upvote")
+                isUpvoted=true
+            }
+            if(downVoteList.indexOf(problemId.problemId) !== -1)
+            {
+                // console.log("Downvote")
+
+                isDownvoted=true
+            }
+        }
+        res.status(200).send([isUpvoted,isDownvoted])
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+    
+})
 
 
 router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
-    //console.log(req.user);
+    // console.log(req.user);
     const lat = req.params.lat
     const lng = req.params.lng
     // const filter = req.params.filter
@@ -104,9 +139,10 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
         
         res.send(filteredProblems)
     }catch(e){
-        res.status(400).send()
+        res.status(400).send(e)
     }
 })
+
 
 
 router.post('/upvotesUpdate', auth, async (req,res) =>{
@@ -155,7 +191,6 @@ router.post('/upvotesUpdate', auth, async (req,res) =>{
         
     }
     
-
 
     if(downvoteProblemsList !== undefined){
         //to check if a downvote exist by the user for the particular problems
