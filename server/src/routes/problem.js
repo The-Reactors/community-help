@@ -82,25 +82,24 @@ router.get('/noOfUpAndDownVotes/:problemId', async (req, res) => {
 
 router.get('/statusOfUpAndDownVotes/:problemId', async (req, res) => {
     let problemId=req.params
-    // console.log(req.user)
     let isUpvoted = false
     let isDownvoted = false
     try
     {
         if(req.user)
-        {
-            const upVoteList= await req.user.user.upvoteProblemsList
-            const downVoteList=await req.user.user.downvoteProblemsList
-            console.log(upVoteList)
-            console.log(problemId.problemId)
+        { 
+
+            const latestUser=await User.findOne({_id: req.user.id == undefined ? req.user._id : req.user.id})
+            const upVoteList= await latestUser.upvoteProblemsList
+            const downVoteList=await latestUser.downvoteProblemsList
             if(upVoteList.indexOf(problemId.problemId) !== -1)
             {
-                console.log("Upvote")
+                // console.log("Upvote")
                 isUpvoted=true
             }
             if(downVoteList.indexOf(problemId.problemId) !== -1)
             {
-                console.log("Downvote")
+                // console.log("Downvote")
 
                 isDownvoted=true
             }

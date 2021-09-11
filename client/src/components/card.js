@@ -104,6 +104,7 @@ const upvoteProblem = () => {
     fetch(`http://localhost:5000/upvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
+                  statusOfUpAndDownVotes()
                   noOfUpAndDownVotesUpdate()
                     response.json().then(data => {
               
@@ -143,6 +144,7 @@ const downvoteProblem = () => {
     fetch(`http://localhost:5000/downvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
+                  statusOfUpAndDownVotes()
                   noOfUpAndDownVotesUpdate()
                     response.json().then(data => {
 
@@ -246,8 +248,8 @@ const downvoteProblem = () => {
         <Card.Text>
           {props.location}
         </Card.Text>
-        <a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>
-        <a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>
+         {upStatus?<a style={{margin:"20px", cursor:"pointer",color:"blue"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>:<a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>}
+        {downStatus?<a style={{cursor:"pointer", marginRight : "10px",color:"blue"}} onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>:<a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>}
         {statusButton}
       </Card.Body>
     </Card>
