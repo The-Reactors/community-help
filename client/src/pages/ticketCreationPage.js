@@ -195,6 +195,7 @@ const TicketCreationPage = () => {
     // const url="https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed"
     return (
         <div>
+           <div id="content" className="p-4 p-md-5 pt-5">
           {/* <iframe width="800" height="570" src = "https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed" ></iframe> */}
           <Modal isOpen = {isModalOpen}>
           <div>
@@ -265,6 +266,7 @@ const TicketCreationPage = () => {
                 </p>
                 
            </form> 
+           </div>
         </div>
     )
 }

@@ -56,6 +56,7 @@ const Login = () => {
 
     return (
         <div>
+           <div id="content" className="p-4 p-md-5 pt-5">
            <form action="">
                <label htmlFor="phone">Email Address</label>
                <input
@@ -79,6 +80,7 @@ const Login = () => {
              google sign in
            </button>
            </a>
+        </div>
         </div>
     )
 }

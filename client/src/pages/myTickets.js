@@ -37,6 +37,7 @@ const MyTickets = () => {
 
     return (
         <div>
+             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoading && <LoaderGeneral/>}
             {!isLoading && <div id="content" className="p-4 p-md-5 pt-5">
                 <h1 style={{textAlign:"center"}}>My Tickets</h1>
@@ -50,7 +51,7 @@ const MyTickets = () => {
                 })}
             </div> }
 
-    
+            </div>
         </div>
         )
 };

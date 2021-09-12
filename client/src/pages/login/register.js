@@ -71,6 +71,7 @@ const Register = () => {
 
     return (
         <div>
+             <div id="content" className="p-4 p-md-5 pt-5">
         <h2>Registration Portal</h2>
         <form action="">
             <div>
@@ -120,6 +121,7 @@ const Register = () => {
                 <a href = "/login">
                 <button >Login</button>
                 </a>
+            </div>
             </div>
     )
 }
