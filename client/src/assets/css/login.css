@@ -1,20 +1,31 @@
 
 /* * * * * General CSS * * * * */
 
-/* body {
+ body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  color: #666666;
-  background: #eaeff4;
-} */
+}
 
 .login-wrapper {
   width: 100%;
   max-width: 1140px;
   min-height: 100vh;
 
+}
+
+.align-login{
+
+}
+
+@media only screen and (min-width:1300px) and (max-width:1600px){
+  .align-login {
+    transform: translate(35%,15%);
+  }
+}
+
+@media only screen and (min-width:1600px) and (max-width:2600px){
+  .align-login {
+    transform: translate(65%,20%);
+  }
 }
 
 .login-container {
@@ -76,7 +87,7 @@ p {
 }
 
 .btn:hover {
-  color: #3DB2FF;
+  color: #3b4ec6;
   background: #ffffff;
 }
 
@@ -89,7 +100,7 @@ p {
 
 .col-left {
   width: 45%;
-  background: #3DB2FF;
+  background: #3b4ec6;
   -webkit-clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
   clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
 }
@@ -128,7 +139,7 @@ p {
 }
 
 .login-form p a {
-  color: #3DB2FF;
+  color: #3b4ec6;
   font-size: 14px;
   text-decoration: none;
 }
@@ -172,17 +183,17 @@ p {
 
 .login-form input.btn {
   color: #ffffff;
-  background: #3DB2FF;
-  border-color: #3DB2FF;
+  background: #3b4ec6;
+  border-color: #3b4ec6;
   outline: none;
   cursor: pointer;
 }
 
 .login-form input.btn:hover {
-  color: #3DB2FF;
+  color: #3b4ec6;
   background: #ffffff;
 }
 
 .btn-googleSignIn{
-  background-color: #3DB2FF;
+  background-color: #3b4ec6;
 }

@@ -1,6 +1,7 @@
 import React from 'react'
 
 const Navbar = (props) => {
+    
     return (
             <div className="wrapper d-flex align-items-stretch" >
             <nav id="sidebar" >
@@ -17,19 +18,19 @@ const Navbar = (props) => {
                     <h1><a href="/" className="logo">Nayak <span>Community help service</span></a></h1>
                     <ul className="list-unstyled components mb-5">
                         
-                        <li>
+                        <li name = "home">
                             <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
                         </li>
-                        <li className="active">
+                        <li name = "register" className="active">
                             <a href="/register"><span className="fa fa-pencil mr-3"></span> Register</a>
                         </li>
-                        <li>
+                        <li name = "login">
                             <a href="/login"><span className="fa fa-book mr-3"></span> Login</a>
                         </li>
-                        <li>
+                        <li name = "raiseATicket">
                             <a href="/createTicket"><span className="fa fa-sticky-note mr-3"></span> Raise a Ticket</a>
                         </li>
-                        <li>
+                        <li name = "myTickets">
                             <a href="/myTickets"><span className="fa fa-suitcase mr-3"></span> My Tickets</a>
                         </li>
                         

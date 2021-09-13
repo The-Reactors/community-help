@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import swal from "sweetalert"
-
+import "../../assets/css/login.css"
 
 
 const Register = () => {
@@ -71,58 +71,87 @@ const Register = () => {
 
     return (
         <div>
-             <div id="content" className="p-4 p-md-5 pt-5">
-        <h2>Registration Portal</h2>
-        <form action="">
-            <div>
-                <label htmlFor="username">Full Name</label>
-                <input 
-                type="text" 
-                autoComplete = "off"
-                value = {userEnteredData.username}
-                onChange = {handleInput}
-                name = "username"
-                />
-            </div>
-            <div>
-                <label htmlFor="email">E-mail</label>
-                <input 
-                type="email" 
-                autoComplete = "off"
-                value = {userEnteredData.email}
-                onChange = {handleInput}
-                name = "email"
-                />
-            </div>
-            <div>
-                <label htmlFor="phone">Phone</label>
-                <input 
-                maxLength="10"
-                type="number" 
-                autoComplete = "off"
-                value = {userEnteredData.phone}
-                onChange = {handleInput}
-                name = "phone"
-                />
-            </div>
-            <div>
-                <label htmlFor="password">Password</label>
-                <input 
-                type="password" 
-                autoComplete = "off"
-                value = {userEnteredData.password}
-                onChange = {handleInput}
-                name = "password"
-                />
-            </div>
-                <button type = "submit" onClick={submitHandler}>Register</button>
-            </form>
-            <p>OR</p>
-                <a href = "/login">
-                <button >Login</button>
-                </a>
-            </div>
-            </div>
+    <div id="content" className="p-4 p-md-5 pt-5 align-login">
+    <div class="login-wrapper">
+<div class="login-container">
+<div class="col-left">
+ <div class="login-text">
+   <h2>Logo</h2>
+   <p>
+    Take a step forward and be an active citizen. 
+    Report anything by simply raising tickets
+   </p>
+ </div>
+</div>
+<div class="col-right">
+ <div class="login-form">
+   <h2 style = {{textAlign: "center"}}>Registration Portal</h2>
+   <form>
+     <p>
+       <label htmlFor="username">Full name</label>
+       <input 
+       type="text" 
+       autoComplete = "off"
+       value = {userEnteredData.username}
+       onChange = {handleInput}
+       name = "username"
+       required/>
+     </p>
+     <p>
+       <label htmlFor="email">E-mail</label>
+       <input 
+       type="email" 
+       autoComplete = "off"
+       value = {userEnteredData.email}
+       onChange = {handleInput}
+       name = "email"
+       required />
+     </p>
+     <p>
+      <label htmlFor="phone">Phone Number</label>
+      <input 
+      maxLength="10"
+      type="number" 
+      autoComplete = "off"
+      value = {userEnteredData.phone}
+      onChange = {handleInput}
+      name = "phone"
+      required />
+    </p>
+    <p>
+      <label htmlFor="password">Password</label>
+      <input 
+      type="password" 
+      autoComplete = "off"
+      value = {userEnteredData.password}
+      onChange = {handleInput}
+      name = "password"
+      required />
+    </p>
+     <p>
+       <a onClick={submitHandler}>
+       <input class="btn" type="submit" value="Sign Up" />
+       </a>
+     </p>
+     <p>
+       <a href=""></a>
+       <a href=""></a>
+     </p>
+   </form>
+   <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}>OR</div>
+   <div style = {{textAlign:"center"}}>
+    <a href = "/login">
+      <button className = "btn btn-googleSignIn" >Login</button>
+    </a>
+   </div>
+ </div>
+</div>
+</div>
+
+</div>
+    </div>
+    
+ </div>
     )
 }
 

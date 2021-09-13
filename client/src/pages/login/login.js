@@ -3,6 +3,7 @@ import swal from "sweetalert"
 import "../../assets/css/bootstrap.min.css"
 import "../../assets/css/login.css"
 
+
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         email: "",
@@ -59,8 +60,10 @@ const Login = () => {
 
     return (
         <div>
-           <div id="content" className="p-4 p-md-5 pt-5">
-           <div class="login-wrapper">
+    
+           <div className = "container">
+           <div id="content" className="p-4 p-md-5 pt-5 align-login" >
+           <div class="login-wrapper" >
     <div class="login-container">
       <div class="col-left">
         <div class="login-text">
@@ -107,15 +110,18 @@ const Login = () => {
           </form>
           <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}>OR</div>
           <div style = {{textAlign:"center"}}>
-            <button type = "submit" class = "btn btn-googleSignIn">
+           <a href="http://localhost:5000/login/google">
+           <button type = "submit" class = "btn btn-googleSignIn">
               Google Sign In
             </button>
+           </a>
           </div>
         </div>
       </div>
     </div>
     
   </div>
+           </div>
            </div>
            
         </div>
