@@ -60,8 +60,8 @@ const Login = () => {
     return (
         <div>
            <div id="content" className="p-4 p-md-5 pt-5">
-           <div class="wrapper">
-    <div class="container">
+           <div class="login-wrapper">
+    <div class="login-container">
       <div class="col-left">
         <div class="login-text">
           <h2>Logo</h2>
@@ -78,7 +78,7 @@ const Login = () => {
             <p>
               <label htmlFor="phone">Email Address</label>
               <input 
-              type = "String"
+              type = "email"
               
               name = "email"
               value = {userEnteredData.email}
@@ -96,8 +96,8 @@ const Login = () => {
               required />
             </p>
             <p>
-              <a href = "http://localhost:5000/login/google">
-              <input class="btn" type="submit" value="Sing In" />
+              <a onClick={submitHandler}>
+              <input class="btn" type="submit" value="Sign In" />
               </a>
             </p>
             <p>
@@ -105,9 +105,10 @@ const Login = () => {
               <a href="/register">Create an account.</a>
             </p>
           </form>
+          <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}>OR</div>
           <div style = {{textAlign:"center"}}>
             <button type = "submit" class = "btn btn-googleSignIn">
-              google sign in
+              Google Sign In
             </button>
           </div>
         </div>
