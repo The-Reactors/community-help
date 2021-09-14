@@ -5,6 +5,7 @@ import "../../assets/css/login.css"
 import google from "../../assets/images/Google.png"
 import nayakShort from "../../assets/images/shortLogo.png"
 import nayakLong from "../../assets/images/longLogo.png"
+import illus from "../../assets/images/login.png"
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         email: "",
@@ -61,8 +62,8 @@ const Login = () => {
 
     return (
         <div className="background">
-  
            <div id="content" className="p-4 p-md-5 pt-5 align-login" >
+         
            <div class="login-wrapper shadow" >
     <div class="login-container">
       <div class="col-left">
@@ -72,7 +73,11 @@ const Login = () => {
            Take a step forward and be an active citizen. 
            Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Sign In To Your  <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets.
           </p>
+          <img style={{maxWidth:"200px",maxHeight:"200px",marginTop:"10px"}}src={illus}/>
         </div>
+    
+   
+        
       </div>
       <div class="col-right">
         <div class="login-form">

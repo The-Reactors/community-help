@@ -4,6 +4,8 @@ import "../../assets/css/login.css"
 import google from "../../assets/images/Google.png"
 import nayakShort from "../../assets/images/shortLogo.png"
 import nayakLong from "../../assets/images/longLogo.png"
+import register from "../../assets/images/register.png"
+
 
 const Register = () => {
 
@@ -83,6 +85,7 @@ const Register = () => {
            Take a step forward and be an active citizen. 
            Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Create A <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets And Make A Difference In The Society.
           </p>
+          <img style={{maxWidth:"200px",maxHeight:"200px",marginTop:"10px"}}src={register}/>
  </div>
 </div>
 <div class="col-right">
