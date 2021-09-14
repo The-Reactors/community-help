@@ -1,7 +1,11 @@
 import React from 'react'
 
 const Navbar = (props) => {
-    
+    const homeActiveClass = props.activeElement.localeCompare("home") === 0 ? "active":"";
+    const registerActiveClass = props.activeElement.localeCompare("register") === 0 ? "active":"";
+    const loginActiveClass = props.activeElement.localeCompare("login") === 0 ? "active":"";
+    const raiseTicketActiveClass = props.activeElement.localeCompare("raiseTicket") === 0 ? "active":"";
+    const myTicketActiveClass = props.activeElement.localeCompare("myTickets") === 0 ? "active":"";
     return (
             <div className="wrapper d-flex align-items-stretch"  >
             <nav id="sidebar" >
@@ -18,19 +22,19 @@ const Navbar = (props) => {
                     <h1><a href="/" className="logo">Nayak <span>Community Help Service</span></a></h1>
                     <ul className="list-unstyled components mb-5">
                         
-                        <li name = "home">
+                        <li name = "home" className={homeActiveClass}>
                             <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
                         </li>
-                        <li name = "register">
+                        <li name = "register" className={registerActiveClass}>
                             <a href="/register"><span className="fa fa-pencil mr-3"></span> Register</a>
                         </li>
-                        <li name = "login">
+                        <li name = "login" className={loginActiveClass}>
                             <a href="/login"><span className="fa fa-book mr-3"></span> Login</a>
                         </li>
-                        <li name = "raiseATicket">
+                        <li name = "raiseATicket" className={raiseTicketActiveClass}>
                             <a href="/createTicket"><span className="fa fa-sticky-note mr-3"></span> Raise a Ticket</a>
                         </li>
-                        <li name = "myTickets">
+                        <li name = "myTickets" className={myTicketActiveClass}>
                             <a href="/myTickets"><span className="fa fa-suitcase mr-3"></span> My Tickets</a>
                         </li>
                         

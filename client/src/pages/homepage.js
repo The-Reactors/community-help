@@ -75,7 +75,7 @@ const Homepage = () => {
         
         <div>
             
-            <Navbar>
+            <Navbar activeElement="home">
             
             <Modal isOpen={isModalOpen}>
                 <div>

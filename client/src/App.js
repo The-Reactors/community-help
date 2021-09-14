@@ -21,22 +21,22 @@ function App() {
               <Homepage />
             </Route>
             <Route path="/createTicket">
-            <Navbar>
+            <Navbar activeElement="raiseTicket">
                 <TicketCreationPage />
-              </Navbar>
+            </Navbar>
             </Route>
             <Route path="/login">
-              <Navbar>
+              <Navbar activeElement="login">
                 <Login />
               </Navbar>
             </Route>
             <Route path="/register">
-              <Navbar>
+              <Navbar activeElement="register">
                 <Register />
               </Navbar>
             </Route>
             <Route path="/myTickets">
-              <Navbar>
+              <Navbar activeElement="myTickets">
                 <MyTickets />
               </Navbar>
             </Route>

@@ -13,7 +13,7 @@ const RightCard = (props) => {
     const [ proximity, setProximity ] = useState(10);
     const [ filterData, setFilterData ] = useState({
         category : "none",
-        urgency : "none",
+        priority : "none",
         status : "none"
     })
     
@@ -33,11 +33,11 @@ const RightCard = (props) => {
           };
         });
       };
-      const selectUrgencyHandler = (e) => {
+      const selectpriorityHandler = (e) => {
         setFilterData((prev) => {
           return {
             ...prev,
-            urgency : e.target.value,
+            priority : e.target.value,
           };
         });
       };
@@ -56,46 +56,11 @@ const RightCard = (props) => {
           props.updateFilterParams({
             proximity:proximity,
             category:filterData.category,
-            priority:filterData.urgency,
+            priority:filterData.priority,
             status:filterData.status
           })
 
           props.updateFilter()
-
-
-         
-          // navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
-          // navigator.geolocation.getCurrentPosition((position) => 
-          // {
-          //     console.log("Latitude is :", position.coords.latitude);
-          //     console.log("Longitude is :", position.coords.longitude);
-              
-          //     fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${proximity}/${filterData.category}/${filterData.urgency}/${filterData.status}`, {credentials: "include"})
-          //     .then((response) => {
-          //         response.json().then((problems) => {
-          //             console.log(filterData.category)
-          //             props.updateIssues(problems)
-          //           //   setIssues(problems)
-          //           //   console.log(problems)
-          //           //   setIsLoadingHome(false)
-          //           //   setIsLoadingHome(false)
-                       
-                      
-          //     })
-          // })
-  
-          // }, function (e) {
-              
-          //     //setIsModalOpen(true)
-              
-          // },
-          // {
-          //     enableHighAccuracy: true,
-          //     timeout: 20000,
-          //     maximumAge: 0
-          // });
-
-
 
 
       }
@@ -128,13 +93,13 @@ const RightCard = (props) => {
                 <option value = "waste management" name = "category">waste management</option>
                 </select>
                 </label>
-                <label htmlFor="urgency">Select your Urgency:
-                <select onChange={(e) => selectUrgencyHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
+                <label htmlFor="priority">Select your priority:
+                <select onChange={(e) => selectpriorityHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
                 <option className = "active">none</option>
-                <option value="emergency" name = "urgency">emergency</option>
-                <option value="urgent" name = "urgency">urgent</option>
-                <option value="not urgent" name = "urgency">not urgent</option>
-                {/* <option value="least urgent" name = "urgency">least urgent</option> */}
+                <option value="emergency" name = "priority">emergency</option>
+                <option value="urgent" name = "priority">urgent</option>
+                <option value="not urgent" name = "priority">not urgent</option>
+                {/* <option value="least urgent" name = "priority">least urgent</option> */}
                 </select>
                 </label>
                 <label htmlFor="status">Status of the ticket:
@@ -142,7 +107,7 @@ const RightCard = (props) => {
                 <option className = "active">none</option>
                 <option value="Solved" name = "status">solved</option>
                 <option value="pending" name = "status">pending</option>
-                {/* <option value="least urgent" name = "urgency">least urgent</option> */}
+                {/* <option value="least urgent" name = "priority">least urgent</option> */}
                 </select>
                 </label>
                 <a>
