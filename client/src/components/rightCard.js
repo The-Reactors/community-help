@@ -1,126 +1,254 @@
+import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
 
+import Grid from "@material-ui/core/Grid";
+import { Box } from "@material-ui/core";
 
-import React, { useState } from 'react'
-import "../assets/css/rightCard.css"
-import {Card} from "react-bootstrap"
-import RangeSlider from 'react-bootstrap-range-slider'
-import { Dropdown } from 'react-bootstrap'
-import {Button} from 'react-bootstrap'
-import "../assets/css/filterCard.css"
-
+const useStyles = makeStyles({
+  root: {
+    minWidth: 275
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  }
+});
 
 const RightCard = (props) => {
-    const [ proximity, setProximity ] = useState(10);
-    const [ filterData, setFilterData ] = useState({
-        category : "none",
-        priority : "none",
-        status : "none"
-    })
-    
-    const handleInput = (event) =>
-    {
-        const name = event.target.name;
-        const value = event.target.value;
+  const classes = useStyles();
+  const bull = <span className={classes.bullet}>•</span>;
+  const [proximity, setProximity] = useState(15)
 
-        setFilterData({...filterData, [name]:value })
+  const [filterData, setFilterData] = useState({
+    category: "none",
+    priority: "none",
+    status: "none"
+  });
 
-    }
-    const selectCategoryHandler = (e) => {
-        setFilterData((prev) => {
-          return {
-            ...prev,
-            category : e.target.value,
-          };
-        });
+  const handleInput = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+
+    setFilterData({ ...filterData, [name]: value });
+  };
+  const selectProximityHandler = (e) => {
+    setFilterData((prev) => {
+      return {
+        ...prev,
+        proximity: e.target.value
       };
-      const selectpriorityHandler = (e) => {
-        setFilterData((prev) => {
-          return {
-            ...prev,
-            priority : e.target.value,
-          };
-        });
+    });
+  };
+  const selectCategoryHandler = (e) => {
+    setFilterData((prev) => {
+      return {
+        ...prev,
+        category: e.target.value
       };
-      const selectStatusHandler = (e) => {
-        setFilterData((prev) => {
-          return{
-            ...prev,
-            status : e.target.value,
-          }
-        });
+    });
+  };
+  const selectPriorityHandler = (e) => {
+    setFilterData((prev) => {
+      return {
+        ...prev,
+        priority: e.target.value
       };
+    });
+  };
+  const selectStatusHandler = (e) => {
+    setFilterData((prev) => {
+      return {
+        ...prev,
+        status: e.target.value
+      };
+    });
+  };
 
-      const fileSubmitHandler = (e) => {
-          e.preventDefault()
+  const handleProximityChange = (e,newValue) => {
+    setProximity(newValue)
+  }
 
-          props.updateFilterParams({
-            proximity:proximity,
-            category:filterData.category,
-            priority:filterData.priority,
-            status:filterData.status
-          })
+  const fileSubmitHandler = (e) => {
+    e.preventDefault();
 
-          props.updateFilter()
+    props.updateFilterParams({
+      proximity: proximity,
+      category: filterData.category,
+      priority: filterData.priority,
+      status: filterData.status
+    });
+
+    props.updateFilter();
+  };
 
 
-      }
-
-    return (
-        <div>
-        <div className = "card text-center text-white bg-info mb-3 filter-data-card" >
-        <form action="">
-            <title>filter tickets</title>
-            <label htmlFor="proximity">based on proxitmity</label>
-            <RangeSlider
-                 value={proximity}
-                 step = "5"
-                 min = "10"
-                 max = "50"
-                 onChange={changeEvent => setProximity(changeEvent.target.value)}
-                //  onSubmit = {handleInput}
-                 />
-                <label htmlFor="category">Select your category:
-               <select onChange={(e) => selectCategoryHandler(e)} style = {{color:"black"}}>
-               <option className = "active">none</option>
-                <option value = "land issue" name = "category">land issue</option>
-                <option value = "water issue" name = "category">water issue</option>
-                <option value = "public health" name = "category">public health</option>
-                <option value = "sanitation" name = "category">sanitation</option>
-                <option value = "pollution" name = "category">Pollution</option>
-                <option value = "healthcare issue" name = "category">healthcare issue</option>
-                <option value = "electricity" name = "category">Electricity</option>
-                <option value = "road blockage" name = "category">Road Blockage</option>
-                <option value = "waste management" name = "category">waste management</option>
-                </select>
-                </label>
-                <label htmlFor="priority">Select your priority:
-                <select onChange={(e) => selectpriorityHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
-                <option className = "active">none</option>
-                <option value="emergency" name = "priority">emergency</option>
-                <option value="urgent" name = "priority">urgent</option>
-                <option value="not urgent" name = "priority">not urgent</option>
-                {/* <option value="least urgent" name = "priority">least urgent</option> */}
-                </select>
-                </label>
-                <label htmlFor="status">Status of the ticket:
-                <select onChange={(e) => selectStatusHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
-                <option className = "active">none</option>
-                <option value="Solved" name = "status">solved</option>
-                <option value="pending" name = "status">pending</option>
-                {/* <option value="least urgent" name = "priority">least urgent</option> */}
-                </select>
-                </label>
-                <a>
-                <button className = "btn btn-primary" onClick = {fileSubmitHandler}>Upload</button>
-                </a>
-            
-
-        </form>
-        </div>
-        </div>
-    )
+  return (
+    <div>
+    <Card className={classes.root}>
+      <CardContent>
+        <Typography color="textDark" align="center" gutterBottom variant="h4">
+          Filters
+        </Typography>
+        <br/>
+        <br/>
+        <Typography htmlFor="proximity" variant = "h5" component="h2" align="center">
+          Based on Proximity
+        </Typography>
+        
+        <Slider
+          defaultValue={15}
+          // getAriaValueText={valuetext}
+          // onChange = {(e) => selectProximityHandler(e)}
+          value = {proximity}
+          aria-labelledby="discrete-slider-small-steps"
+          step={5}
+          onChange = {handleProximityChange}
+          marks 
+          min={15}
+          max={50}
+          valueLabelDisplay="auto"
+        />
+        <br />
+       <hr />
+       <br /> 
+        <Typography htmlFor="category" variant = "h5" component="h2" align="center">
+          Based on Category
+        </Typography>
+        <br/>
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="filled-age-native-simple">Category</InputLabel>
+          <Select
+            native
+            onChange={(e) => selectCategoryHandler(e)}
+            inputProps={{
+              name: "age",
+              id: "filled-age-native-simple"
+            }}
+            align="center"
+          >
+            <option aria-label="None" value="" />
+            <option value="land issue" name="category">
+              Land Issue
+            </option>
+            <option value="water issue" name="category">
+              Water Issue
+            </option>
+            <option value="public health" name="category">
+              Public Health
+            </option>
+            <option value="sanitation" name="category">
+              Sanitation
+            </option>
+            <option value="pollution" name="category">
+              Pollution
+            </option>
+            <option value="healthcare issue" name="category">
+              Healthcare Issue
+            </option>
+            <option value="electricity" name="category">
+              Electricity
+            </option>
+            <option value="road blockage" name="category">
+              Road Blockage
+            </option>
+            <option value="waste management" name="category">
+              Waste Management
+            </option>
+          </Select>
+          
+        </FormControl>
+        <br/>
+        <hr></hr>
+        <br />
+        <Typography htmlFor="priority" variant = "h5" component="h2" align="center">
+          Based on Priority
+        </Typography>
+        <br/>
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="filled-age-native-simple">Priority</InputLabel>
+          <Select
+            native
+            onChange={(e) => selectPriorityHandler(e)}
+            inputProps={{
+              name: "age",
+              id: "filled-age-native-simple"
+            }}
+            align="center"
+          >
+            <option aria-label="None" value="" />
+            <option value="emergency" name="priority">
+              Emergency
+            </option>
+            <option value="urgent" name="priority">
+              Urgent
+            </option>
+            <option value="not urgent" name="priority">
+              Not Urgent
+            </option>
+          </Select>
+          <br />
+        </FormControl>
+        <br />
+        <hr></hr>
+        <br />
+        <Typography htmlFor="status" variant = "h5" component="h2" align="center">
+          Based on Status
+        </Typography>
+        <br />
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="filled-age-native-simple">Status</InputLabel>
+          <Select
+            native
+            onChange={(e) => selectStatusHandler(e)}
+            inputProps={{
+              name: "age",
+              id: "filled-age-native-simple"
+            }}
+            align="center"
+          >
+            <option aria-label="None" value="" />
+            <option value="Solved" name="status">
+              Ticket Solved{" "}
+            </option>
+            <option value="pending" name="status">
+              Ticket Pending
+            </option>
+          </Select>
+          <br />
+        </FormControl>
+      </CardContent>
+      <CardActions align = "center">
+        <Box alignItems = "center">
+          <Button
+            color="primary"
+            size="large"
+            type="submit"
+            variant="contained"
+            onClick={fileSubmitHandler}
+          >
+            Apply Filters
+          </Button>
+        </Box>
+      </CardActions>
+    </Card>
+    </div>
+  );
 }
-
-
 
 export default RightCard
