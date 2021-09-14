@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
 import swal from "sweetalert"
 import "../../assets/css/login.css"
-
+import google from "../../assets/images/Google.png"
+import nayakShort from "../../assets/images/shortLogo.png"
+import nayakLong from "../../assets/images/longLogo.png"
 
 const Register = () => {
 
@@ -70,22 +72,22 @@ const Register = () => {
     }
 
     return (
-        <div>
+        <div className="background">
     <div id="content" className="p-4 p-md-5 pt-5 align-login">
     <div class="login-wrapper">
 <div class="login-container">
 <div class="col-left">
  <div class="login-text">
-   <h2>Logo</h2>
-   <p>
-    Take a step forward and be an active citizen. 
-    Report anything by simply raising tickets
-   </p>
+ <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={nayakLong}/></span>
+          <p>
+           Take a step forward and be an active citizen. 
+           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Create A <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets And Make A Difference In The Society.
+          </p>
  </div>
 </div>
 <div class="col-right">
  <div class="login-form">
-   <h2 style = {{textAlign: "center"}}>Registration Portal</h2>
+   <h2 style = {{textAlign: "center"}}>Create An Account</h2>
    <form>
      <p>
        <label htmlFor="username">Full name</label>
@@ -130,18 +132,20 @@ const Register = () => {
     </p>
      <p>
        <a onClick={submitHandler}>
-       <input class="btn" type="submit" value="Sign Up" />
+       <input class="btn1" type="submit" value="Sign Up" />
        </a>
      </p>
      <p>
-       <a href=""></a>
-       <a href=""></a>
+       <a href="/login">Sign In Instead</a>
+       <a href="/">Back To Home</a>
      </p>
    </form>
-   <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}>OR</div>
+   <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}><hr/> OR</div>
    <div style = {{textAlign:"center"}}>
     <a href = "/login">
-      <button className = "btn btn-googleSignIn" >Login</button>
+      <button className = "btn1 btn1-googleSignIn" >
+      <span>Sign Up With  <img  style= {{maxHeight:"20px",maxHeight:"20px"}}src={google}/></span>
+      </button>
     </a>
    </div>
  </div>

@@ -1,31 +1,35 @@
 
 /* * * * * General CSS * * * * */
 
- body {
-  margin: 0;
-}
-
-.login-wrapper {
-  width: 100%;
-  max-width: 1140px;
-  min-height: 100vh;
-
-}
-
-.align-login{
-
+.shadow
+{
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 @media only screen and (min-width:1300px) and (max-width:1600px){
   .align-login {
-    transform: translate(35%,15%);
+    transform: translate(35%);
+    padding-top: 150px!important;
+    overflow: hidden;
   }
 }
 
 @media only screen and (min-width:1600px) and (max-width:2600px){
   .align-login {
-    transform: translate(65%,20%);
+    transform: translate(65%);
+    padding-top: 150px!important;
+    overflow: hidden;
   }
+}
+
+.background
+{
+ 
+  background-color: #ffffff;
+  opacity: 0.9;
+  background-image:  radial-gradient(#3445b7 0.75px, transparent 0.75px), radial-gradient(#3445b7 0.75px, #ffffff 0.75px);
+  background-size: 30px 30px;
+  /* background-position: 0 0,15px 15px; */
 }
 
 .login-container {
@@ -54,25 +58,9 @@
   font-weight: 600;
 }
 
-/* * * * * Login Form CSS * * * * */
-/* h2 {
-  margin: 0 0 15px 0;
-  font-size: 30px;
-  font-weight: 700;
-}
 
-h2 img {
-  width: 120px;
-}
 
-p {
-  margin: 0 0 20px 0;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 22px;
-} */
-
-.btn {
+.btn1 {
   display: inline-block;
   padding: 7px 20px;
   font-size: 16px;
@@ -86,9 +74,10 @@ p {
   -webkit-transition: .3s;
 }
 
-.btn:hover {
+.btn1:hover {
   color: #3b4ec6;
   background: #ffffff;
+  border: 2px solid;
 }
 
 .col-left,
@@ -181,7 +170,7 @@ p {
   border-color: #ff574e;
 }
 
-.login-form input.btn {
+.login-form input.btn1 {
   color: #ffffff;
   background: #3b4ec6;
   border-color: #3b4ec6;
@@ -189,11 +178,16 @@ p {
   cursor: pointer;
 }
 
-.login-form input.btn:hover {
+.login-form input.btn1:hover {
   color: #3b4ec6;
   background: #ffffff;
 }
 
-.btn-googleSignIn{
+.btn1-googleSignIn{
   background-color: #3b4ec6;
+} 
+.btn1-googleSignIn:hover{
+  color: #3b4ec6;
+  background: #ffffff;
+  border: 2px solid;
 }

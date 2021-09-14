@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 import swal from "sweetalert"
 import "../../assets/css/bootstrap.min.css"
 import "../../assets/css/login.css"
-
-
+import google from "../../assets/images/Google.png"
+import nayakShort from "../../assets/images/shortLogo.png"
+import nayakLong from "../../assets/images/longLogo.png"
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         email: "",
@@ -59,24 +60,23 @@ const Login = () => {
     }
 
     return (
-        <div>
-    
-           <div className = "container">
+        <div className="background">
+  
            <div id="content" className="p-4 p-md-5 pt-5 align-login" >
-           <div class="login-wrapper" >
+           <div class="login-wrapper shadow" >
     <div class="login-container">
       <div class="col-left">
         <div class="login-text">
-          <h2>Logo</h2>
+          <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={nayakLong}/></span>
           <p>
            Take a step forward and be an active citizen. 
-           Report anything by simply raising tickets
+           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Sign In To Your  <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets.
           </p>
         </div>
       </div>
       <div class="col-right">
         <div class="login-form">
-          <h2 style = {{textAlign: "center"}}>Login</h2>
+          <h2 style = {{textAlign: "center",lineHeight:"4rem"}}>Login To Your Account</h2>
           <form>
             <p>
               <label htmlFor="phone">Email Address</label>
@@ -100,7 +100,7 @@ const Login = () => {
             </p>
             <p>
               <a onClick={submitHandler}>
-              <input class="btn" type="submit" value="Sign In" />
+              <input class="btn1" type="submit" value="Sign In" />
               </a>
             </p>
             <p>
@@ -108,11 +108,11 @@ const Login = () => {
               <a href="/register">Create an account.</a>
             </p>
           </form>
-          <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}>OR</div>
+          <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}><hr/> OR </div>
           <div style = {{textAlign:"center"}}>
            <a href="http://localhost:5000/login/google">
-           <button type = "submit" class = "btn btn-googleSignIn">
-              Google Sign In
+           <button type = "submit" class = "btn1 btn1-googleSignIn">
+             <span> Sign In With <img style= {{maxHeight:"20px",maxHeight:"20px"}}src={google}/></span>
             </button>
            </a>
           </div>
@@ -122,8 +122,7 @@ const Login = () => {
     
   </div>
            </div>
-           </div>
-           
+          
         </div>
     )
 }
