@@ -15,6 +15,7 @@ const RightCard = (props) => {
         proximity : "",
         category : "",
         urgency : "",
+        status : ""
     })
     
     const handleInput = (event) =>
@@ -39,6 +40,14 @@ const RightCard = (props) => {
             ...prev,
             urgency : e.target.value,
           };
+        });
+      };
+      const selectStatusHandler = (e) => {
+        setFilterData((prev) => {
+          return{
+            ...prev,
+            status : e.target.value,
+          }
         });
       };
 
@@ -86,8 +95,16 @@ const RightCard = (props) => {
                 {/* <option value="least urgent" name = "urgency">least urgent</option> */}
                 </select>
                 </label>
+                <label htmlFor="status">Status of the ticket:
+                <select onChange={(e) => selectStatusHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
+                <option className = "active">select status</option>
+                <option value="solved" name = "solved">solved</option>
+                <option value="unsolved" name = "unsolved">unsolved</option>
+                {/* <option value="least urgent" name = "urgency">least urgent</option> */}
+                </select>
+                </label>
                 <a href="">
-                <button className = "btn" onClick = {fileSubmitHandler}>Upload</button>
+                <button className = "btn btn-primary" onClick = {fileSubmitHandler}>Upload</button>
                 </a>
             
 
