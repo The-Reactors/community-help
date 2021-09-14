@@ -246,15 +246,15 @@ const TicketCreationPage = () => {
                 </label>
                 <label htmlFor="category">Select your category:
                <select onChange={(e) => selectCategoryHandler(e)}>
-                <option value = " land issue " name = "category">land issue</option>
-                <option value = " water issue " name = "category">water issue</option>
-                <option value = " public health " name = "category">public health</option>
-                <option value = " sanitation " name = "category">sanitation</option>
-                <option value = " pollution " name = "category">Pollution</option>
-                <option value = " healthcare issue " name = "category">healthcare issue</option>
-                <option value = " electricity " name = "category">Electricity</option>
-                <option value = " road blockage " name = "category">Road Blockage</option>
-                <option value = " waste management " name = "category">waste management</option>
+                <option value = "land issue" name = "category">land issue</option>
+                <option value = "water issue" name = "category">water issue</option>
+                <option value = "public health" name = "category">public health</option>
+                <option value = "sanitation" name = "category">sanitation</option>
+                <option value = "pollution" name = "category">Pollution</option>
+                <option value = "healthcare issue" name = "category">healthcare issue</option>
+                <option value = "electricity" name = "category">Electricity</option>
+                <option value = "road blockage" name = "category">Road Blockage</option>
+                <option value = "waste management" name = "category">waste management</option>
                 </select>
                 </label>
                 <p>

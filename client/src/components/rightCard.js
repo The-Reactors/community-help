@@ -10,12 +10,11 @@ import "../assets/css/filterCard.css"
 
 
 const RightCard = (props) => {
-    const [ value, setValue ] = useState(10);
+    const [ proximity, setProximity ] = useState(10);
     const [ filterData, setFilterData ] = useState({
-        proximity : "",
-        category : "",
-        urgency : "",
-        status : ""
+        category : "none",
+        urgency : "none",
+        status : "none"
     })
     
     const handleInput = (event) =>
@@ -52,10 +51,53 @@ const RightCard = (props) => {
       };
 
       const fileSubmitHandler = (e) => {
-        let data = new FormData()
-          data.append('proximity',filterData.proximity)
-          data.append('category',filterData.category)
-          data.append('urgency',filterData.urgency)
+          e.preventDefault()
+
+          props.updateFilterParams({
+            proximity:proximity,
+            category:filterData.category,
+            priority:filterData.urgency,
+            status:filterData.status
+          })
+
+          props.updateFilter()
+
+
+         
+          // navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
+          // navigator.geolocation.getCurrentPosition((position) => 
+          // {
+          //     console.log("Latitude is :", position.coords.latitude);
+          //     console.log("Longitude is :", position.coords.longitude);
+              
+          //     fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${proximity}/${filterData.category}/${filterData.urgency}/${filterData.status}`, {credentials: "include"})
+          //     .then((response) => {
+          //         response.json().then((problems) => {
+          //             console.log(filterData.category)
+          //             props.updateIssues(problems)
+          //           //   setIssues(problems)
+          //           //   console.log(problems)
+          //           //   setIsLoadingHome(false)
+          //           //   setIsLoadingHome(false)
+                       
+                      
+          //     })
+          // })
+  
+          // }, function (e) {
+              
+          //     //setIsModalOpen(true)
+              
+          // },
+          // {
+          //     enableHighAccuracy: true,
+          //     timeout: 20000,
+          //     maximumAge: 0
+          // });
+
+
+
+
       }
 
     return (
@@ -65,30 +107,30 @@ const RightCard = (props) => {
             <title>filter tickets</title>
             <label htmlFor="proximity">based on proxitmity</label>
             <RangeSlider
-                 value={value}
+                 value={proximity}
                  step = "5"
                  min = "10"
                  max = "50"
-                 onChange={changeEvent => setValue(changeEvent.target.value)}
-                 onSubmit = {handleInput}
+                 onChange={changeEvent => setProximity(changeEvent.target.value)}
+                //  onSubmit = {handleInput}
                  />
                 <label htmlFor="category">Select your category:
                <select onChange={(e) => selectCategoryHandler(e)} style = {{color:"black"}}>
-               <option className = "active">select category</option>
-                <option value = " land issue " name = "category">land issue</option>
-                <option value = " water issue " name = "category">water issue</option>
-                <option value = " public health " name = "category">public health</option>
-                <option value = " sanitation " name = "category">sanitation</option>
-                <option value = " pollution " name = "category">Pollution</option>
-                <option value = " healthcare issue " name = "category">healthcare issue</option>
-                <option value = " electricity " name = "category">Electricity</option>
-                <option value = " road blockage " name = "category">Road Blockage</option>
-                <option value = " waste management " name = "category">waste management</option>
+               <option className = "active">none</option>
+                <option value = "land issue" name = "category">land issue</option>
+                <option value = "water issue" name = "category">water issue</option>
+                <option value = "public health" name = "category">public health</option>
+                <option value = "sanitation" name = "category">sanitation</option>
+                <option value = "pollution" name = "category">Pollution</option>
+                <option value = "healthcare issue" name = "category">healthcare issue</option>
+                <option value = "electricity" name = "category">Electricity</option>
+                <option value = "road blockage" name = "category">Road Blockage</option>
+                <option value = "waste management" name = "category">waste management</option>
                 </select>
                 </label>
                 <label htmlFor="urgency">Select your Urgency:
                 <select onChange={(e) => selectUrgencyHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
-                <option className = "active">select urgency</option>
+                <option className = "active">none</option>
                 <option value="emergency" name = "urgency">emergency</option>
                 <option value="urgent" name = "urgency">urgent</option>
                 <option value="not urgent" name = "urgency">not urgent</option>
@@ -97,13 +139,13 @@ const RightCard = (props) => {
                 </label>
                 <label htmlFor="status">Status of the ticket:
                 <select onChange={(e) => selectStatusHandler(e)} style = {{color:"black" , alignContent:"flex-start"}}>
-                <option className = "active">select status</option>
-                <option value="solved" name = "solved">solved</option>
-                <option value="unsolved" name = "unsolved">unsolved</option>
+                <option className = "active">none</option>
+                <option value="Solved" name = "status">solved</option>
+                <option value="pending" name = "status">pending</option>
                 {/* <option value="least urgent" name = "urgency">least urgent</option> */}
                 </select>
                 </label>
-                <a href="">
+                <a>
                 <button className = "btn btn-primary" onClick = {fileSubmitHandler}>Upload</button>
                 </a>
             

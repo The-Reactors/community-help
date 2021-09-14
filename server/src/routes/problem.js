@@ -114,14 +114,41 @@ router.get('/statusOfUpAndDownVotes/:problemId', async (req, res) => {
 })
 
 
-router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
+router.get('/getStatus/:problemId', async (req, res) => {
+    let problemId=req.params.problemId
+    console.log(problemId)
+    try
+    {
+        const problem = await Problem.findOne({_id:problemId})
+        console.log(problem.title, problem.status)
+        res.status(200).send({status:problem.status})
+    }
+    catch(e)
+    {
+        res.status(400).send(e)
+    }
+    
+})
+
+
+
+
+
+
+router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', async (req, res) => {
     // console.log(req.user);
     const lat = req.params.lat
     const lng = req.params.lng
+    const proximity = req.params.proximity
+    const category = req.params.category
+    const priority = req.params.priority
+    const status = req.params.status
     // const filter = req.params.filter
     console.log(lat,lng)
 
-    let proximity = 15
+    console.log("params", req.params)
+
+    
 
     let clusterOne = []
     let clusterTwo = []
@@ -130,7 +157,53 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
 
     try{
         let filteredProblems = []
-        const problems = await Problem.find({})
+
+        const initialProblems = await Problem.find({})
+        console.log("dada",initialProblems.length)
+
+        // if(category === "none" && priority === "none" && status === "none"){
+        //     const problems = await Problem.find({})
+        // }else{
+
+        //     for(let i = 0; i < filterReq.length; i++){
+        //         if(filterReq[i] === "none"){
+        //             filterReq.splice(i,1)
+        //         }
+        //     }
+
+        //     const problems = await Problem.find({})
+        // }
+
+        let problems = []
+
+        for(let i = 0; i < initialProblems.length; i++){
+            let flag = false
+            console.log("now",initialProblems[i].title)
+            
+            if(category !== "none" && initialProblems[i].category !== category){
+                flag =true
+            }
+            if(priority !== "none" && initialProblems[i].priority !== priority){
+                flag =true
+            }
+            if(status !== "none" && initialProblems[i].status !== status){
+                flag =true   
+            }
+            if(status === "none" && initialProblems[i].status === "Solved"){
+                flag =true 
+            }
+
+            if(flag === false){
+               problems.push(initialProblems[i])
+            }
+        }
+
+        console.log("sfsff",proximity)
+        //console.log("ss",problems)
+        for(let i = 0; i < problems.length; i++){
+            console.log("ss",problems[i].title)
+        }
+        
 
         
 
@@ -139,18 +212,18 @@ router.get('/fetchProblems/:lat/:lng/', async (req, res) => {
             console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
             
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity/3) && problems[i].status == "pending"){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity/3)){
                 
                 clusterOne.push(problems[i])
                 
             }
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < ((2*proximity)/3) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (proximity/3) && problems[i].status == "pending"){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < ((2*proximity)/3) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (proximity/3) ){
                 
                 clusterTwo.push(problems[i])
             }
 
-            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (2*(proximity)/3) && problems[i].status == "pending"){
+            if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity) && getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) > (2*(proximity)/3) ){
                 
                 clusterThree.push(problems[i])
             }

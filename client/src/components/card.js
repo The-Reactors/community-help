@@ -67,10 +67,39 @@ const ProblemCard = (props) => {
       })
   }
 
+  const getStatus = () =>{
+    fetch(`http://localhost:5000/getStatus/${props.problemId}`,{
+      method:"GET",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        
+      },
+      credentials: 'include'
+    })
+    .then(async response => {
+        
+      //console.log(response.json())
+            response.json().then(data => {
+              console.log("jajaja")
+              setStatus(data.status)
+            });
+         
+        
+      })
+      .catch(async (error) => {
+        const errorMessage = await error;
+        console.log(errorMessage)
+      })
+  }
+
+
 useEffect(() => {
-  
+  console.log("inside card")
   noOfUpAndDownVotesUpdate()
   statusOfUpAndDownVotes()
+  getStatus()
+  
   console.log("Images",props.images) 
   let imagesInitial = props.images
   //imagesInitial.map(image => {new Buffer(image).toString("base64")})
@@ -89,7 +118,7 @@ useEffect(() => {
   }
   
   
-},[])
+},[props.refreshCard])
 
 const upvoteProblem = () => {
 

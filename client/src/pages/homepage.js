@@ -12,11 +12,29 @@ const Homepage = () => {
     const [issues, setIssues] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isLoadingHome, setIsLoadingHome] = useState(true);
-    
+    const [filter, setFilter] = useState(false)
+    const [refreshCard,setRefreshCard] = useState(false)
 
+    const [filterParams, setFilterParams] = useState({
+        proximity:"10",
+        category:"none",
+        priority:"none",
+        status:"none"
+    })
     
+    const updateIssues = (problems) => setIssues(problems);
+    const updateFilter = () => filter === false ? setFilter(true) : setFilter(false);
+    const updateRefreshCard = () => refreshCard === false ? setRefreshCard(true): setRefreshCard(false);
+
+    const updateFilterParams = (params) => setFilterParams({
+        proximity:params.proximity,
+        category:params.category,
+        priority:params.priority,
+        status:params.status
+    })
       
     useEffect(() =>{
+        console.log("ahhahha")
         
         navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
         navigator.geolocation.getCurrentPosition((position) => 
@@ -24,10 +42,13 @@ const Homepage = () => {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
             
-            fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}`, {credentials: "include"})
+            fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${filterParams.proximity}/${filterParams.category}/${filterParams.priority}/${filterParams.status}`, {credentials: "include"})
             .then((response) => {
                 response.json().then((problems) => {
-                    setIssues(problems)
+                    //setIssues(problems)
+                    updateIssues(problems)
+                    
+                    refreshCard === true ? setRefreshCard(false) : setRefreshCard(true)
                     console.log(problems)
                     setIsLoadingHome(false)
                     setIsLoadingHome(false)
@@ -47,7 +68,7 @@ const Homepage = () => {
             maximumAge: 0
         });
 
-    }, [])
+    }, [filter])
 
 
     return (
@@ -73,16 +94,17 @@ const Homepage = () => {
                 {!isLoadingHome && <div className="col-md-10">
                 {
                 issues.map((issue, index) => {
+                    console.log(issue.status)
                     return <div key={index}>
                         
                         <ProblemCard title={issue.title} description={issue.description} 
-                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images}></ProblemCard>
+                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} refreshCard={refreshCard}></ProblemCard>
                         
                     </div>
                 })}
             </div>}
             <div className="col-md-2" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
-            {!isLoadingHome && <RightCard />}
+            {!isLoadingHome && <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)}/>}
             
             </div>
             </div> 
