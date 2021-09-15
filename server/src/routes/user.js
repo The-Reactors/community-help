@@ -57,7 +57,7 @@ passport.serializeUser((obj, done) => {
 router.post("/updateProfilePic", auth, profilePic.single("profilePic"), async (req,res) =>{
  //console.log("asasa",req.file)
   try{
-    const user = await User.findOne({_id:req.user._id})
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
     user.profilePic = req.file.buffer
     await user.save()
     
@@ -67,10 +67,30 @@ router.post("/updateProfilePic", auth, profilePic.single("profilePic"), async (r
   }
 })
 
+
+router.post("/notifyUser", auth, async (req, res) => {
+  try{
+    console.log(req.body)
+    const user = await User.findOne({_id:req.body.creatorId})
+
+    user.notificationList = user.notificationList.concat(
+      {notifierName : req.body.notifierName,
+       problemTitle : req.body.problemTitle,
+       action: req.body.action})
+
+    await user.save()
+    res.send(user)
+
+  }catch(e){
+    console.log(e)
+    res.status(401).send(e)
+  }
+})
+
 router.post("/updateUserName", auth, async (req,res) =>{
 
   try{
-    const user = await User.findOne({_id:req.user._id})
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
     user.name = req.body.name
     await user.save()
     
@@ -84,7 +104,7 @@ router.post("/updateUserName", auth, async (req,res) =>{
 router.post("/updateUserPhoneNo", auth, async (req,res) =>{
 
   try{
-    const user = await User.findOne({_id:req.user._id})
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
     user.phoneNo = req.body.phoneNo
     await user.save()
     

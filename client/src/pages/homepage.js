@@ -15,6 +15,7 @@ const Homepage = () => {
     const [isLoadingHome, setIsLoadingHome] = useState(true);
     const [filter, setFilter] = useState(false)
     const [refreshCard,setRefreshCard] = useState(false)
+    const [profileName, setProfileName] = useState()
 
     const setLoadingHome = () => {
         setIsLoadingHome(true);
@@ -74,6 +75,9 @@ const Homepage = () => {
 
     }, [filter])
 
+    const getName = (name) =>{
+        setProfileName(name)
+    }
 
     return (
         
@@ -94,7 +98,7 @@ const Homepage = () => {
                 
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
-           {!isLoadingHome && <ProfileNav/> } 
+           {!isLoadingHome && <ProfileNav getName={(name)=>getName(name)}/> } 
            <div className="col-md-9">
                 {!isLoadingHome && <div>
                 {
@@ -103,7 +107,7 @@ const Homepage = () => {
                     return <div key={index}>
                         
                         <ProblemCard title={issue.title} description={issue.description} 
-                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} refreshCard={refreshCard}></ProblemCard>
+                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} refreshCard={refreshCard} creatorId={issue.creatorId} profileName={profileName}></ProblemCard>
                         
                     </div>
                 })}

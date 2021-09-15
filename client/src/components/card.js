@@ -122,6 +122,45 @@ useEffect(() => {
 
 const upvoteProblem = () => {
 
+
+
+  if(upStatus === false){
+
+    
+    const Options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify({
+          'problemTitle':props.title,
+          'action':"Upvote",
+          'creatorId':props.creatorId,
+          'notifierName': props.profileName
+      }),  
+      credentials: "include"
+      };
+      fetch(`http://localhost:5000/notifyUser`, Options )
+              .then(async response => {
+                  if(response.ok){
+                    
+                    
+                      response.json().then(data => {
+                
+                      });
+                      
+                   }
+                  else{
+                    
+                      throw response.json();
+                  }
+                })
+                .catch(async (error) => {
+                  const errorMessage = await error;
+                  console.log(errorMessage)
+                })
+    
+
+  }
+
   const requestOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -138,11 +177,7 @@ const upvoteProblem = () => {
                     response.json().then(data => {
               
                     });
-                    swal({
-                      title: "Success!",
-                      text: "Upvoted Successfully",
-                      icon: "success",
-                    });
+                    
                  }
                 else{
                   swal({
@@ -158,9 +193,53 @@ const upvoteProblem = () => {
                 console.log(errorMessage)
               })
 
+
+
+
+
+
 }
 
 const downvoteProblem = () => {
+
+
+  
+  if(downStatus === false){
+
+    
+    const Options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:JSON.stringify({
+          'problemTitle':props.title,
+          'action':"Downvote",
+          'creatorId':props.creatorId,
+          'notifierName': props.profileName
+      }),  
+      credentials: "include"
+      };
+      fetch(`http://localhost:5000/notifyUser`, Options )
+              .then(async response => {
+                  if(response.ok){
+                    
+                    
+                      response.json().then(data => {
+                
+                      });
+                      
+                   }
+                  else{
+                    
+                      throw response.json();
+                  }
+                })
+                .catch(async (error) => {
+                  const errorMessage = await error;
+                  console.log(errorMessage)
+                })
+    
+
+  }
 
   const requestOptions = {
     method: 'POST',
@@ -180,11 +259,7 @@ const downvoteProblem = () => {
                       // console.log(data)
                       
                     });
-                    swal({
-                      title: "Success!",
-                      text: "Downvoted Successfully",
-                      icon: "success",
-                    });
+                    
                  }
                 else{
                   swal({

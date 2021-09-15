@@ -161,18 +161,6 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
         const initialProblems = await Problem.find({})
         console.log("dada",initialProblems.length)
 
-        // if(category === "none" && priority === "none" && status === "none"){
-        //     const problems = await Problem.find({})
-        // }else{
-
-        //     for(let i = 0; i < filterReq.length; i++){
-        //         if(filterReq[i] === "none"){
-        //             filterReq.splice(i,1)
-        //         }
-        //     }
-
-        //     const problems = await Problem.find({})
-        // }
 
         let problems = []
 
@@ -199,7 +187,6 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
         }
 
         console.log("sfsff",proximity)
-        //console.log("ss",problems)
         for(let i = 0; i < problems.length; i++){
             console.log("ss",problems[i].title)
         }
@@ -244,20 +231,7 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
         for(let i = 0; i < clusterThree.length; i++){
             filteredProblems.push(clusterThree[i])
         }
-        // if(clusterOne.length !== 0){
-            
-        //     filteredProblems.push(clusterOne)
-        //     //clusterOne.map((problem) => {filteredProblems.push(problem)})
-        // }
-        // if(clusterTwo.length !== 0){
-        //     filteredProblems.push(clusterTwo)
-        // }
-        // if(clusterThree.length !== 0){
-        //     filteredProblems.push(clusterThree)
-        // }
         
-
-        //console.log(filteredProblems)
         
         res.send(filteredProblems)
     }catch(e){

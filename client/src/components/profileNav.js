@@ -3,8 +3,9 @@ import "../assets/css/profileNav.css"
 import bell from "../assets/images/bell.png"
 import ScriptTag from 'react-script-tag';
 import silhouette from "../assets/images/profile.png"
+import { propTypes } from 'react-bootstrap/esm/Image';
 
-const ProfileNav = () => {
+const ProfileNav = (props) => {
     const [profile,setProfile] = useState();
     const [auth,setAuth] = useState(false)
     const getProfile = () => {
@@ -12,12 +13,14 @@ const ProfileNav = () => {
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {
-                    if(data.phoneNo === undefined){
+                    if(data.password === undefined){
                         setProfile(data.user)
+                        props.getName(data.user.name)
                     }
                     else
                     {
                         setProfile(data)
+                        props.getName(data.name)
                     }
                     
                     setAuth(true)

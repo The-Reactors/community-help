@@ -42,6 +42,17 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minlength:6
     },
+    notificationList: [{
+        notifierName:{
+            type:String
+        },
+        problemTitle:{
+            type:String
+        },
+        action:{
+            type:String
+        }
+    }],
 
     upvoteProblemsList: {
         
