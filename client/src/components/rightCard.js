@@ -5,6 +5,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import MenuItem from '@material-ui/core/MenuItem';
 import Slider from "@material-ui/core/Slider";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
@@ -15,7 +16,7 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 275
+    minWidth: 200
   },
   bullet: {
     display: "inline-block",
@@ -95,6 +96,7 @@ const RightCard = (props) => {
     });
 
     props.updateFilter();
+    props.loaderHome();
   };
 
 
@@ -131,10 +133,9 @@ const RightCard = (props) => {
           Based on Category
         </Typography>
         <br/>
-        <FormControl variant="filled" className={classes.formControl}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
           <InputLabel htmlFor="filled-age-native-simple">Category</InputLabel>
           <Select
-            native
             onChange={(e) => selectCategoryHandler(e)}
             inputProps={{
               name: "age",
@@ -142,34 +143,16 @@ const RightCard = (props) => {
             }}
             align="center"
           >
-            <option aria-label="None" value="" />
-            <option value="land issue" name="category">
-              Land Issue
-            </option>
-            <option value="water issue" name="category">
-              Water Issue
-            </option>
-            <option value="public health" name="category">
-              Public Health
-            </option>
-            <option value="sanitation" name="category">
-              Sanitation
-            </option>
-            <option value="pollution" name="category">
-              Pollution
-            </option>
-            <option value="healthcare issue" name="category">
-              Healthcare Issue
-            </option>
-            <option value="electricity" name="category">
-              Electricity
-            </option>
-            <option value="road blockage" name="category">
-              Road Blockage
-            </option>
-            <option value="waste management" name="category">
-              Waste Management
-            </option>
+          <MenuItem value="none" name="category">None</MenuItem>
+          <MenuItem value="land issue" name="category">Land Issue</MenuItem>
+          <MenuItem value="water issue" name="category">Water Issue</MenuItem>
+          <MenuItem value="public health" name="category">Public Health</MenuItem>
+          <MenuItem value="sanitation"  name="category"> Sanitation</MenuItem>
+          <MenuItem value="pollution" name="category">Pollution</MenuItem>
+          <MenuItem value="healthcare issue" name="category">Healthcare Issue</MenuItem>
+          <MenuItem value="electricity" name="category">Electricity</MenuItem>
+          <MenuItem value="road blockage" name="category">Road Blockage</MenuItem>
+          <MenuItem value="waste management" name="category">Waste Management</MenuItem>
           </Select>
           
         </FormControl>
@@ -180,10 +163,9 @@ const RightCard = (props) => {
           Based on Priority
         </Typography>
         <br/>
-        <FormControl variant="filled" className={classes.formControl}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
           <InputLabel htmlFor="filled-age-native-simple">Priority</InputLabel>
           <Select
-            native
             onChange={(e) => selectPriorityHandler(e)}
             inputProps={{
               name: "age",
@@ -191,16 +173,10 @@ const RightCard = (props) => {
             }}
             align="center"
           >
-            <option aria-label="None" value="" />
-            <option value="emergency" name="priority">
-              Emergency
-            </option>
-            <option value="urgent" name="priority">
-              Urgent
-            </option>
-            <option value="not urgent" name="priority">
-              Not Urgent
-            </option>
+            <MenuItem value="none" name="category">None</MenuItem>
+            <MenuItem value="emergency" name="category">Emergency</MenuItem>
+            <MenuItem value="urgent" name="category">Urgent</MenuItem>
+            <MenuItem value="not urgent" name="category">Not Urgent</MenuItem>
           </Select>
           <br />
         </FormControl>
@@ -211,10 +187,9 @@ const RightCard = (props) => {
           Based on Status
         </Typography>
         <br />
-        <FormControl variant="filled" className={classes.formControl}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
           <InputLabel htmlFor="filled-age-native-simple">Status</InputLabel>
           <Select
-            native
             onChange={(e) => selectStatusHandler(e)}
             inputProps={{
               name: "age",
@@ -222,13 +197,9 @@ const RightCard = (props) => {
             }}
             align="center"
           >
-            <option aria-label="None" value="" />
-            <option value="Solved" name="status">
-              Ticket Solved{" "}
-            </option>
-            <option value="pending" name="status">
-              Ticket Pending
-            </option>
+            <MenuItem value="none" name="category">None</MenuItem>
+            <MenuItem value="Solved" name="category">Ticket Solved</MenuItem>
+            <MenuItem value="pending" name="category">Ticket Pending</MenuItem>
           </Select>
           <br />
         </FormControl>

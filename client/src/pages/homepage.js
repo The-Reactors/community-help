@@ -6,6 +6,7 @@ import ProblemCard from "../components/card"
 import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
 import Loader from "../components/loaderGeneral";
+import ProfileNav from "../components/profileNav";
 
 const Homepage = () => {
 
@@ -15,6 +16,9 @@ const Homepage = () => {
     const [filter, setFilter] = useState(false)
     const [refreshCard,setRefreshCard] = useState(false)
 
+    const setLoadingHome = () => {
+        setIsLoadingHome(true);
+    }
     const [filterParams, setFilterParams] = useState({
         proximity:"10",
         category:"none",
@@ -76,7 +80,6 @@ const Homepage = () => {
         <div>
             
             <Navbar activeElement="home">
-            
             <Modal isOpen={isModalOpen}>
                 <div>
                     Please allow the access to your location to see nearby tickets<br/>
@@ -91,6 +94,7 @@ const Homepage = () => {
                 
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
+           {!isLoadingHome && <ProfileNav/> } 
                 {!isLoadingHome && <div className="col-md-10">
                 {
                 issues.map((issue, index) => {
@@ -104,7 +108,7 @@ const Homepage = () => {
                 })}
             </div>}
             <div className="col-md-2" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
-            {!isLoadingHome && <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)}/>}
+            {!isLoadingHome && <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)} loaderHome={() => setLoadingHome()}/>}
             
             </div>
             </div> 

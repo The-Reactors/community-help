@@ -4,7 +4,7 @@ import "../assets/css/loaderGeneral.css"
 const LoaderGeneral = () => {
     return (
         <div>
-        <div class="load">
+        <div className="load">
   <hr/><hr/><hr/><hr/>
         </div>
         </div>
