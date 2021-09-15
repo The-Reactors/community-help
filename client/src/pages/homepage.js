@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../assets/css/style.css"
-import Modal from 'react-modal'
+import {Modal,Button} from 'react-bootstrap'
 import Navbar from "../components/navbar";
 import ProblemCard from "../components/card"
 import RightCard from "../components/rightCard";
@@ -84,14 +84,32 @@ const Homepage = () => {
         <div>
             
             <Navbar activeElement="home">
-            <Modal isOpen={isModalOpen}>
-                <div>
-                    Please allow the access to your location to see nearby tickets<br/>
+            <Modal show={isModalOpen}
+            animation={false}
+      
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered>
+                <Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter">
+        <h2>Location Error</h2>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div style={{textAlign:"center"}}>
+          <br/>
+         <h3> Please allow the access to your location to see nearby tickets<br/>
                     Please follow the instructions from the
-                    <a href="https://support.google.com/chrome/answer/142065?hl=ena" target="_blank"> link </a>
-                    and then refresh the page
-                    <button onClick = {() =>{setIsModalOpen(false)}}>OK</button>
-                </div>
+                    <a href="https://support.google.com/chrome/answer/142065?hl=ena" target="_blank"> Link </a>
+                    and then refresh the page.</h3>
+        <br/>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        
+        <Button onClick = {() =>{setIsModalOpen(false)}}>Ok</Button>
+      </Modal.Footer>
+            
                 </Modal>
 
                 

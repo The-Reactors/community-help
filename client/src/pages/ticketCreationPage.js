@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import URL from '../URL'
-import Modal from 'react-modal'
+import {Modal,Button} from 'react-bootstrap'
 import swal from 'sweetalert';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2YjZ2In0.pQ-92peoEdKmKFJAi6DoSg';
@@ -197,20 +197,45 @@ const TicketCreationPage = () => {
         <div>
            <div id="content" className="p-4 p-md-5 pt-5">
           {/* <iframe width="800" height="570" src = "https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed" ></iframe> */}
-          <Modal isOpen = {isModalOpen}>
-          <div>
+          <Modal show = {isModalOpen}
+          animation={false}
+      
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered>
+
+<Modal.Header>
+        <Modal.Title id="contained-modal-title-vcenter">
+        <h2>Confirm Ticket</h2>
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <div style={{textAlign:"center"}}>
+          <br/>
+          <div className= "col-md-6" style={{overflow:"hidden"}}>
               <div ref={mapContainer} style={{height:"400px",width:"400px"}} />
             </div>
-            <p>
-            title : {userEnteredData.title}
-            decription : {userEnteredData.description}
-            location : {userEnteredData.location}
-            status : {userEnteredData.status}
-            priority : {userEnteredData.priority}
-            category : {userEnteredData.category}
+            <div className= "col-md-6" >
+            <p style= {{textAlign:"left", marginLeft:"30px",fontSize:"20px"}}>
+            <b>Title</b> : {userEnteredData.title} <br/>
+            <b>Decription</b> : {userEnteredData.description}<br/>
+            <b>Location</b> : {userEnteredData.location}<br/>
+            <b>Status</b> : {userEnteredData.status}<br/>
+            <b>Priority</b> : {userEnteredData.priority}<br/>
+            <b>Category</b> : {userEnteredData.category}<br/>
             </p>
-            <button onClick = {ticketConfirmHandler}>Confirm</button>
-            <button onClick = {() =>{setIsModalOpen(false)}}>Reject</button>
+            </div>
+        <br/>
+        </div>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick = {ticketConfirmHandler}>Accept</Button>
+        <Button onClick = {() =>{setIsModalOpen(false)}}>Reject</Button>
+      </Modal.Footer>
+            
+          
+            {/* <button onClick = {ticketConfirmHandler}>Confirm</button>
+            <button onClick = {() =>{setIsModalOpen(false)}}>Reject</button> */}
             </Modal>
            <form action="" encType = "multipart/form-data">
                <label htmlFor="title">Title</label>
