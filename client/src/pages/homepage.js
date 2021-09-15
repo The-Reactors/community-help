@@ -95,7 +95,7 @@ const Homepage = () => {
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
            {!isLoadingHome && <ProfileNav/> } 
-           <div className="col-md-10">
+           <div className="col-md-9">
                 {!isLoadingHome && <div>
                 {
                 issues.map((issue, index) => {
@@ -110,7 +110,7 @@ const Homepage = () => {
             
             </div>}
             </div>
-            <div className="col-md-2" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
+            <div className="col-md-3" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
            <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)} loaderHome={() => setLoadingHome()}/>
             
             </div>

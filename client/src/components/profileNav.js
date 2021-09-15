@@ -179,11 +179,9 @@ const ProfileNav = () => {
                 <li className="profile_li"><a className="profile" href="#"><span className="picon"><i className="fa fa-user"></i>
                     </span>Profile</a>
                     <a href="/myAccount">
-                <div className="btn" style={{marginLeft:"40px"}}>My Account</div>
+                <div className="btn">My Account</div>
                 </a>
                 </li>
-                <li><a className="address" href="#"><span className="picon"><i className="fa fa-address-card"></i></span>Address</a></li>
-                <li><a className="settings" href="#"><span className="picon"><i className="fa fa-gear"></i></span>Settings</a></li>
                 <li><a className="logout" href="http://localhost:5000/users/logout"><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
             </ul>
             </div>

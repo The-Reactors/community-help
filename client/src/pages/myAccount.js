@@ -122,8 +122,6 @@ const MyAccount = () =>{
             data.append('profilePic', imageState[0])
            
         }
-        //console.log("haha",imageState[0])
-
 
     const requestOptions = {
         method: 'POST',
@@ -188,12 +186,8 @@ const MyAccount = () =>{
           }) 
 
     }
-
-
-   
-
-
     return <div>
+      <div id="content" className="p-4 p-md-5 pt-5">
         <form action="" encType = "multipart/form-data">
               
         <label htmlFor="name">Name</label>
@@ -216,14 +210,14 @@ const MyAccount = () =>{
                 <button onClick = {fileUpdatePhoneNoHandler}>Update</button>
               <p>
                 <label htmlFor="uploads">
-                Choose the images you want to upload:
+                Update Your Profile Picture
                 </label>
                 <input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" onChange = {fileHandler} />
                 <button onClick = {fileSubmitHandler}>Upload</button>
                 </p>
                 
            </form> 
-
+           </div>
     </div>
 }
 

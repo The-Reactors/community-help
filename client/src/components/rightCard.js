@@ -116,7 +116,7 @@ const RightCard = (props) => {
           Based on Category
         </Typography>
         <br/>
-        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
           <InputLabel htmlFor="filled-age-native-simple">Category</InputLabel>
           <Select
             onChange={(e) => selectCategoryHandler(e)}
@@ -146,7 +146,7 @@ const RightCard = (props) => {
           Based on Priority
         </Typography>
         <br/>
-        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
           <InputLabel htmlFor="filled-age-native-simple">Priority</InputLabel>
           <Select
             onChange={(e) => selectPriorityHandler(e)}
@@ -170,7 +170,7 @@ const RightCard = (props) => {
           Based on Status
         </Typography>
         <br />
-        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 120}}>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
           <InputLabel htmlFor="filled-age-native-simple">Status</InputLabel>
           <Select
             onChange={(e) => selectStatusHandler(e)}
