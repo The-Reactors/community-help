@@ -114,6 +114,17 @@ router.post("/updateUserPhoneNo", auth, async (req,res) =>{
     res.status(401).send(e)
   }
 })
+
+router.get("/getNotifications", auth, async (req,res) =>{
+
+  try{
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
+    res.status(200).send(user.notificationList)
+
+  }catch(e){
+    res.status(401).send(e)
+  }
+})
 router.get(
     "/login/google",
     passport.authenticate("google", {scope:["profile","email" ] })
@@ -181,9 +192,22 @@ router.get('/users', auth, async (req, res) => {
         const users = await User.find({})
         res.send(users)
     }catch(e){
-        res.status(500).send()
+        res.status(500).send(e)
     }
 })
+
+router.post('/ticket/markAsRead', auth, async (req, res) => {
+  try{
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
+    user.notificationList=[]
+    await user.save() 
+    res.send(user)
+  } 
+  catch(e){
+      res.status(401).send(e)
+  }
+})
+
 
 router.get('/users/me', auth, async (req, res) => {
 

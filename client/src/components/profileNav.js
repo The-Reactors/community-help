@@ -3,11 +3,13 @@ import "../assets/css/profileNav.css"
 import bell from "../assets/images/bell.png"
 import ScriptTag from 'react-script-tag';
 import silhouette from "../assets/images/profile.png"
-import { propTypes } from 'react-bootstrap/esm/Image';
+import nayakShort from "../assets/images/shortLogo.png"
 
 const ProfileNav = (props) => {
     const [profile,setProfile] = useState();
     const [auth,setAuth] = useState(false)
+    const [notifications,setNotifications] = useState([])
+    
     const getProfile = () => {
         fetch(`http://localhost:5000/users/me`,  {credentials: "include"})
         .then(async response => {
@@ -36,14 +38,61 @@ const ProfileNav = (props) => {
             console.log(errorMessage)
           })
     }
+
+    const getNotifications = () => {
+        fetch(`http://localhost:5000/getNotifications`,  {credentials: "include"})
+        .then(async response => {
+            if(response.ok){
+                response.json().then(data => {
+                    console.log("Notifications",data)
+                   setNotifications(data)
+                });
+             }
+            else{
+                throw response.json();
+            }
+          })
+          .catch(async (error) => {
+            setAuth(false)
+            const errorMessage = await error;
+            console.log(errorMessage)
+          })
+    }
+
           useEffect(() =>{
             getProfile()
+            getNotifications()
         }, [])
 
+        const markAsReadHandler = () => {
+
+            const Options = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+                };
+
+            fetch(`http://localhost:5000/ticket/markAsRead`, Options)
+            .then(async response => {
+            if(response.ok){
+                response.json().then(data => {
+                      window.location.reload();
+                });
+             }
+            else{
+                throw response.json();
+            }
+          })
+          .catch(async (error) => {
+            const errorMessage = await error;
+            console.log(errorMessage)
+          })
+        }
         let authPic;
         if(profile===undefined)
         {
-            authPic= (<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/>)
+            authPic= (<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_loggedOut"/>)
+            
         }
         else
         {
@@ -52,20 +101,22 @@ const ProfileNav = (props) => {
 
                 if(profile.profilePic === undefined){
                     console.log(profile)
-                    authPic=(<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/>)
+                    authPic=(<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_NativeImage"/>)
                 }else{
                     console.log(profile)
                     const profilePic = new Buffer(profile.profilePic.data).toString("base64")
-                    authPic=(<img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profilePic}`} alt="profile_pic"/>)
+                    authPic=(<img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profilePic}`} alt="profile_pic_NativePresent"/>)
 
                 }
             }
             else
             {
-                authPic = (<img  style={{borderRadius: "50%"}} src={profile.profilePicLink} alt="profile_pic"/> )
+                authPic = (<img  style={{borderRadius: "50%"}} src={profile.profilePicLink} alt="profile_pic_google"/> )
             }
         }
-
+       
+            
+        
     return (
         <div>
              <ScriptTag type="text/javascript" src="/js/profileNav.js"/>
@@ -77,92 +128,55 @@ const ProfileNav = (props) => {
 
         <div className="profileNav_right">
         <div className="notifications">
-            <div className="icon_wrap"><img style={{marginBottom:"20px"}}src={bell}/></div>
+           {auth ? <div className="icon_wrap"><img style={{marginBottom:"20px"}}src={bell}/></div>:null} 
             
             <div className="notification_dd" style={{zIndex:"1"}}>
                 <ul className="notification_ul">
-                    <li className="starbucks success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li>  
-                    <li className="baskin_robbins failed">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Failed</p>  
-                        </div>
-                    </li> 
-                    <li className="mcd success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li>  
-                    <li className="pizzahut failed">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Failed</p>  
-                        </div>
-                    </li> 
-                    <li className="kfc success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li> 
-                    <li className="show_all">
-                        <p className="link">Show All Activities</p>
+                    {
+                         notifications.map((notification, index) =>{
+                           return <div key={index}>
+                                      {notification.action.localeCompare("Upvote") === 0 ? 
+                                      <li className="success">
+                                          <div className="notify_icon">
+                                                <span className="icon">
+                                                    <img src={nayakShort}></img></span>  
+                                            </div>
+                                            <div className="notify_data">
+                                                <div className="title">
+                                                    <b>Title Of Ticket : </b>{notification.problemTitle} 
+                                                </div>
+                                                <div className="sub_title">
+                                                {notification.notifierName} Upvoted Your Ticket With Title: <b>{notification.problemTitle}</b>
+                                            </div>
+                                            </div>
+                                            <div className="notify_status">
+                                            <span style={{color:"#6BDD8F"}} className="fa fa-thumbs-up fa-3x mr-3"></span>
+                                            </div>
+                                        </li>
+                                        : <li className="failed">
+                                            <div className="notify_icon">
+                                                <span className="icon">
+                                                <img src={nayakShort}></img></span>  
+                                            </div>
+                                            <div className="notify_data">
+                                                <div className="title">
+                                                <b>Title Of Ticket : </b> {notification.problemTitle}   
+                                                </div>
+                                                <div className="sub_title">
+                                                {notification.notifierName} Downvoted Your Ticket With Title: <b>{notification.problemTitle}</b>
+                                            </div>
+                                            </div>
+                                            <div className="notify_status">
+                                            <span style={{color:"#FF1000"}} className="fa fa-thumbs-down fa-3x mr-3"></span>
+                                            </div>
+                                        </li>  
+                                        } 
+                                            
+                                 </div>
+                         })
+                    }
+                  <li className="show_all">
+                        <p className="link" onClick={markAsReadHandler}><span style={{color:"#1E1E1E",cursor:"pointer"}} className="fa fa-check mr-3"></span>Mark As Read</p>
                     </li> 
                 </ul>
             </div>
@@ -172,12 +186,12 @@ const ProfileNav = (props) => {
             <div className="icon_wrap">
             {auth ? 
             authPic
-            :<img  style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/> } 
-            <span className="name">{auth ? `Hello, ${profile.name} `: `Sign In`}</span>
-            <i className="fa fa-chevron-down"></i>
+            :<a href="/login"><img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/> </a>} 
+            <span className="name">{auth ? `Hello, ${profile.name} `: <a href="/login">Sign In</a>}</span>
+            {auth ? <i className="fa fa-chevron-down"></i> : <a href="/login"><i className="fa fa-chevron-down"></i></a>}
             </div>
 
-            <div className="profile_dd" style={{zIndex:"1"}}>
+           {auth?<div className="profile_dd" style={{zIndex:"1"}}>
             <ul className="profile_ul"> 
                 <li className="profile_li"><a className="profile" href="#"><span className="picon"><i className="fa fa-user"></i>
                     </span>Profile</a>
@@ -187,103 +201,14 @@ const ProfileNav = (props) => {
                 </li>
                 <li><a className="logout" href="http://localhost:5000/users/logout"><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
             </ul>
-            </div>
+            </div>:null} 
         </div>
         </div>
     </div>
     
     <div className="popup" style={{zIndex:"10"}}>
         <div className="shadow"></div>
-        <div className="inner_popup">
-            <div className="notification_dd">
-                <ul className="notification_ul">
-                    <li className="title">
-                        <p>All Notifications</p>
-                        <p className="close"><i className="fa fa-times" aria-hidden="true"></i></p>
-                    </li> 
-                    <li className="starbucks success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li>  
-                    <li className="baskin_robbins failed">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Failed</p>  
-                        </div>
-                    </li> 
-                    <li className="mcd success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li>  
-                    <li className="pizzahut failed">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Failed</p>  
-                        </div>
-                    </li> 
-                    <li className="kfc success">
-                        <div className="notify_icon">
-                            <span className="icon"></span>  
-                        </div>
-                        <div className="notify_data">
-                            <div className="title">
-                                Lorem, ipsum dolor.  
-                            </div>
-                            <div className="sub_title">
-                            Lorem ipsum dolor sit amet consectetur.
-                        </div>
-                        </div>
-                        <div className="notify_status">
-                            <p>Success</p>  
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+       
     </div>
     
     </div>
