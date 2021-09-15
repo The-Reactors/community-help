@@ -95,7 +95,8 @@ const Homepage = () => {
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
            {!isLoadingHome && <ProfileNav/> } 
-                {!isLoadingHome && <div className="col-md-10">
+           <div className="col-md-10">
+                {!isLoadingHome && <div>
                 {
                 issues.map((issue, index) => {
                     console.log(issue.status)
@@ -106,9 +107,11 @@ const Homepage = () => {
                         
                     </div>
                 })}
+            
             </div>}
+            </div>
             <div className="col-md-2" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
-            {!isLoadingHome && <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)} loaderHome={() => setLoadingHome()}/>}
+           <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)} loaderHome={() => setLoadingHome()}/>
             
             </div>
             </div> 

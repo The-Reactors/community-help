@@ -15,7 +15,6 @@ const Register = () => {
         phone: "",
         password: ""
     })
-    const [responseBody, setResponseBody] = useState()
 
     const handleInput = (event) =>
     {

@@ -10,8 +10,6 @@ import Slider from "@material-ui/core/Slider";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-
-import Grid from "@material-ui/core/Grid";
 import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -41,21 +39,6 @@ const RightCard = (props) => {
     priority: "none",
     status: "none"
   });
-
-  const handleInput = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    setFilterData({ ...filterData, [name]: value });
-  };
-  const selectProximityHandler = (e) => {
-    setFilterData((prev) => {
-      return {
-        ...prev,
-        proximity: e.target.value
-      };
-    });
-  };
   const selectCategoryHandler = (e) => {
     setFilterData((prev) => {
       return {
