@@ -46,7 +46,16 @@ const ProfileNav = () => {
         {
             if(profile.profilePicLink===undefined)
             {
-                authPic=(<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/>)
+
+                if(profile.profilePic === undefined){
+                    console.log(profile)
+                    authPic=(<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/>)
+                }else{
+                    console.log(profile)
+                    const profilePic = new Buffer(profile.profilePic.data).toString("base64")
+                    authPic=(<img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profilePic}`} alt="profile_pic"/>)
+
+                }
             }
             else
             {
@@ -169,7 +178,9 @@ const ProfileNav = () => {
             <ul className="profile_ul"> 
                 <li className="profile_li"><a className="profile" href="#"><span className="picon"><i className="fa fa-user"></i>
                     </span>Profile</a>
+                    <a href="/myAccount">
                 <div className="btn" style={{marginLeft:"40px"}}>My Account</div>
+                </a>
                 </li>
                 <li><a className="address" href="#"><span className="picon"><i className="fa fa-address-card"></i></span>Address</a></li>
                 <li><a className="settings" href="#"><span className="picon"><i className="fa fa-gear"></i></span>Settings</a></li>

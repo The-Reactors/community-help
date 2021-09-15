@@ -10,6 +10,7 @@ import Register from "./pages/login/register";
 import MyTickets from "./pages/myTickets";
 import Navbar from "./components/navbar";
 import RightCard from "./components/rightCard";
+import MyAccount from "./pages/myAccount"
 
 
 function App() {
@@ -38,6 +39,11 @@ function App() {
             <Route path="/myTickets">
               <Navbar activeElement="myTickets">
                 <MyTickets />
+              </Navbar>
+            </Route>
+            <Route path="/myAccount">
+              <Navbar activeElement="myAccount">
+                <MyAccount />
               </Navbar>
             </Route>
           </Switch>

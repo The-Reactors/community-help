@@ -1,10 +1,27 @@
 const express = require('express')
 const User = require('../models/user')
+const multer = require('multer')
+
 const auth = require('../middleware/auth')
 const passport = require("passport")
 const bcrypt = require("bcryptjs");
 const LocalStrategy = require("passport-local").Strategy;
 const router = new express.Router()
+
+
+
+const profilePic = multer({
+  limits:{
+      fileSize:3000000
+  },
+  fileFilter(req,file,cb){
+      if(!file.originalname.match(/\.(jpg|png|JPG|PNG|JPEG|jpeg)$/))
+          return cb(new Error('This is not a correct format of the file'))
+
+      cb(undefined,true)
+  }
+})
+
 
 passport.use(new LocalStrategy({
     usernameField: 'email',
@@ -36,6 +53,47 @@ passport.serializeUser((obj, done) => {
     done(null, obj);
   });
 
+
+router.post("/updateProfilePic", auth, profilePic.single("profilePic"), async (req,res) =>{
+ //console.log("asasa",req.file)
+  try{
+    const user = await User.findOne({_id:req.user._id})
+    user.profilePic = req.file.buffer
+    await user.save()
+    
+    res.send(user)
+  }catch(e){
+    res.status(401).send(e)
+  }
+})
+
+router.post("/updateUserName", auth, async (req,res) =>{
+
+  try{
+    const user = await User.findOne({_id:req.user._id})
+    user.name = req.body.name
+    await user.save()
+    
+    res.send(user)
+
+  }catch(e){
+    res.status(401).send(e)
+  }
+})
+
+router.post("/updateUserPhoneNo", auth, async (req,res) =>{
+
+  try{
+    const user = await User.findOne({_id:req.user._id})
+    user.phoneNo = req.body.phoneNo
+    await user.save()
+    
+    res.send(user)
+
+  }catch(e){
+    res.status(401).send(e)
+  }
+})
 router.get(
     "/login/google",
     passport.authenticate("google", {scope:["profile","email" ] })
