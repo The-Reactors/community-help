@@ -1,9 +1,50 @@
 import React, { useEffect, useRef, useState } from 'react'
-import URL from '../URL'
-import {Modal,Button} from 'react-bootstrap'
+
+import {Modal} from "react-bootstrap"
 import swal from 'sweetalert';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input"
+import FormHelperText from "@material-ui/core/FormHelperText"
+
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2YjZ2In0.pQ-92peoEdKmKFJAi6DoSg';
+
+const useStyles = makeStyles({
+  root: {
+    display:"inline-block"
+  },
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
+  },
+  title: {
+    fontSize: 14
+  },
+  pos: {
+    marginBottom: 12
+  },
+  heading: {
+    fontWeight: "bolder"
+  },
+  formEntry: {
+    marginRight: "2rem"
+  },
+  helper: {
+    fontSize: 10,
+    color: "grey"
+  }
+});
+
 const TicketCreationPage = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         title : "",
@@ -18,6 +59,10 @@ const TicketCreationPage = () => {
     const [latitude, setLatitude] = useState(30.3420432)
     const [longitude, setLongitude] = useState(76.2895914)
     const [isModalOpen, setIsModalOpen] = useState(false)
+
+    const classes = useStyles();
+    const bull = <span className={classes.bullet}>•</span>;
+  
 
     let map = useRef(null);
     let mapContainer = useRef(null);
@@ -237,60 +282,178 @@ const TicketCreationPage = () => {
             {/* <button onClick = {ticketConfirmHandler}>Confirm</button>
             <button onClick = {() =>{setIsModalOpen(false)}}>Reject</button> */}
             </Modal>
-           <form action="" encType = "multipart/form-data">
-               <label htmlFor="title">Title</label>
-               <input
-                   type = "text"
-                   name = "title"
-                   value = {userEnteredData.title}
-                   onChange = {handleInput}
-               />
-               <label htmlFor="description">Description</label>
-                <input 
-                type="text" 
-                autoComplete = "off"
-                value = {userEnteredData.description}
-                onChange = {handleInput}
-                name = "description"
-                />
-                <label htmlFor="location">Location</label>
-                <input 
-                type="text" 
-                autoComplete = "off"
-                onChange = {handleInput}
-                value = {userEnteredData.location}
-                name = "location"
-                />
-                <label htmlFor="priority">Select your Ticket Priority
-               <select onChange={(e) => selectPriorityHandler(e)}>
-                <option value="emergency" name = "priority">emergency</option>
-                <option value="urgent" name = "priority">urgent</option>
-                <option value="not urgent" name = "priority">not urgent</option>
-                <option value="baad mein karwalenge" name = "priority">baad mein karwalenge</option>
-                </select>
-                </label>
-                <label htmlFor="category">Select your category:
-               <select onChange={(e) => selectCategoryHandler(e)}>
-                <option value = "land issue" name = "category">land issue</option>
-                <option value = "water issue" name = "category">water issue</option>
-                <option value = "public health" name = "category">public health</option>
-                <option value = "sanitation" name = "category">sanitation</option>
-                <option value = "pollution" name = "category">Pollution</option>
-                <option value = "healthcare issue" name = "category">healthcare issue</option>
-                <option value = "electricity" name = "category">Electricity</option>
-                <option value = "road blockage" name = "category">Road Blockage</option>
-                <option value = "waste management" name = "category">waste management</option>
-                </select>
-                </label>
-                <p>
-                <label htmlFor="uploads">
-                Choose the images you want to upload:
-                </label>
-                <input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
-                <button onClick = {fileSubmitHandler}>Upload</button>
-                </p>
-                
-           </form> 
+            
+
+            {/* raise a ticket card */}
+
+            <div className = "col-md-10">
+            <Card className={classes.root}>
+      <CardContent>
+        <Typography className = {classes.heading} color="textDark" gutterBottom variant="h4">
+        <u> Raise a Ticket</u>
+        </Typography>
+        <br />
+        <hr/>
+        <Typography htmlFor="personal information" component="h2" >
+          Personal Information
+        </Typography>
+        <Typography align = "center">
+        <FormControl>
+        <InputLabel  htmlFor="name">Name</InputLabel>
+        <Input className = {classes.formEntry} id="component-simple"/>
+      </FormControl>
+      <FormControl>
+        <InputLabel htmlFor="phone number">Phone Number</InputLabel>
+        <Input
+          id="component-helper"
+          aria-describedby="component-helper-text"
+          type = "number"
+
+        />
+        <FormHelperText id="component-helper-text">Enter the number of the Point of Contact</FormHelperText>
+      </FormControl>
+      </Typography>
+      <br/>
+      <hr/>
+        <Typography htmlFor="proximity" component="h2" >
+          Ticket Information
+        </Typography>
+        <Typography align = "center">
+        <FormControl>
+        <InputLabel  htmlFor="component-simple">Title</InputLabel>
+        <Input 
+        className = {classes.formEntry} 
+        id="component-simple"  
+        type = "text"
+        name = "title"
+        value = {userEnteredData.title}
+        onChange = {handleInput}/>
+        <br/>
+        </FormControl>
+        <FormControl>
+        <InputLabel  htmlFor="component-simple">Description</InputLabel>
+        <Input 
+        className = {classes.formEntry} 
+        id="component-simple"
+        type="text" 
+        autoComplete = "off"
+        value = {userEnteredData.description}
+        onChange = {handleInput}
+        name = "description"/>
+      </FormControl>
+      </Typography>
+      <br/>
+      <Typography align = "center">
+      <FormControl>
+        <InputLabel  htmlFor="component-simple">Location</InputLabel>
+        <Input 
+        className = {classes.formEntry} 
+        id="component-simple"
+        type="text" 
+        autoComplete = "off"
+        onChange = {handleInput}
+        value = {userEnteredData.location}
+        name = "location"/>
+      </FormControl>
+      </Typography>
+      <br/>
+        <Typography align = "center">
+        {/* <Typography htmlFor="category" component="h2" align="center">
+          Select the Category
+        </Typography> */}
+        <br />
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="category">Select Category</InputLabel>
+          <Select
+            native
+            onChange={(e) => selectCategoryHandler(e)}
+            align="center"
+          >
+            <option aria-label="None" value="" />
+            <option value="land issue" name="category">
+              Land Issue
+            </option>
+            <option value="water issue" name="category">
+              Water Issue
+            </option>
+            <option value="public health" name="category">
+              Public Health
+            </option>
+            <option value="sanitation" name="category">
+              Sanitation
+            </option>
+            <option value="pollution" name="category">
+              Pollution
+            </option>
+            <option value="healthcare issue" name="category">
+              Healthcare Issue
+            </option>
+            <option value="electricity" name="category">
+              Electricity
+            </option>
+            <option value="road blockage" name="category">
+              Road Blockage
+            </option>
+            <option value="waste management" name="category">
+              Waste Management
+            </option>
+          </Select>
+          <br />
+        </FormControl>
+        </Typography>
+        <br />
+        <Typography align = "center">
+        {/* <Typography htmlFor="priority" component="h2" align="center">
+          Select Priority
+        </Typography> */}
+    
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel htmlFor="priority">Priority</InputLabel>
+          <Select
+            native
+            onChange={(e) => selectPriorityHandler(e)}
+            align="center"
+          >
+            <option aria-label="None" value="" />
+            <option value="emergency" name="priority">
+              Emergency
+            </option>
+            <option value="urgent" name="priority">
+              Urgent
+            </option>
+            <option value="not urgent" name="priority">
+              Not Urgent
+            </option>
+          </Select>
+          <br />
+        </FormControl>
+        </Typography>
+        <br/>
+        <Typography align = "center">
+          <formControl>
+            <form encType = "multipart/form-data">
+            <Input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
+            </form>
+          <Typography className = {classes.helper}>upload upto 3 images</Typography>
+          </formControl>
+        </Typography>
+        <hr/> 
+      </CardContent>
+      <CardActions>
+        <Typography align = "center">
+          <Button
+            color="primary"
+            size="large"
+            type="submit"
+            variant="contained"
+            onClick={fileSubmitHandler}
+          >
+            Raise the ticket
+          </Button>
+        </Typography>
+      </CardActions>
+    </Card>
+    </div>
            </div>
         </div>
     )
