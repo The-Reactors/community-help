@@ -16,6 +16,7 @@ import Input from "@material-ui/core/Input"
 import FormHelperText from "@material-ui/core/FormHelperText"
 
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import ProfileNav from '../components/profileNav';
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2YjZ2In0.pQ-92peoEdKmKFJAi6DoSg';
 
 const useStyles = makeStyles({
@@ -94,7 +95,9 @@ const TicketCreationPage = () => {
       });
     };
 
-
+    const getName = (name) => {
+      const Names=name
+    }
     const getLocation =  () =>{
       fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
       .then((response) => {
@@ -243,6 +246,7 @@ const TicketCreationPage = () => {
     return (
         <div>
            <div id="content" className="p-4 p-md-5 pt-5">
+             <ProfileNav getName={(name)=>getName(name)}/>
           <Modal show = {isModalOpen}
           animation={false}
       
