@@ -17,6 +17,7 @@ import FormHelperText from "@material-ui/core/FormHelperText"
 
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import ProfileNav from '../components/profileNav';
+import { MenuItem, MenuList } from '@material-ui/core';
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2YjZ2In0.pQ-92peoEdKmKFJAi6DoSg';
 
 const useStyles = makeStyles({
@@ -368,43 +369,25 @@ const TicketCreationPage = () => {
           Select the Category
         </Typography> */}
         <br />
-        <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="category"> <span style={{color:"red"}}>*</span> Select Category</InputLabel>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
+          <InputLabel htmlFor="category"><span style={{color:"red"}}>*</span> Select Category</InputLabel>
           <Select
-            native
+            
             onChange={(e) => selectCategoryHandler(e)}
             align="center"
           >
-            <option aria-label="None" value="" />
-            <option value="land issue" name="category">
-              Land Issue
-            </option>
-            <option value="water issue" name="category">
-              Water Issue
-            </option>
-            <option value="public health" name="category">
-              Public Health
-            </option>
-            <option value="sanitation" name="category">
-              Sanitation
-            </option>
-            <option value="pollution" name="category">
-              Pollution
-            </option>
-            <option value="healthcare issue" name="category">
-              Healthcare Issue
-            </option>
-            <option value="electricity" name="category">
-              Electricity
-            </option>
-            <option value="road blockage" name="category">
-              Road Blockage
-            </option>
-            <option value="waste management" name="category">
-              Waste Management
-            </option>
+          <MenuItem value="none" name="category">None</MenuItem>
+          <MenuItem value="land issue" name="category">Land Issue</MenuItem>
+          <MenuItem value="water issue" name="category">Water Issue</MenuItem>
+          <MenuItem value="public health" name="category">Public Health</MenuItem>
+          <MenuItem value="sanitation"  name="category"> Sanitation</MenuItem>
+          <MenuItem value="pollution" name="category">Pollution</MenuItem>
+          <MenuItem value="healthcare issue" name="category">Healthcare Issue</MenuItem>
+          <MenuItem value="electricity" name="category">Electricity</MenuItem>
+          <MenuItem value="road blockage" name="category">Road Blockage</MenuItem>
+          <MenuItem value="waste management" name="category">Waste Management</MenuItem>
           </Select>
-          <br />
+          
         </FormControl>
         </Typography>
         <br />
@@ -413,23 +396,17 @@ const TicketCreationPage = () => {
           Select Priority
         </Typography> */}
     
-        <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="priority"> <span style={{color:"red"}}>*</span> Priority</InputLabel>
+        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
+          <InputLabel htmlFor="priority"> <span style={{color:"red"}}>*</span> Select Priority</InputLabel>
           <Select
-            native
+             
             onChange={(e) => selectPriorityHandler(e)}
             align="center"
           >
-            <option aria-label="None" value="" />
-            <option value="emergency" name="priority">
-              Emergency
-            </option>
-            <option value="urgent" name="priority">
-              Urgent
-            </option>
-            <option value="not urgent" name="priority">
-              Not Urgent
-            </option>
+            <MenuItem value="none" name="category">None</MenuItem>
+            <MenuItem value="emergency" name="category">Emergency</MenuItem>
+            <MenuItem value="urgent" name="category">Urgent</MenuItem>
+            <MenuItem value="not urgent" name="category">Not Urgent</MenuItem>
           </Select>
           <br />
         </FormControl>
