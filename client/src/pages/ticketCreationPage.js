@@ -20,7 +20,9 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2Y
 
 const useStyles = makeStyles({
   root: {
-    display:"inline-block"
+    display:"inline-block",
+    minWidth: 1100,
+    paddingLeft:"40px"
   },
   bullet: {
     display: "inline-block",
@@ -241,7 +243,6 @@ const TicketCreationPage = () => {
     return (
         <div>
            <div id="content" className="p-4 p-md-5 pt-5">
-          {/* <iframe width="800" height="570" src = "https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed" ></iframe> */}
           <Modal show = {isModalOpen}
           animation={false}
       
@@ -286,7 +287,7 @@ const TicketCreationPage = () => {
 
             {/* raise a ticket card */}
 
-            <div className = "col-md-10">
+            <div className = "col-md-12">
             <Card className={classes.root}>
       <CardContent>
         <Typography className = {classes.heading} color="textDark" gutterBottom variant="h4">
@@ -295,7 +296,7 @@ const TicketCreationPage = () => {
         <br />
         <hr/>
         <Typography htmlFor="personal information" component="h2" >
-          Personal Information
+          Personal Information <br/> <span style={{color:"red"}}>*= Required</span><br/>
         </Typography>
         <Typography align = "center">
         <FormControl>
@@ -317,10 +318,11 @@ const TicketCreationPage = () => {
       <hr/>
         <Typography htmlFor="proximity" component="h2" >
           Ticket Information
+          <br/> <span style={{color:"red"}}>* = Required</span><br/>
         </Typography>
         <Typography align = "center">
         <FormControl>
-        <InputLabel  htmlFor="component-simple">Title</InputLabel>
+        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Title</InputLabel>
         <Input 
         className = {classes.formEntry} 
         id="component-simple"  
@@ -331,7 +333,7 @@ const TicketCreationPage = () => {
         <br/>
         </FormControl>
         <FormControl>
-        <InputLabel  htmlFor="component-simple">Description</InputLabel>
+        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Description</InputLabel>
         <Input 
         className = {classes.formEntry} 
         id="component-simple"
@@ -345,7 +347,7 @@ const TicketCreationPage = () => {
       <br/>
       <Typography align = "center">
       <FormControl>
-        <InputLabel  htmlFor="component-simple">Location</InputLabel>
+        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Location</InputLabel>
         <Input 
         className = {classes.formEntry} 
         id="component-simple"
@@ -363,7 +365,7 @@ const TicketCreationPage = () => {
         </Typography> */}
         <br />
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="category">Select Category</InputLabel>
+          <InputLabel htmlFor="category"> <span style={{color:"red"}}>*</span> Select Category</InputLabel>
           <Select
             native
             onChange={(e) => selectCategoryHandler(e)}
@@ -408,7 +410,7 @@ const TicketCreationPage = () => {
         </Typography> */}
     
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel htmlFor="priority">Priority</InputLabel>
+          <InputLabel htmlFor="priority"> <span style={{color:"red"}}>*</span> Priority</InputLabel>
           <Select
             native
             onChange={(e) => selectPriorityHandler(e)}
@@ -434,7 +436,7 @@ const TicketCreationPage = () => {
             <form encType = "multipart/form-data">
             <Input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
             </form>
-          <Typography className = {classes.helper}>upload upto 3 images</Typography>
+          <Typography className = {classes.helper}><br/>Upload Upto 3 Images</Typography>
           </formControl>
         </Typography>
         <hr/> 

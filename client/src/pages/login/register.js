@@ -5,10 +5,12 @@ import google from "../../assets/images/Google.png"
 import nayakShort from "../../assets/images/shortLogo.png"
 import nayakLong from "../../assets/images/longLogo.png"
 import register from "../../assets/images/register.png"
+import { Redirect } from 'react-router'
 
 
 const Register = () => {
 
+  const[signInRedirect,setSignInRedirect]=useState(null);
     const [userEnteredData, setuserEnteredData] = useState({
         username: "",
         email: "",
@@ -47,12 +49,12 @@ const Register = () => {
                     //setResponseBody(data)
                     if(response.ok){
                         console.log("User created successfully")
-                        
                         swal({
                           title: "Success!",
                           text: "User Created Successfully",
                           icon: "success",
                         });
+                        setSignInRedirect(<Redirect to="/login"/>)
                      }
                     else{
                       swal({
@@ -74,6 +76,7 @@ const Register = () => {
 
     return (
         <div className="background">
+          {signInRedirect}
     <div id="content" className="p-4 p-md-5 pt-5 align-login">
     <div class="login-wrapper">
 <div class="login-container">
