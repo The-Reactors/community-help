@@ -7,9 +7,23 @@ import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
 import Loader from "../components/loaderGeneral";
 import ProfileNav from "../components/profileNav";
-
+import noResult from "../assets/images/noResults.png"
+import ScriptTag from 'react-script-tag';
 const Homepage = () => {
 
+    let AOS;
+    useEffect(() => {
+        const AOS = require("aos");
+        AOS.init({
+          once: true,
+        });
+      }, []);
+    
+      useEffect(() => {
+        if (AOS) {
+          AOS.refresh();
+        }
+      });
     const [issues, setIssues] = useState([])
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [isLoadingHome, setIsLoadingHome] = useState(true);
@@ -82,11 +96,12 @@ const Homepage = () => {
     return (
         
         <div>
-            
-            <Navbar activeElement="home">
+            <ScriptTag type="text/javascript" src="/js/aos.js"/>
+            <Navbar data-aos="fade-up" data-aos-delay="300" activeElement="home">
             <Modal show={isModalOpen}
             animation={false}
-      
+            data-aos="fade-up"
+            data-aos-delay="400"
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered>
@@ -129,8 +144,19 @@ const Homepage = () => {
                         
                     </div>
                 })}
+                
             
             </div>}
+            
+            {!isLoadingHome && issues.length === 0 ?
+            <div>
+                    <div className="col-md-6">
+                        <img src={noResult}/>
+                    </div>
+                    <div className="col-md-6 no-result-text">
+                        <h1 data-aos="fade-up" data-aos-delay="200" style={{fontSize:"30px"}}>No Results Were Found <span style={{color:"#3445B4",fontWeight:"bold"}}>:||</span> <br/> Please Try Again ! </h1>
+                    </div> 
+            </div>:null}
             </div>
             <div className="col-md-3" style = {{position:"sticky",top:"0",alignSelf:"right"}}>
            <RightCard updateFilterParams={(params)=>updateFilterParams(params)} updateFilter={()=>updateFilter()} updateIssues={(problems)=>updateIssues(problems)} loaderHome={() => setLoadingHome()}/>

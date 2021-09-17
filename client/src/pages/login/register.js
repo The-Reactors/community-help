@@ -2,16 +2,16 @@ import React, {useState} from 'react'
 import swal from "sweetalert"
 import "../../assets/css/login.css"
 import google from "../../assets/images/Google.png"
-import nayakShort from "../../assets/images/shortLogo.png"
-import nayakLong from "../../assets/images/longLogo.png"
+import nayakShort from "../../assets/images/shortWhite.png"
+import nayakLong from "../../assets/images/longWhite.png"
 import register from "../../assets/images/register.png"
 import { Redirect } from 'react-router'
 
 
 const Register = () => {
 
-  const[signInRedirect,setSignInRedirect]=useState(null);
-    const [userEnteredData, setuserEnteredData] = useState({
+  const[redirect,setRedirect] = useState(null)
+  const [userEnteredData, setuserEnteredData] = useState({
         username: "",
         email: "",
         phone: "",
@@ -46,7 +46,6 @@ const Register = () => {
             .then(async response => {
                 response.json().then(data =>  {
                     console.log(data);
-                    //setResponseBody(data)
                     if(response.ok){
                         console.log("User created successfully")
                         swal({
@@ -54,12 +53,13 @@ const Register = () => {
                           text: "User Created Successfully",
                           icon: "success",
                         });
-                        setSignInRedirect(<Redirect to="/login"/>)
+                        setRedirect(<Redirect to="/login"/>)
+
                      }
                     else{
                       swal({
                         title: "Failed!",
-                        text: data._message === undefined ? "Already registered Email Address":data._message,
+                        text: data._message === undefined ? "Already registered With Email Address":data._message,
                         icon: "error",
                       });
                         //throw response.json();
@@ -76,7 +76,7 @@ const Register = () => {
 
     return (
         <div className="background">
-          {signInRedirect}
+          {redirect}
     <div id="content" className="p-4 p-md-5 pt-5 align-login">
     <div class="login-wrapper">
 <div class="login-container">
@@ -85,7 +85,7 @@ const Register = () => {
  <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={nayakLong}/></span>
           <p>
            Take a step forward and be an active citizen. 
-           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Create A <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets And Make A Difference In The Society.
+           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Create A <span> <img style={{maxWidth:"20px",maxHeight:"20px",margin:"2px"}} src={nayakShort}/></span>   Account To Start Raising Tickets And Make A Difference In The Society.
           </p>
           <img style={{maxWidth:"200px",maxHeight:"200px",marginTop:"10px"}}src={register}/>
  </div>

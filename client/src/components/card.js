@@ -193,11 +193,6 @@ const upvoteProblem = () => {
                 console.log(errorMessage)
               })
 
-
-
-
-
-
 }
 
 const downvoteProblem = () => {
@@ -325,7 +320,7 @@ const downvoteProblem = () => {
               handleClose()
   }
 
-  const statusButton = (props.showStatusButton == true && status == "pending") ? <a onClick={handleShow}><span className="fa fa-check mr-3"></span>Mark as Solved</a> : null
+  const statusButton = (props.showStatusButton == true && status == "pending") ? <a style={{cursor:"pointer"}} onClick={handleShow}><span className="fa fa-check mr-3"></span>Mark as Solved</a> : null
 
 
 
@@ -333,7 +328,7 @@ const downvoteProblem = () => {
 
       <ConfirmModal showModal={showModal} closeModal={()=>handleClose()} proceedingFxn={()=>updateStatus()}></ConfirmModal>
     
-      <Card className="card-spacing">   
+      <Card className="card-spacing"  data-aos="fade-up" data-aos-delay="300">   
           <Carousel carouselId={props.problemId} images={image}/>
       <Card.Body>
         <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>

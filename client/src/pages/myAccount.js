@@ -1,8 +1,24 @@
 import React, { useState } from 'react'
 import swal from 'sweetalert';
+import { useEffect } from 'react';
 
 const MyAccount = () =>{
     
+
+
+  let AOS;
+  useEffect(() => {
+      const AOS = require("aos");
+      AOS.init({
+        once: true,
+      });
+    }, []);
+  
+    useEffect(() => {
+      if (AOS) {
+        AOS.refresh();
+      }
+    });
 
     const [imageState, setimageState] = useState()
     const [updatedName, setUpdatedName] = useState()
@@ -188,7 +204,7 @@ const MyAccount = () =>{
     }
     return <div>
       <div id="content" className="p-4 p-md-5 pt-5">
-        <form action="" encType = "multipart/form-data">
+        <form data-aos="fade-up" data-aos-delay="300"  action="" encType = "multipart/form-data">
               
         <label htmlFor="name">Name</label>
                 <input 

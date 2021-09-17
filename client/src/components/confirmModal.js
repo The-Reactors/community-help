@@ -3,7 +3,7 @@ import {Modal,Button} from 'react-bootstrap'
 const ConfirmModal = (props) => {
 
 
-return <Modal show = {props.showModal}
+return <Modal data-aos="fade-up" data-aos-delay="300" show = {props.showModal}
     animation={false}
       
       size="lg"

@@ -3,14 +3,16 @@ import swal from "sweetalert"
 import "../../assets/css/bootstrap.min.css"
 import "../../assets/css/login.css"
 import google from "../../assets/images/Google.png"
-import nayakShort from "../../assets/images/shortLogo.png"
-import nayakLong from "../../assets/images/longLogo.png"
+import logoShort from "../../assets/images/shortWhite.png"
+import logoLong from "../../assets/images/longWhite.png"
 import illus from "../../assets/images/login.png"
+import { Redirect } from 'react-router'
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         email: "",
         password: ""
     })
+    const[redirect,setRedirect] = useState(null)
     const handleInput = (event) =>
     {
         const name = event.target.name;
@@ -44,11 +46,12 @@ const Login = () => {
                       text: "Logged in Successfully",
                       icon: "success",
                     });
+                    setRedirect(<Redirect to="/"/>)
                  }
                 else{
                   swal({
                     title: "Failed!",
-                    text: "Login Credentials Could Not Be Verified",
+                    text: "Login Credentials Could Not Be Verified, Please Try Again !",
                     icon: "error",
                   });
                     throw response.json();
@@ -62,16 +65,17 @@ const Login = () => {
 
     return (
         <div className="background">
+          {redirect}
            <div id="content" className="p-4 p-md-5 pt-5 align-login" >
          
            <div class="login-wrapper shadow" >
     <div class="login-container">
       <div class="col-left">
         <div class="login-text">
-          <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={nayakLong}/></span>
+          <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={logoLong}/></span>
           <p>
            Take a step forward and be an active citizen. 
-           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Sign In To Your  <span> <img style={{maxWidth:"20px",maxHeight:"20px"}} src={nayakShort}/></span>   Account To Start Raising Tickets.
+           Report anything by simply raising tickets and get your voice heard.<br/> <br/> <br/> <br/>  Sign In To Your  <span> <img style={{maxWidth:"20px",maxHeight:"20px",margin:"2px"}} src={logoShort}/></span>   Account To Start Raising Tickets.
           </p>
           <img style={{maxWidth:"200px",maxHeight:"200px",marginTop:"10px"}}src={illus}/>
         </div>

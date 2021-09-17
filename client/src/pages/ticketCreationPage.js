@@ -8,13 +8,12 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input"
 import FormHelperText from "@material-ui/core/FormHelperText"
-
+import { Redirect } from 'react-router'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import ProfileNav from '../components/profileNav';
 import { MenuItem, MenuList } from '@material-ui/core';
@@ -63,11 +62,23 @@ const TicketCreationPage = () => {
     const [latitude, setLatitude] = useState(30.3420432)
     const [longitude, setLongitude] = useState(76.2895914)
     const [isModalOpen, setIsModalOpen] = useState(false)
-
+    const[redirect,setRedirect] = useState(null)
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
   
-
+    let AOS;
+    useEffect(() => {
+        const AOS = require("aos");
+        AOS.init({
+          once: true,
+        });
+      }, []);
+    
+      useEffect(() => {
+        if (AOS) {
+          AOS.refresh();
+        }
+      });
     let map = useRef(null);
     let mapContainer = useRef(null);
 
@@ -193,7 +204,7 @@ const TicketCreationPage = () => {
                   icon: "success",
                 })
                 setIsModalOpen(false)
-                  
+                setRedirect(<Redirect to="/"/>)
                 
              }
              else if(response.status === 401){
@@ -247,10 +258,10 @@ const TicketCreationPage = () => {
     return (
         <div>
            <div id="content" className="p-4 p-md-5 pt-5">
+             {redirect}
              <ProfileNav getName={(name)=>getName(name)}/>
-          <Modal show = {isModalOpen}
+          <Modal  data-aos="fade-up" data-aos-delay="300" show = {isModalOpen}
           animation={false}
-      
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
           centered>
@@ -261,7 +272,7 @@ const TicketCreationPage = () => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div style={{textAlign:"center"}}>
+        <div data-aos="fade-up" data-aos-delay="300"  style={{textAlign:"center"}}>
           <br/>
           <div className= "col-md-6" style={{overflow:"hidden"}}>
               <div ref={mapContainer} style={{height:"400px",width:"400px"}} />
@@ -292,8 +303,8 @@ const TicketCreationPage = () => {
 
             {/* raise a ticket card */}
 
-            <div className = "col-md-12">
-            <Card className={classes.root}>
+       
+            <Card data-aos="fade-up" data-aos-delay="300" className={classes.root}>
       <CardContent>
         <Typography className = {classes.heading} color="textDark" gutterBottom variant="h4">
         <u> Raise a Ticket</u>
@@ -438,7 +449,6 @@ const TicketCreationPage = () => {
     </Card>
     </div>
            </div>
-        </div>
     )
 }
 

@@ -85,7 +85,7 @@ const RightCard = (props) => {
 
   return (
     <div>
-    <Card className={classes.root}>
+    <Card className={classes.root} data-aos="fade-up" data-aos-delay="700">
       <CardContent>
         <Typography color="textDark" align="center" gutterBottom variant="h4">
           Filters
@@ -98,8 +98,6 @@ const RightCard = (props) => {
         
         <Slider
           defaultValue={15}
-          // getAriaValueText={valuetext}
-          // onChange = {(e) => selectProximityHandler(e)}
           value = {proximity}
           aria-labelledby="discrete-slider-small-steps"
           step={5}

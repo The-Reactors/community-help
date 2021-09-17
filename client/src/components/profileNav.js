@@ -130,7 +130,7 @@ const ProfileNav = (props) => {
         <div className="notifications">
            {auth ? <div className="icon_wrap"><img style={{marginBottom:"20px"}}src={bell}/></div>:null} 
             
-            <div className="notification_dd" style={{zIndex:"1"}}>
+            <div className="notification_dd" style={{zIndex:"10"}}>
                 <ul className="notification_ul">
                     {
                          notifications.map((notification, index) =>{
