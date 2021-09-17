@@ -7,6 +7,7 @@ import logoShort from "../../assets/images/shortWhite.png"
 import logoLong from "../../assets/images/longWhite.png"
 import illus from "../../assets/images/login.png"
 import { Redirect } from 'react-router'
+import URL from '../../URL'
 const Login = () => {
     const [userEnteredData, setuserEnteredData] = useState({
         email: "",
@@ -34,7 +35,7 @@ const Login = () => {
             }),  
             credentials: "include"
             };
-            fetch(`http://localhost:5000/localusers/login`, requestOptions )
+            fetch(`${URL}/localusers/login`, requestOptions )
             .then(async response => {
                 if(response.ok){
                     console.log("Response Is Succesfully Done! ")
@@ -119,7 +120,7 @@ const Login = () => {
           </form>
           <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}><hr/> OR </div>
           <div style = {{textAlign:"center"}}>
-           <a href="http://localhost:5000/login/google">
+           <a href={`${URL}/login/google`}>
            <button type = "submit" class = "btn1 btn1-googleSignIn">
              <span> Sign In With <img style= {{maxHeight:"20px",maxHeight:"20px"}}src={google}/></span>
             </button>

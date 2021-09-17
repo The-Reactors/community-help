@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-
+import URL from '../URL';
 import {Modal} from "react-bootstrap"
 import swal from 'sweetalert';
 import { makeStyles } from "@material-ui/core/styles";
@@ -202,7 +202,7 @@ const TicketCreationPage = () => {
         body:data,  
         credentials: "include"
         };
-        fetch(`http://localhost:5000/problems`, requestOptions )
+        fetch(`${URL}/problems`, requestOptions )
         .then(async response => {
 
          

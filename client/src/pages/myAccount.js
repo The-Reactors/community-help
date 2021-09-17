@@ -53,7 +53,7 @@ const MyAccount = () =>{
             credentials: "include"
             };
 
-            fetch(`http://localhost:5000/updateUserName`, requestOptions )
+            fetch(`${URL}/updateUserName`, requestOptions )
             .then(async response => {
                 if(response.ok){
                     console.log("Response Is Succesfully Done! ")
@@ -91,7 +91,7 @@ const MyAccount = () =>{
             credentials: "include"
             };
 
-            fetch(`http://localhost:5000/updateUserPhoneNo`, requestOptions )
+            fetch(`${URL}/updateUserPhoneNo`, requestOptions )
             .then(async response => {
                 if(response.ok){
                     console.log("Response Is Succesfully Done! ")
@@ -145,7 +145,7 @@ const MyAccount = () =>{
         body:data,  
         credentials: "include"
         };
-        fetch(`http://localhost:5000/updateProfilePic`, requestOptions )
+        fetch(`${URL}/updateProfilePic`, requestOptions )
         .then(async response => {
 
          

@@ -4,6 +4,7 @@ import "../assets/css/style.css"
 import ProblemCard from "../components/card";
 import LoaderGeneral from "../components/loaderGeneral";
 import ProfileNav from '../components/profileNav';
+import URL from "../URL";
 
 const MyTickets = () => {
 
@@ -28,7 +29,7 @@ const MyTickets = () => {
 
     useEffect(() =>{
 
-            fetch(`http://localhost:5000/MyTickets`, {credentials: "include"})
+            fetch(`${URL}/MyTickets`, {credentials: "include"})
         .then((response) => {
             if(!response.ok){
                 swal({
