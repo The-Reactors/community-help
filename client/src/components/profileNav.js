@@ -4,6 +4,7 @@ import bell from "../assets/images/bell.png"
 import ScriptTag from 'react-script-tag';
 import silhouette from "../assets/images/profile.png"
 import nayakShort from "../assets/images/shortLogo.png"
+import URL from '../URL';
 
 const ProfileNav = (props) => {
     const [profile,setProfile] = useState();
@@ -11,20 +12,13 @@ const ProfileNav = (props) => {
     const [notifications,setNotifications] = useState([])
     
     const getProfile = () => {
-        fetch(`http://localhost:5000/users/me`,  {credentials: "include"})
+        fetch(`${URL}/users/me`,  {credentials: "include"})
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {
-                    if(data.password === undefined){
-                        setProfile(data.user)
-                        props.getName(data.user.name)
-                    }
-                    else
-                    {
                         setProfile(data)
                         props.getName(data.name)
-                    }
-                    
+
                     setAuth(true)
                 });
              }
@@ -40,7 +34,7 @@ const ProfileNav = (props) => {
     }
 
     const getNotifications = () => {
-        fetch(`http://localhost:5000/getNotifications`,  {credentials: "include"})
+        fetch(`${URL}/getNotifications`,  {credentials: "include"})
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {
@@ -72,7 +66,7 @@ const ProfileNav = (props) => {
                 credentials: "include"
                 };
 
-            fetch(`http://localhost:5000/ticket/markAsRead`, Options)
+            fetch(`${URL}/ticket/markAsRead`, Options)
             .then(async response => {
             if(response.ok){
                 response.json().then(data => {
@@ -199,7 +193,7 @@ const ProfileNav = (props) => {
                 <div className="btn">My Account</div>
                 </a>
                 </li>
-                <li><a className="logout" href="http://localhost:5000/users/logout"><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
+                <li><a className="logout" href={`${URL}/users/logout`}><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
             </ul>
             </div>:null} 
         </div>

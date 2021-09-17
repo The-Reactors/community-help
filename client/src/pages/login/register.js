@@ -6,7 +6,7 @@ import nayakShort from "../../assets/images/shortWhite.png"
 import nayakLong from "../../assets/images/longWhite.png"
 import register from "../../assets/images/register.png"
 import { Redirect } from 'react-router'
-
+import URL from '../../URL'
 
 const Register = () => {
 
@@ -42,7 +42,7 @@ const Register = () => {
             }),  
             credentials: "include"
             };
-            fetch(`http://localhost:5000/users`, requestOptions )
+            fetch(`${URL}/users`, requestOptions )
             .then(async response => {
                 response.json().then(data =>  {
                     console.log(data);

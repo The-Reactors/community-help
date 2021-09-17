@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import swal from 'sweetalert';
 import { useEffect } from 'react';
+import URL from '../URL';
 
 const MyAccount = () =>{
     

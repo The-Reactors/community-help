@@ -210,8 +210,14 @@ router.post('/ticket/markAsRead', auth, async (req, res) => {
 
 
 router.get('/users/me', auth, async (req, res) => {
-
-    res.send(req.user)
+  try{  
+    const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
+    res.send(user)
+  }
+  catch(e)
+  {
+    res.status(401).send(e)
+  }
 })
 router.get('/users/logout', auth, async (req, res) => {
   req.logout();

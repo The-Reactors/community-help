@@ -9,6 +9,7 @@ import Loader from "../components/loaderGeneral";
 import ProfileNav from "../components/profileNav";
 import noResult from "../assets/images/noResults.png"
 import ScriptTag from 'react-script-tag';
+import URL from "../URL"
 const Homepage = () => {
 
     let AOS;
@@ -53,15 +54,13 @@ const Homepage = () => {
     })
       
     useEffect(() =>{
-        console.log("ahhahha")
-        
         navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
         navigator.geolocation.getCurrentPosition((position) => 
         {
             console.log("Latitude is :", position.coords.latitude);
             console.log("Longitude is :", position.coords.longitude);
             
-            fetch(`http://localhost:5000/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${filterParams.proximity}/${filterParams.category}/${filterParams.priority}/${filterParams.status}`, {credentials: "include"})
+            fetch(`${URL}/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${filterParams.proximity}/${filterParams.category}/${filterParams.priority}/${filterParams.status}`, {credentials: "include"})
             .then((response) => {
                 response.json().then((problems) => {
                     //setIssues(problems)

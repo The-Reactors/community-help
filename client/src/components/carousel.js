@@ -1,6 +1,5 @@
 import "../assets/css/carousel.css"
 import placeholder from "../assets/images/no_image_to_show_.jpg"
-import {useState} from "react"
 const Carousel = (props) => {
 
     let imageListZero = (props.images.length === 0 ) ? <li data-target={"#myCarousel"+props.carouselId} data-slide-to="0" className="active"></li> : null
@@ -42,7 +41,7 @@ let nextPrevButtons;
   }
   return(
     <div className="container" style={{maxWidth:"230px "}}>  
-  <div style={{backgroundColor:"white"}} id={"myCarousel"+props.carouselId} className="carousel slide shadow" data-ride="carousel">
+  <div style={{backgroundColor:"white",marginTop:"10px"}} id={"myCarousel"+props.carouselId} className="carousel slide shadow" data-ride="carousel">
   
     <ol className="carousel-indicators">
       {imageListZero}

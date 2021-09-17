@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import nayakWhite from "../assets/images/longWhite.png"
 import nayakShort from "../assets/images/shortWhite.png"
+import URL from '../URL'
 const Navbar = (props) => {
 
     const[auth,setAuth]=useState(false)
     const getProfile = () => {
-        fetch(`http://localhost:5000/users/me`,  {credentials: "include"})
+        fetch(`${URL}/users/me`,  {credentials: "include"})
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {

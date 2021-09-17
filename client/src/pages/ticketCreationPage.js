@@ -114,32 +114,42 @@ const TicketCreationPage = () => {
       fetch(`https://geocode.search.hereapi.com/v1/geocode?q=${userEnteredData.location}&apiKey=Bt-4s3hG9VlkF87RkELvh2Z1FVO3ih1i8GQ-keKlie8`, {credentials: "include"})
       .then((response) => {
         response.json().then((locationData) =>{
-          console.log("lat", locationData.items[0].position.lat)
-
-
-          setLongitude(locationData.items[0].position.lng)
-          setLatitude(locationData.items[0].position.lat)
-
-          setIsModalOpen(true)
-          map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v11',
-            center: [locationData.items[0].position.lng,locationData.items[0].position.lat],
-            zoom: 15
+          if(locationData.items[0]===undefined)
+          {
+            swal({
+              title: "Error!",
+              text: "Invalid Location Entered, Please Enter The Location Again",
+              icon: "error",
             });
+          }
+          else{
+            console.log("lat", locationData.items[0].position.lat)
 
-            if(userEnteredData.title === ""||
-            userEnteredData.description === ""||
-            userEnteredData.location === "" ){
 
-              swal({
-                title: "Error!",
-                text: "Please fill the required fields",
-                icon: "error",
+            setLongitude(locationData.items[0].position.lng)
+            setLatitude(locationData.items[0].position.lat)
+  
+            setIsModalOpen(true)
+            map.current = new mapboxgl.Map({
+              container: mapContainer.current,
+              style: 'mapbox://styles/mapbox/streets-v11',
+              center: [locationData.items[0].position.lng,locationData.items[0].position.lat],
+              zoom: 15
               });
-              setIsModalOpen(false)
-              return new Error()
-            }
+  
+              if(userEnteredData.title === ""||
+              userEnteredData.description === ""||
+              userEnteredData.location === "" ){
+  
+                swal({
+                  title: "Error!",
+                  text: "Please fill the required fields",
+                  icon: "error",
+                });
+                setIsModalOpen(false)
+                return new Error()
+              }
+          }
         })
       })
       
@@ -275,7 +285,7 @@ const TicketCreationPage = () => {
         <div data-aos="fade-up" data-aos-delay="300"  style={{textAlign:"center"}}>
           <br/>
           <div className= "col-md-6" style={{overflow:"hidden"}}>
-              <div ref={mapContainer} style={{height:"400px",width:"400px"}} />
+              <div ref={mapContainer} style={{overflow:"hidden",borderRadius:"10%",height:"345px",width:"345px"}}  />
             </div>
             <div className= "col-md-6" >
             <p style= {{textAlign:"left", marginLeft:"30px",fontSize:"20px"}}>

@@ -3,6 +3,7 @@ import {Card, CardColumns} from "react-bootstrap"
 import swal from 'sweetalert';
 import Carousel from "./carousel";
 import ConfirmModal from './confirmModal'
+import URL from "../URL";
 
 const ProblemCard = (props) => {
   const[upVotes,setUpVotes] = useState()
@@ -19,7 +20,7 @@ const ProblemCard = (props) => {
 
 
   const noOfUpAndDownVotesUpdate = () =>{
-    fetch(`http://localhost:5000/noOfUpAndDownVotes/${props.problemId}`)
+    fetch(`${URL}/noOfUpAndDownVotes/${props.problemId}`)
     .then(async response => {
         if(response.ok){
             
@@ -39,7 +40,7 @@ const ProblemCard = (props) => {
   }
 
   const statusOfUpAndDownVotes = () =>{
-    fetch(`http://localhost:5000/statusOfUpAndDownVotes/${props.problemId}`,{
+    fetch(`${URL}/statusOfUpAndDownVotes/${props.problemId}`,{
       method:"GET",
       headers: {
         'Accept': 'application/json',
@@ -68,7 +69,7 @@ const ProblemCard = (props) => {
   }
 
   const getStatus = () =>{
-    fetch(`http://localhost:5000/getStatus/${props.problemId}`,{
+    fetch(`${URL}/getStatus/${props.problemId}`,{
       method:"GET",
       headers: {
         'Accept': 'application/json',
@@ -138,7 +139,7 @@ const upvoteProblem = () => {
       }),  
       credentials: "include"
       };
-      fetch(`http://localhost:5000/notifyUser`, Options )
+      fetch(`${URL}/notifyUser`, Options )
               .then(async response => {
                   if(response.ok){
                     
@@ -169,7 +170,7 @@ const upvoteProblem = () => {
     }),  
     credentials: "include"
     };
-    fetch(`http://localhost:5000/upvotesUpdate`, requestOptions )
+    fetch(`${URL}/upvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
                   statusOfUpAndDownVotes()
@@ -213,7 +214,7 @@ const downvoteProblem = () => {
       }),  
       credentials: "include"
       };
-      fetch(`http://localhost:5000/notifyUser`, Options )
+      fetch(`${URL}/notifyUser`, Options )
               .then(async response => {
                   if(response.ok){
                     
@@ -244,7 +245,7 @@ const downvoteProblem = () => {
     }),  
     credentials: "include"
     };
-    fetch(`http://localhost:5000/downvotesUpdate`, requestOptions )
+    fetch(`${URL}/downvotesUpdate`, requestOptions )
             .then(async response => {
                 if(response.ok){
                   statusOfUpAndDownVotes()
@@ -286,7 +287,7 @@ const downvoteProblem = () => {
       credentials: "include"
       };
       
-      fetch(`http://localhost:5000/updateStatus`, requestOptions )
+      fetch(`${URL}/updateStatus`, requestOptions )
             .then(async response => {
               
                 if(response.ok){
@@ -328,7 +329,7 @@ const downvoteProblem = () => {
 
       <ConfirmModal showModal={showModal} closeModal={()=>handleClose()} proceedingFxn={()=>updateStatus()}></ConfirmModal>
     
-      <Card className="card-spacing"  data-aos="fade-up" data-aos-delay="300">   
+      <Card className="card-spacing" style={{ borderRadius: "15px"}}  data-aos="fade-up" data-aos-delay="300">   
           <Carousel carouselId={props.problemId} images={image}/>
       <Card.Body>
         <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
