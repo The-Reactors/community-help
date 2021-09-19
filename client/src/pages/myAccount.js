@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import { Card, CardContent, Typography,CardMedia, Input } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
+import silhouette from "../assets/images/profile.png"
 
 const MyAccount = () =>{
     
@@ -33,6 +34,35 @@ const MyAccount = () =>{
     const [disabledName,setDisabledName] = useState(true)
     const [disabledNumber, setDisabledNumber] = useState(true)
     const [disabledImage,setdisabledImage] = useState(false)
+    const [profileImage, setProfileImage] = useState()
+    const [newImage, setNewImage] = useState(false)
+
+
+    const getProfile = () => {
+      fetch(`${URL}/users/me`,  {credentials: "include"})
+      .then(async response => {
+          if(response.ok){
+              response.json().then(profile => {
+                if(profile.profilePic !== undefined){
+                  const profilePic = new Buffer(profile.profilePic.data).toString("base64")
+                setProfileImage(profilePic)
+                }
+                
+              });
+           }
+          else{
+              throw response.json();
+          }
+        })
+        .catch(async (error) => {
+          const errorMessage = await error;
+          console.log(errorMessage)
+        })
+  }
+  useEffect(() =>{
+    getProfile()
+    
+}, [newImage])
 
     const handleEditName = () => {
         setDisabledName(false)
@@ -169,14 +199,17 @@ const MyAccount = () =>{
         fetch(`${URL}/updateProfilePic`, requestOptions )
         .then(async response => {
 
-         
+          (newImage === false) ? setNewImage(true) : setNewImage(false)
             if(response.ok){
                 console.log("Response Is Succesfully Done! ")
+                
                 swal({
                   title: "Success!",
                   text: "Ticket Raised Successfully",
                   icon: "success",
                 })
+
+                
                
                   
                 
@@ -224,6 +257,9 @@ const MyAccount = () =>{
           }) 
 
     }
+
+    const updateImage = (profileImage === undefined) ? <img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_NativeImage"/> : <img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profileImage}`} alt="profile_pic_NativePresent"/>
+
     return <div>
       <div id="content" className="p-4 p-md-5 pt-5">
         <form data-aos="fade-up" data-aos-delay="300"  action="" encType = "multipart/form-data">
@@ -297,15 +333,7 @@ const MyAccount = () =>{
         <br />
         <br />
         <hr />
-        <CardMedia
-            alt="profile picture"
-            component="img"
-            title="Profile Picture"
-            height = '450'
-            image=
-"https://cdn.pixabay.com/photo/2016/01/03/00/43/upload-1118929_960_720.png"
-          />
-        
+                {updateImage}
                 <Typography htmlFor="uploads">
                 Update Your Profile Picture by clicking on the edit icon
                 </Typography>
