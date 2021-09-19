@@ -436,7 +436,7 @@ const TicketCreationPage = () => {
         <Typography align = "center">
           <formControl>
             <form encType = "multipart/form-data">
-            <Input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
+            <input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" onChange = {fileHandler} multiple />
             </form>
           <Typography className = {classes.helper}><br/>Upload Upto 3 Images</Typography>
           </formControl>

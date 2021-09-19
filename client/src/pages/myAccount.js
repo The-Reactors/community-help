@@ -312,7 +312,7 @@ const MyAccount = () =>{
                 <IconButton onClick = {handleEditImage}>
                 <EditIcon />
                 </IconButton>
-                {disabledImage && <div><Typography align = "center"><Input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" onChange = {fileHandler} />
+                {disabledImage && <div><Typography align = "center"><input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
                 <Button variant = "contained" color = "primary" onClick = {fileSubmitHandler}>Upload</Button></Typography></div>}
                 
                 

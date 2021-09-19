@@ -105,7 +105,7 @@ const ProfileNav = (props) => {
             }
             else
             {
-                authPic = (<img  style={{borderRadius: "50%"}} src={profile.profilePicLink} alt="profile_pic_google"/> )
+                authPic = (<img style={{borderRadius: "50%"}} src={profile.profilePicLink} alt="profile_pic_google"/> )
             }
         }
        

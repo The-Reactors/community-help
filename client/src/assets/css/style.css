@@ -508,6 +508,17 @@ pre {
   margin-right: auto;
   margin-left: auto; }
 
+.position-card
+{
+  margin-top: 20px;
+  text-align:"center"
+}
+@media (min-width: 900px) {
+  .position-card
+  {
+    transform: translateY(100%);
+  }
+}
 .row {
   display: -webkit-box;
   display: -ms-flexbox;

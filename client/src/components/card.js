@@ -330,24 +330,61 @@ const downvoteProblem = () => {
       <ConfirmModal showModal={showModal} closeModal={()=>handleClose()} proceedingFxn={()=>updateStatus()}></ConfirmModal>
     
       <Card className="card-spacing" style={{ borderRadius: "15px",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}}  data-aos="fade-up" data-aos-delay="300">   
+      <div className="container">
+      <div className="col-md-6">
+        <h1 className="position-card" style={{textAlign:"center"}}>{props.title}</h1>
+      </div>
+      <div className="col-md-6">
           <Carousel carouselId={props.problemId} images={image}/>
+        
+      </div>
+    </div>
       <Card.Body>
-        <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
+     
         <Card.Text>
+          <hr/>
+          <p style={{fontWeight:"lighter",color:"gray"}}>
+          Description
+          </p>
+          <h4>
           {props.description}
+          </h4>
         </Card.Text>
         <Card.Text>
+        <p style={{fontWeight:"lighter",color:"gray"}}>
+          Category
+          </p>
+          <h4>
           {props.category}
+          </h4>
         </Card.Text>
         <Card.Text>
+        <p style={{fontWeight:"lighter",color:"gray"}}>
+          Priority
+          </p>
+          <h4>
           {props.priority}
+          </h4>
         </Card.Text>
         <Card.Text>
+        <p style={{fontWeight:"lighter",color:"gray"}}>
+          Status
+          </p>
+          <h4>
           {status}
+          </h4>
         </Card.Text>
         <Card.Text>
+        <p style={{fontWeight:"lighter",color:"gray"}}>
+          Location
+          </p>
+          <h4>
           {props.location}
+          </h4>
         </Card.Text>
+        <p style={{fontWeight:"lighter",color:"gray"}}>
+          Upvote And Downvote
+          </p>
          {upStatus?<a style={{margin:"20px", cursor:"pointer",color:"blue"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>:<a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>}
         {downStatus?<a style={{cursor:"pointer", marginRight : "10px",color:"blue"}} onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>:<a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>}
         {statusButton}

@@ -133,7 +133,7 @@ const Homepage = () => {
            
            {!isLoadingHome && <ProfileNav activePage="home" getName={(name)=>getName(name)}/>} 
            
-           <div className="col-md-9">
+           <div className="col-md-9" style={{marginTop:"20px"}}>
                 {!isLoadingHome && <div>
                 {
                 issues.map((issue, index) => {
