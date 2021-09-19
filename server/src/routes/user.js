@@ -72,7 +72,7 @@ router.post("/notifyUser", auth, async (req, res) => {
   try{
     console.log(req.body)
     const user = await User.findOne({_id:req.body.creatorId})
-
+    console.log(user)
     user.notificationList = user.notificationList.concat(
       {notifierName : req.body.notifierName,
        problemTitle : req.body.problemTitle,
@@ -83,7 +83,7 @@ router.post("/notifyUser", auth, async (req, res) => {
 
   }catch(e){
     console.log(e)
-    res.status(401).send(e)
+    res.status(400).send(e)
   }
 })
 
