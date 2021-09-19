@@ -266,7 +266,7 @@ const TicketCreationPage = () => {
     }
     // const url="https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed"
     return (
-        <div>
+        
            <div id="content" className="p-4 p-md-5 pt-5">
              {redirect}
              <ProfileNav getName={(name)=>getName(name)}/>
@@ -458,7 +458,7 @@ const TicketCreationPage = () => {
       </CardActions>
     </Card>
     </div>
-           </div>
+         
     )
 }
 

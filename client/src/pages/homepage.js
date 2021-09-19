@@ -130,7 +130,9 @@ const Homepage = () => {
                 
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
-           {!isLoadingHome && <ProfileNav getName={(name)=>getName(name)}/> } 
+           
+           {!isLoadingHome && <ProfileNav getName={(name)=>getName(name)}/>} 
+           
            <div className="col-md-9">
                 {!isLoadingHome && <div>
                 {
