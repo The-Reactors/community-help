@@ -36,6 +36,7 @@ const MyAccount = () =>{
     const [disabledImage,setdisabledImage] = useState(false)
     const [profileImage, setProfileImage] = useState()
     const [newImage, setNewImage] = useState(false)
+    const[googleProfile,setGoogleProfile] = useState(false)
 
 
     const getProfile = () => {
@@ -43,6 +44,10 @@ const MyAccount = () =>{
       .then(async response => {
           if(response.ok){
               response.json().then(profile => {
+                if(profile.password === undefined)
+                {
+                  setGoogleProfile(true)
+              }
                 if(profile.profilePic !== undefined){
                   const profilePic = new Buffer(profile.profilePic.data).toString("base64")
                 setProfileImage(profilePic)
@@ -113,7 +118,7 @@ const MyAccount = () =>{
                       });
                     swal({
                       title: "Success!",
-                      text: "Logged in Successfully",
+                      text: "Username updated Successfully",
                       icon: "success",
                     });
                  }
@@ -151,7 +156,7 @@ const MyAccount = () =>{
                       });
                     swal({
                       title: "Success!",
-                      text: "Logged in Successfully",
+                      text: "Phone Number Updated Successfully",
                       icon: "success",
                     });
                  }
@@ -205,7 +210,7 @@ const MyAccount = () =>{
                 
                 swal({
                   title: "Success!",
-                  text: "Ticket Raised Successfully",
+                  text: "Profile Pic Updated Successfully",
                   icon: "success",
                 })
 
@@ -258,10 +263,25 @@ const MyAccount = () =>{
 
     }
 
-    const updateImage = (profileImage === undefined) ? <img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_NativeImage"/> : <img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profileImage}`} alt="profile_pic_NativePresent"/>
-
+    let updateImage;
+    if(googleProfile)
+    { 
+      updateImage = null
+    }
+    else
+    {
+      if(profileImage == undefined)
+      {
+        updateImage=<img style={{borderRadius: "50%",maxHeight:"300px",maxWidth:"300px"}} src={silhouette} alt="profile_pic_NativeImage"/>
+      }
+      else
+      {
+        updateImage =  <img style={{borderRadius: "50%",maxHeight:"300px",maxWidth:"300px"}} src={`data:image/png;base64,${profileImage}`} alt="profile_pic_NativePresent"/>
+      }
+    }
     return <div>
-      <div id="content" className="p-4 p-md-5 pt-5">
+     
+      <div id="content" className="p-4 p-md-5 pt-5" style={{width:"210%"}}>
         <form data-aos="fade-up" data-aos-delay="300"  action="" encType = "multipart/form-data">
               
         {/* <label htmlFor="name">Name</label>
@@ -291,13 +311,27 @@ const MyAccount = () =>{
                 </p> */}
                 
            </form> 
-         <Card>
+         <Card style={{marginLeft:"10px"}}>
          <CardContent>
          <Typography style = {{fontWeight:"bolder"}} color="textDark" gutterBottom variant="h2">
         My Account
         </Typography>
          
-        <TextField
+    <Typography align="center">
+        
+               {updateImage}
+               {googleProfile ? null : <Typography htmlFor="uploads">
+               <h3 style={{marginTop:"20px"}}> Update Your Profile Picture by clicking on the edit icon </h3>
+                </Typography>}
+                {googleProfile?null:<IconButton onClick = {handleEditImage}>
+                <EditIcon />
+                </IconButton>}
+                {disabledImage && <div><Typography align = "center"><input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
+                <Button variant = "contained" color = "primary" onClick = {fileSubmitHandler}>Upload</Button></Typography></div>}
+                
+        <br /> <br />
+                <hr />
+                <TextField
           disabled = {disabledName}
           id="outlined-disabled"
           label="Name"
@@ -306,7 +340,7 @@ const MyAccount = () =>{
           value = {updatedName}
           onChange = {handleInputName}
           name = "description"
-          helperText = "click on the edit icon to update your name"
+          helperText = "Click on the edit icon to update your name"
         />
         <IconButton onClick = {handleEditName}>
           <EditIcon />
@@ -314,14 +348,14 @@ const MyAccount = () =>{
         <TextField
           disabled = {disabledNumber}
           id="outlined-number"
-          label="number"
+          label="Number"
           defaultValue={updatedPhoneNo}
           type="number"
           autoComplete = "off"
           value = {updatedPhoneNo} 
           onChange = {handleInputPhoneNo}
           name = "description"
-          helperText = "click on the edit icon to update your number"
+          helperText = "Click on the edit icon to update your number"
         />
         <IconButton onClick = {handleEditNumber}>
           <EditIcon />
@@ -330,25 +364,13 @@ const MyAccount = () =>{
         <Button hidden = {disabledName} variant = "contained" color = 'secondarary' onClick = {fileUpdateNameHandler} style = {{marginRight:'11rem'}}>Change Name</Button>
         <Button hidden = {disabledNumber} variant = "contained" color = 'secondarary' onClick = {fileUpdatePhoneNoHandler}>Change Number</Button>
         </Typography>
-        <br />
-        <br />
-        <hr />
-                {updateImage}
-                <Typography htmlFor="uploads">
-                Update Your Profile Picture by clicking on the edit icon
-                </Typography>
-                <IconButton onClick = {handleEditImage}>
-                <EditIcon />
-                </IconButton>
-                {disabledImage && <div><Typography align = "center"><input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
-                <Button variant = "contained" color = "primary" onClick = {fileSubmitHandler}>Upload</Button></Typography></div>}
-                
-                
+        </Typography>   
                 </CardContent>
           </Card>
 
-           </div>
+      </div>
            <div>
+        </div>
            {/* <Box
       component="form"
       sx={{
@@ -360,7 +382,7 @@ const MyAccount = () =>{
         
     {/* </Box> */}
            </div>
-    </div>
+
 }
 
 export default MyAccount;
