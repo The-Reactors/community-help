@@ -56,7 +56,7 @@ const MyTickets = () => {
     return (
         <div>
              <div id="content" className="p-4 p-md-5 pt-5">
-             {!isLoading && <ProfileNav getName={(name)=>getName(name)}/>}
+             {!isLoading && <ProfileNav activePage="myTickets" getName={(name)=>getName(name)}/>}
             {isLoading && <LoaderGeneral/>}
             {!isLoading && <div>
                 <h1 data-aos="fade-up" data-aos-delay="300" style={{textAlign:"center"}}>My Tickets</h1>

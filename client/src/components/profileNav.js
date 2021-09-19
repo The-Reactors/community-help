@@ -117,7 +117,7 @@ const ProfileNav = (props) => {
     <div className="wrapper">
     <div className="profileNav">
         <div className="profileNav_left">
-            <h1><span className="fa fa-map-marker"style={{marginRight:"5px",color:"#3445B4"}}></span>Trending Tickets Near You </h1>
+             {props.activePage.localeCompare("home") === 0 ?<h1><span className="fa fa-map-marker"style={{marginRight:"5px",color:"#3445B4"}}></span>Trending Tickets Near You</h1>:null } 
         </div>
 
         <div className="profileNav_right">

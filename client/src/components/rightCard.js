@@ -85,7 +85,7 @@ const RightCard = (props) => {
 
   return (
     <div>
-    <Card className={classes.root} data-aos="fade-up" data-aos-delay="700">
+    <Card className={classes.root} data-aos="fade-up" style={{borderRadius:"15px"}}data-aos-delay="700">
       <CardContent>
         <Typography color="textDark" align="center" gutterBottom variant="h4">
           Filters

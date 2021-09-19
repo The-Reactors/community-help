@@ -269,7 +269,7 @@ const TicketCreationPage = () => {
         
            <div id="content" className="p-4 p-md-5 pt-5">
              {redirect}
-             <ProfileNav getName={(name)=>getName(name)}/>
+             <ProfileNav activePage="createTicket" getName={(name)=>getName(name)}/>
           <Modal  data-aos="fade-up" data-aos-delay="300" show = {isModalOpen}
           animation={false}
           size="lg"
