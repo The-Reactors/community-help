@@ -329,7 +329,7 @@ const downvoteProblem = () => {
 
       <ConfirmModal showModal={showModal} closeModal={()=>handleClose()} proceedingFxn={()=>updateStatus()}></ConfirmModal>
     
-      <Card className="card-spacing" style={{ borderRadius: "15px"}}  data-aos="fade-up" data-aos-delay="300">   
+      <Card className="card-spacing" style={{ borderRadius: "15px",boxShadow:"rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"}}  data-aos="fade-up" data-aos-delay="300">   
           <Carousel carouselId={props.problemId} images={image}/>
       <Card.Body>
         <Card.Title style={{textAlign:"center"}}>{props.title}</Card.Title>
