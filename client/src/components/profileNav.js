@@ -10,6 +10,7 @@ const ProfileNav = (props) => {
     const [profile,setProfile] = useState();
     const [auth,setAuth] = useState(false)
     const [notifications,setNotifications] = useState([])
+    const [notifcationsClass, setNotificationClass] = useState("notifications")
     
     const getProfile = () => {
         fetch(`${URL}/users/me`,  {credentials: "include"})
@@ -32,7 +33,9 @@ const ProfileNav = (props) => {
             console.log(errorMessage)
           })
     }
-
+    const notificationHandler = () => {
+        {notifcationsClass.localeCompare("notifications") === 0 ? setNotificationClass("notifications active") : setNotificationClass("notifications")}
+    }
     const getNotifications = () => {
         fetch(`${URL}/getNotifications`,  {credentials: "include"})
         .then(async response => {
@@ -117,12 +120,12 @@ const ProfileNav = (props) => {
     <div className="wrapper">
     <div className="profileNav">
         <div className="profileNav_left">
-             {props.activePage.localeCompare("home") === 0 ?<h1><span className="fa fa-map-marker"style={{marginRight:"5px",color:"#3445B4"}}></span>Trending Tickets Near You</h1>:null } 
+             {props.activePage.localeCompare("home") === 0 ?<h1><span className="fa fa-map-marker"style={{marginRight:"5px",color:"#3445B4"}}></span>Trending Issues Near You</h1>:null } 
         </div>
 
         <div className="profileNav_right">
-        <div className="notifications">
-           {auth ? <div className="icon_wrap"><img style={{marginBottom:"20px"}}src={bell}/></div>:null} 
+        <div className={notifcationsClass}>
+           {auth ? <div className="icon_wrap"><img onClick ={notificationHandler} style={{marginBottom:"20px"}}src={bell}/></div>:null} 
             <div className="notification_dd" style={{zIndex:"10"}}>
                 <ul className="notification_ul">
                     {
