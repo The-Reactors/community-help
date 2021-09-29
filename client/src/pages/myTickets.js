@@ -29,7 +29,7 @@ const MyTickets = () => {
 
     useEffect(() =>{
 
-            fetch(`${URL}/MyTickets`, {credentials: "include"})
+            fetch(`${URL}/userTickets`, {credentials: "include"})
         .then((response) => {
             if(!response.ok){
                 swal({
