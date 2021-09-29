@@ -18,7 +18,7 @@ const bodyParser = require("body-parser");
 
 const app = express()
 const port = process.env.PORT || 5000
-
+const path = require("path");
 // * Passport Setup
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
@@ -51,9 +51,6 @@ require("./config/passport-config");
 //    maxAge:24 * 60 * 60 * 1000,
 //    keys: [process.env.COOKIE_KEY],
 // }))
-
-
-
 
 
 app.use(userRoutes)
