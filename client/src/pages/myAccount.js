@@ -61,7 +61,7 @@ const MyAccount = () =>{
         })
         .catch(async (error) => {
           const errorMessage = await error;
-          console.log(errorMessage)
+          
         })
   }
   useEffect(() =>{
@@ -112,9 +112,9 @@ const MyAccount = () =>{
             fetch(`${URL}/updateUserName`, requestOptions )
             .then(async response => {
                 if(response.ok){
-                    console.log("Response Is Succesfully Done! ")
+                  
                     response.json().then(data => {
-                        console.log(data);
+                      
                       });
                     swal({
                       title: "Success!",
@@ -133,7 +133,7 @@ const MyAccount = () =>{
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+               
               })
     }
     const fileUpdatePhoneNoHandler = (event) =>{
@@ -150,9 +150,9 @@ const MyAccount = () =>{
             fetch(`${URL}/updateUserPhoneNo`, requestOptions )
             .then(async response => {
                 if(response.ok){
-                    console.log("Response Is Succesfully Done! ")
+                   
                     response.json().then(data => {
-                        console.log(data);
+                       
                       });
                     swal({
                       title: "Success!",
@@ -171,13 +171,13 @@ const MyAccount = () =>{
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+           
               })
     }
 
     const fileHandler = (event) =>
     {
-      console.log(event.target.files)
+  
       const file = event.target.files;
       setimageState(file)
 
@@ -206,7 +206,7 @@ const MyAccount = () =>{
 
           (newImage === false) ? setNewImage(true) : setNewImage(false)
             if(response.ok){
-                console.log("Response Is Succesfully Done! ")
+              
                 
                 swal({
                   title: "Success!",
@@ -233,7 +233,7 @@ const MyAccount = () =>{
           })
           .catch(async (error) => {
             const errorMessage = await error;
-            console.log(errorMessage)
+          
             if( errorMessage.error !== undefined)
             {
               if(!(typeof errorMessage.error.code === 'string') && !(errorMessage.error.code instanceof String))  

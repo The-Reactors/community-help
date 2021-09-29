@@ -38,7 +38,7 @@ const ProfileNav = (props) => {
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {
-                    console.log("Notifications",data)
+                 
                    setNotifications(data)
                 });
              }
@@ -94,10 +94,10 @@ const ProfileNav = (props) => {
             {
 
                 if(profile.profilePic === undefined){
-                    console.log(profile)
+                   
                     authPic=(<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_NativeImage"/>)
                 }else{
-                    console.log(profile)
+                   
                     const profilePic = new Buffer(profile.profilePic.data).toString("base64")
                     authPic=(<img style={{borderRadius: "50%"}} src={`data:image/png;base64,${profilePic}`} alt="profile_pic_NativePresent"/>)
 

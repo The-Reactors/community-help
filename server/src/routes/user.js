@@ -55,7 +55,7 @@ passport.serializeUser((obj, done) => {
 
 
 router.post("/updateProfilePic", auth, profilePic.single("profilePic"), async (req,res) =>{
- //console.log("asasa",req.file)
+
   try{
     const user = await User.findOne({_id:req.user.id == undefined ? req.user._id : req.user.id})
     user.profilePic = req.file.buffer
@@ -70,9 +70,9 @@ router.post("/updateProfilePic", auth, profilePic.single("profilePic"), async (r
 
 router.post("/notifyUser", auth, async (req, res) => {
   try{
-    console.log(req.body)
+  
     const user = await User.findOne({_id:req.body.creatorId})
-    console.log(user)
+  
     user.notificationList = user.notificationList.concat(
       {notifierName : req.body.notifierName,
        problemTitle : req.body.problemTitle,
@@ -136,7 +136,7 @@ router.get(
             scope: ["profile", "email"],
         },
         function(err, user, info) {
-            //console.log(err, user, info);
+         
             if (!user)
                 return res.redirect(
                     `${process.env.CLIENT_URL}/error?err=${info?.message}`
@@ -145,7 +145,7 @@ router.get(
                 if (err) {
                     return next(err);
                 }
-                //console.log(req.user);
+            
                 return res.redirect(`${process.env.CLIENT_URL}/`);
             });
         }
@@ -187,7 +187,7 @@ router.post('/users', async (req,res) =>{
 })
 
 router.get('/users', auth, async (req, res) => {
-    //console.log(req.user);
+  
     try{
         const users = await User.find({})
         res.send(users)

@@ -35,7 +35,7 @@ const ProblemCard = (props) => {
       })
       .catch(async (error) => {
         const errorMessage = await error;
-        console.log(errorMessage)
+      
       })
   }
 
@@ -53,7 +53,7 @@ const ProblemCard = (props) => {
         if(response.ok){
             
             response.json().then(data => {
-              console.log("Status",data)
+           
               setUpStatus(data[0])
               setDownStatus(data[1])
             });
@@ -64,7 +64,7 @@ const ProblemCard = (props) => {
       })
       .catch(async (error) => {
         const errorMessage = await error;
-        console.log(errorMessage)
+        
       })
   }
 
@@ -80,9 +80,9 @@ const ProblemCard = (props) => {
     })
     .then(async response => {
         
-      //console.log(response.json())
+      
             response.json().then(data => {
-              console.log("jajaja")
+             
               setStatus(data.status)
             });
          
@@ -90,18 +90,18 @@ const ProblemCard = (props) => {
       })
       .catch(async (error) => {
         const errorMessage = await error;
-        console.log(errorMessage)
+       
       })
   }
 
 
 useEffect(() => {
-  console.log("inside card")
+ 
   noOfUpAndDownVotesUpdate()
   statusOfUpAndDownVotes()
   getStatus()
   
-  console.log("Images",props.images) 
+
   let imagesInitial = props.images
   //imagesInitial.map(image => {new Buffer(image).toString("base64")})
 
@@ -156,7 +156,7 @@ const upvoteProblem = () => {
                 })
                 .catch(async (error) => {
                   const errorMessage = await error;
-                  console.log(errorMessage)
+                
                 })
     
 
@@ -191,7 +191,7 @@ const upvoteProblem = () => {
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+            
               })
 
 }
@@ -231,7 +231,7 @@ const downvoteProblem = () => {
                 })
                 .catch(async (error) => {
                   const errorMessage = await error;
-                  console.log(errorMessage)
+             
                 })
     
 
@@ -252,7 +252,6 @@ const downvoteProblem = () => {
                   noOfUpAndDownVotesUpdate()
                     response.json().then(data => {
 
-                      // console.log(data)
                       
                     });
                     
@@ -268,7 +267,7 @@ const downvoteProblem = () => {
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+               
               })
 
 }
@@ -277,7 +276,7 @@ const downvoteProblem = () => {
 
   const updateStatus = () => {
 
-    console.log("updating status")
+    
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -292,11 +291,11 @@ const downvoteProblem = () => {
               
                 if(response.ok){
                   
-                  console.log("yepppy")
+               
                   setStatus("Solved")
                     response.json().then(data => {
 
-                      // console.log(data)
+                      
                       
                     });
                     swal({
@@ -316,7 +315,7 @@ const downvoteProblem = () => {
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+               
               })
               handleClose()
   }
@@ -343,50 +342,50 @@ const downvoteProblem = () => {
      
         <Card.Text>
           <hr/>
-          <p style={{fontWeight:"lighter",color:"gray"}}>
+          <span style={{fontWeight:"lighter",color:"gray"}}>
           Description
-          </p>
+          </span>
           <h4>
           {props.description}
           </h4>
         </Card.Text>
         <Card.Text>
-        <p style={{fontWeight:"lighter",color:"gray"}}>
+        <span style={{fontWeight:"lighter",color:"gray"}}>
           Category
-          </p>
+          </span>
           <h4>
           {props.category}
           </h4>
         </Card.Text>
         <Card.Text>
-        <p style={{fontWeight:"lighter",color:"gray"}}>
+        <span style={{fontWeight:"lighter",color:"gray"}}>
           Priority
-          </p>
+          </span>
           <h4>
           {props.priority}
           </h4>
         </Card.Text>
         <Card.Text>
-        <p style={{fontWeight:"lighter",color:"gray"}}>
+        <span style={{fontWeight:"lighter",color:"gray"}}>
           Status
-          </p>
+          </span>
           <h4>
           {status}
           </h4>
         </Card.Text>
         <Card.Text>
-        <p style={{fontWeight:"lighter",color:"gray"}}>
+        <span style={{fontWeight:"lighter",color:"gray"}}>
           Location
-          </p>
+          </span>
           <h4>
           {props.location}
           </h4>
         </Card.Text>
-        <p style={{fontWeight:"lighter",color:"gray"}}>
+        <a style={{fontWeight:"lighter",color:"gray"}}>
           Upvote And Downvote
-          </p>
+          </a>
          {upStatus?<a style={{margin:"20px", cursor:"pointer",color:"blue"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>:<a style={{margin:"20px", cursor:"pointer"}} onClick={upvoteProblem}><span className="fa fa-thumbs-up mr-3"></span> {upVotes}</a>}
-        {downStatus?<a style={{cursor:"pointer", marginRight : "10px",color:"blue"}} onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>:<a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>}
+        {downStatus?<a style={{cursor:"pointer", marginRight : "10px",color:"red"}} onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>:<a style={{cursor:"pointer", marginRight : "10px"}}onClick={downvoteProblem}><span className="fa fa-thumbs-down mr-3"></span> {downVotes}</a>}
         {statusButton}
       </Card.Body>
     </Card>

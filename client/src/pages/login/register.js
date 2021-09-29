@@ -45,9 +45,9 @@ const Register = () => {
             fetch(`${URL}/users`, requestOptions )
             .then(async response => {
                 response.json().then(data =>  {
-                    console.log(data);
+                  
                     if(response.ok){
-                        console.log("User created successfully")
+                      
                         swal({
                           title: "Success!",
                           text: "User Created Successfully",

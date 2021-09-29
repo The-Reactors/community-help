@@ -38,9 +38,9 @@ const Login = () => {
             fetch(`${URL}/localusers/login`, requestOptions )
             .then(async response => {
                 if(response.ok){
-                    console.log("Response Is Succesfully Done! ")
+                  
                     response.json().then(data => {
-                        console.log(data);
+                   
                       });
                     swal({
                       title: "Success!",
@@ -60,7 +60,7 @@ const Login = () => {
               })
               .catch(async (error) => {
                 const errorMessage = await error;
-                console.log(errorMessage)
+           
               })
     }
 

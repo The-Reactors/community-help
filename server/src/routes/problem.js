@@ -38,8 +38,6 @@ function getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
   router.get('/MyTickets',auth, async (req, res) => {
     try{
         const problems = await Problem.find({creatorId:req.user.id == undefined ? req.user._id : req.user.id})
-        //console.log(problems);
-        //console.log(req.user);
         res.send(problems)
     }catch(e){
         res.status(400).send()
@@ -71,7 +69,7 @@ router.get('/problemStatus/:problemId', async (req, res) => {
 
 router.get('/noOfUpAndDownVotes/:problemId', async (req, res) => {
     try{
-        // console.log(req.user)
+     
     const {problemId} = req.params
     const problem = await Problem.findOne({_id:problemId})
     res.status(200).send([problem.upvotes,problem.downvotes])
@@ -94,12 +92,12 @@ router.get('/statusOfUpAndDownVotes/:problemId', async (req, res) => {
             const downVoteList=await latestUser.downvoteProblemsList
             if(upVoteList.indexOf(problemId.problemId) !== -1)
             {
-                // console.log("Upvote")
+               
                 isUpvoted=true
             }
             if(downVoteList.indexOf(problemId.problemId) !== -1)
             {
-                // console.log("Downvote")
+               
 
                 isDownvoted=true
             }
@@ -116,11 +114,11 @@ router.get('/statusOfUpAndDownVotes/:problemId', async (req, res) => {
 
 router.get('/getStatus/:problemId', async (req, res) => {
     let problemId=req.params.problemId
-    console.log(problemId)
+
     try
     {
         const problem = await Problem.findOne({_id:problemId})
-        console.log(problem.title, problem.status)
+       
         res.status(200).send({status:problem.status})
     }
     catch(e)
@@ -136,7 +134,7 @@ router.get('/getStatus/:problemId', async (req, res) => {
 
 
 router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', async (req, res) => {
-    // console.log(req.user);
+  
     const lat = req.params.lat
     const lng = req.params.lng
     const proximity = req.params.proximity
@@ -144,12 +142,7 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
     const priority = req.params.priority
     const status = req.params.status
     // const filter = req.params.filter
-    console.log(lat,lng)
-
-    console.log("params", req.params)
-
-    
-
+ 
     let clusterOne = []
     let clusterTwo = []
     let clusterThree = []
@@ -159,15 +152,14 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
         let filteredProblems = []
 
         const initialProblems = await Problem.find({})
-        console.log("dada",initialProblems.length)
+       
 
 
         let problems = []
 
         for(let i = 0; i < initialProblems.length; i++){
             let flag = false
-            console.log("now",initialProblems[i].title)
-            
+           
             if(category !== "none" && initialProblems[i].category !== category){
                 flag =true
             }
@@ -186,9 +178,9 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
             }
         }
 
-        console.log("sfsff",proximity)
+      
         for(let i = 0; i < problems.length; i++){
-            console.log("ss",problems[i].title)
+            
         }
         
 
@@ -196,7 +188,7 @@ router.get('/fetchProblems/:lat/:lng/:proximity/:category/:priority/:status', as
 
         for(let i = 0; i < problems.length; i++){
 
-            console.log(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
+            // console.log("Distance From Location",getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude))
             
 
             if(getDistanceFromLatLonInKm(lat,lng,problems[i].latitude,problems[i].longitude) < (proximity/3)){
@@ -393,7 +385,7 @@ router.post('/problems', auth, problemImage.array('problemImage',3), async (req,
     
     if(req.files === undefined)
     {
-        console.log(req.user.name)
+      
         const problem = new Problem({
 
             title:req.body.title,

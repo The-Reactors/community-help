@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import "../assets/css/style.css"
-import ProblemCard from "../components/card";
+import ProblemCard from "../components/problemCard";
 import LoaderGeneral from "../components/loaderGeneral";
 import ProfileNav from '../components/profileNav';
 import URL from "../URL";
@@ -40,7 +40,6 @@ const MyTickets = () => {
                }
             response.json().then((problems) => {
                 setIssues(problems)
-                console.log(problems);
                 setIsloading(false)
                 
             })

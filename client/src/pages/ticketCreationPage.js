@@ -123,7 +123,6 @@ const TicketCreationPage = () => {
             });
           }
           else{
-            console.log("lat", locationData.items[0].position.lat)
 
 
             setLongitude(locationData.items[0].position.lng)
@@ -157,7 +156,7 @@ const TicketCreationPage = () => {
       
     const fileHandler = (event) =>
     {
-      console.log(event.target.files)
+ 
       const file = event.target.files;
       setimageState(file)
     }
@@ -174,7 +173,7 @@ const TicketCreationPage = () => {
 
 
       let data = new FormData()
-      console.log("here",data)
+
         data.append('title',userEnteredData.title)
         data.append('description',userEnteredData.description)
         data.append('priority',userEnteredData.priority)
@@ -190,9 +189,7 @@ const TicketCreationPage = () => {
               data.append('problemImage', imageState[x])
             }
         }
-        console.log("sdfsfsf",data.title)
-        console.log(imageState) 
-        console.log(userEnteredData.category)
+
         
 
 
@@ -207,7 +204,7 @@ const TicketCreationPage = () => {
 
          
             if(response.ok){
-                console.log("Response Is Succesfully Done! ")
+         
                 swal({
                   title: "Success!",
                   text: "Ticket Raised Successfully",
@@ -231,7 +228,7 @@ const TicketCreationPage = () => {
           })
           .catch(async (error) => {
             const errorMessage = await error;
-            console.log(errorMessage)
+   
             if( errorMessage.error !== undefined)
             {
               if(!(typeof errorMessage.error.code === 'string') && !(errorMessage.error.code instanceof String))  

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../assets/css/style.css"
 import {Modal,Button} from 'react-bootstrap'
 import Navbar from "../components/navbar";
-import ProblemCard from "../components/card"
+import ProblemCard from "../components/problemCard"
 import RightCard from "../components/rightCard";
 import "../assets/css/rightCard.css";
 import Loader from "../components/loaderGeneral";
@@ -57,8 +57,7 @@ const Homepage = () => {
         navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
         navigator.geolocation.getCurrentPosition((position) => 
         {
-            console.log("Latitude is :", position.coords.latitude);
-            console.log("Longitude is :", position.coords.longitude);
+           
             
             fetch(`${URL}/fetchProblems/${position.coords.latitude}/${position.coords.longitude}/${filterParams.proximity}/${filterParams.category}/${filterParams.priority}/${filterParams.status}`, {credentials: "include"})
             .then((response) => {
@@ -67,7 +66,7 @@ const Homepage = () => {
                     updateIssues(problems)
                     
                     refreshCard === true ? setRefreshCard(false) : setRefreshCard(true)
-                    console.log(problems)
+                 
                     setIsLoadingHome(false)
                     setIsLoadingHome(false)
                      
@@ -137,7 +136,7 @@ const Homepage = () => {
                 {!isLoadingHome && <div>
                 {
                 issues.map((issue, index) => {
-                    console.log(issue.status)
+                   
                     return <div key={index}>
                         
                         <ProblemCard title={issue.title} description={issue.description} 
