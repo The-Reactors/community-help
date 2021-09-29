@@ -65,9 +65,9 @@ app.listen(port, ()=>{
 // * Production setup
 if (process.env.NODE_ENV === "production") {
   console.log("prod");
-  app.use(express.static(path.resolve(__dirname, "client/build")));
+  app.use(express.static(path.resolve(__dirname, "../client/build")));
   app.get("/*", function (req, res) {
-    res.sendFile(path.resolve(__dirname, "client/build", "index.html"));
+    res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 
   // Handle unhandled promise rejections
