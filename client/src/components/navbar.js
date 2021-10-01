@@ -1,34 +1,9 @@
-import React, { useEffect, useState } from 'react'
 import nayakWhite from "../assets/images/longWhite.png"
 import nayakShort from "../assets/images/shortWhite.png"
-import URL from '../URL'
+import {useSelector} from "react-redux";
 const Navbar = (props) => {
 
-    const[auth,setAuth]=useState(false)
-    const getProfile = () => {
-        fetch(`${URL}/users/me`,  {credentials: "include"})
-        .then(async response => {
-            if(response.ok){
-                response.json().then(data => {
-                    setAuth(true)
-                });
-             }
-            else{
-                setAuth(false)
-                throw response.json();
-            }
-          })
-          .catch(async (error) => {
-            setAuth(false)
-            const errorMessage = await error;
-            console.log(errorMessage)
-          })
-    }
-
-    useEffect(() => {
-        getProfile()
-    },[])
-
+    const profile = useSelector((state) => state.profile.value)
 
     const homeActiveClass = props.activeElement.localeCompare("home") === 0 ? "active":"";
     const registerActiveClass = props.activeElement.localeCompare("register") === 0 ? "active":"";
@@ -37,7 +12,8 @@ const Navbar = (props) => {
     const myTicketActiveClass = props.activeElement.localeCompare("myTickets") === 0 ? "active":"";
     const myAccountActiveClass = props.activeElement.localeCompare("myAccount") === 0 ? "active":"";
     let navElements=null;
-    if(auth)
+
+    if(JSON.stringify(profile) !== JSON.stringify({}))
     {
         navElements=(
             <div>

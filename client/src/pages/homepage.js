@@ -44,8 +44,6 @@ const Homepage = () => {
     
     const updateIssues = (problems) => setIssues(problems);
     const updateFilter = () => filter === false ? setFilter(true) : setFilter(false);
-    const updateRefreshCard = () => refreshCard === false ? setRefreshCard(true): setRefreshCard(false);
-
     const updateFilterParams = (params) => setFilterParams({
         proximity:params.proximity,
         category:params.category,
@@ -87,10 +85,6 @@ const Homepage = () => {
 
     }, [filter])
 
-    const getName = (name) =>{
-        setProfileName(name)
-    }
-
     return (
         
         <div>
@@ -130,7 +124,7 @@ const Homepage = () => {
             <div id="content" className="p-4 p-md-5 pt-5">
             {isLoadingHome && <Loader/>}
            
-           {!isLoadingHome && <ProfileNav activePage="home" getName={(name)=>getName(name)}/>} 
+           {!isLoadingHome && <ProfileNav activePage="home"/>} 
            
            <div className="col-md-9" style={{marginTop:"20px"}}>
                 {!isLoadingHome && <div>
@@ -140,7 +134,7 @@ const Homepage = () => {
                     return <div key={index}>
                         
                         <ProblemCard title={issue.title} description={issue.description} 
-                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} refreshCard={refreshCard} creatorId={issue.creatorId} profileName={profileName}></ProblemCard>
+                        priority={issue.priority} status={issue.status} category={issue.category} location={issue.location} problemId={issue._id} images={issue.images} refreshCard={refreshCard} creatorId={issue.creatorId}></ProblemCard>
                         
                     </div>
                 })}

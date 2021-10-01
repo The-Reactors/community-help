@@ -3,6 +3,7 @@ import {Card, CardColumns} from "react-bootstrap"
 import swal from 'sweetalert';
 import Carousel from "./carousel";
 import ConfirmModal from './confirmModal'
+import {useSelector} from "react-redux";
 import URL from "../URL";
 
 const ProblemCard = (props) => {
@@ -14,6 +15,7 @@ const ProblemCard = (props) => {
   const [upStatus,setUpStatus]= useState(false)
   const [downStatus,setDownStatus]= useState(false)
 
+  const profileName = useSelector((state) => state.profile.value.name)
 
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -135,7 +137,7 @@ const upvoteProblem = () => {
           'problemTitle':props.title,
           'action':"Upvote",
           'creatorId':props.creatorId,
-          'notifierName': props.profileName
+          'notifierName': profileName
       }),  
       credentials: "include"
       };
@@ -210,7 +212,7 @@ const downvoteProblem = () => {
           'problemTitle':props.title,
           'action':"Downvote",
           'creatorId':props.creatorId,
-          'notifierName': props.profileName
+          'notifierName': profileName
       }),  
       credentials: "include"
       };

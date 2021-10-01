@@ -4,23 +4,22 @@ import bell from "../assets/images/bell.png"
 import ScriptTag from 'react-script-tag';
 import silhouette from "../assets/images/profile.png"
 import nayakShort from "../assets/images/shortLogo.png"
+import {login, logout} from "../features/Profile"
+import { useDispatch , useSelector} from "react-redux";
 import URL from '../URL';
 
 const ProfileNav = (props) => {
-    const [profile,setProfile] = useState();
-    const [auth,setAuth] = useState(false)
     const [notifications,setNotifications] = useState([])
     const [notifcationsClass, setNotificationClass] = useState("notifications")
-    
+    const profile = useSelector((state) => state.profile.value)
+    const dispatch = useDispatch()
     const getProfile = () => {
         fetch(`${URL}/users/me`,  {credentials: "include"})
         .then(async response => {
             if(response.ok){
                 response.json().then(data => {
-                        setProfile(data)
-                        props.getName(data.name)
-
-                    setAuth(true)
+                    console.log(data)
+                        dispatch((login(data)))
                 });
              }
             else{
@@ -28,7 +27,7 @@ const ProfileNav = (props) => {
             }
           })
           .catch(async (error) => {
-            setAuth(false)
+           
             const errorMessage = await error;
             console.log(errorMessage)
           })
@@ -50,7 +49,7 @@ const ProfileNav = (props) => {
             }
           })
           .catch(async (error) => {
-            setAuth(false)
+           
             const errorMessage = await error;
             console.log(errorMessage)
           })
@@ -86,7 +85,7 @@ const ProfileNav = (props) => {
           })
         }
         let authPic;
-        if(profile===undefined)
+        if(JSON.stringify(profile) === JSON.stringify({}))
         {
             authPic= (<img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic_loggedOut"/>)
             
@@ -122,10 +121,10 @@ const ProfileNav = (props) => {
         <div className="profileNav_left">
              {props.activePage.localeCompare("home") === 0 ?<h1><span className="fa fa-map-marker"style={{marginRight:"5px",color:"#3445B4"}}></span>Trending Issues Near You</h1>:null } 
         </div>
-
+        
         <div className="profileNav_right">
         <div className={notifcationsClass}>
-           {auth ? <div className="icon_wrap"><img onClick ={notificationHandler} style={{marginBottom:"20px"}}src={bell}/></div>:null} 
+           {JSON.stringify(profile) !== JSON.stringify({}) ? <div className="icon_wrap"><img onClick ={notificationHandler} style={{marginBottom:"20px"}}src={bell}/></div>:null} 
             <div className="notification_dd" style={{zIndex:"10"}}>
                 <ul className="notification_ul">
                     {
@@ -180,14 +179,14 @@ const ProfileNav = (props) => {
         </div>
         <div className="profile">
             <div className="icon_wrap">
-            {auth ? 
+            {JSON.stringify(profile) !== JSON.stringify({}) ? 
             authPic
             :<a href="/login"><img style={{borderRadius: "50%"}} src={silhouette} alt="profile_pic"/> </a>} 
-            <span className="name">{auth ? `Hello, ${profile.name} `: <a href="/login">Sign In</a>}</span>
-            {auth ? <i className="fa fa-chevron-down"></i> : <a href="/login"><i className="fa fa-chevron-down"></i></a>}
+            <span className="name">{JSON.stringify(profile) !== JSON.stringify({})  ? `Hello, ${profile.name} `: <a href="/login">Sign In</a>}</span>
+            {JSON.stringify(profile) !== JSON.stringify({})  ? <i className="fa fa-chevron-down"></i> : <a href="/login"><i className="fa fa-chevron-down"></i></a>}
             </div>
 
-           {auth?<div className="profile_dd" style={{zIndex:"1"}}>
+           {JSON.stringify(profile) !== JSON.stringify({}) ?<div className="profile_dd" style={{zIndex:"1"}}>
             <ul className="profile_ul"> 
                 <li className="profile_li"><a className="profile" href="#"><span className="picon"><i className="fa fa-user"></i>
                     </span>Profile</a>
@@ -195,7 +194,7 @@ const ProfileNav = (props) => {
                 <div className="btn">My Account</div>
                 </a>
                 </li>
-                <li><a className="logout" href={`${URL}/users/logout`}><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
+                <li onClick={() => dispatch(logout())}><a className="logout" href={`${URL}/users/logout`}><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
             </ul>
             </div>:null} 
         </div>
