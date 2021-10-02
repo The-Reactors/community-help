@@ -14,7 +14,8 @@ import { Box } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 200
+    minWidth: 200,
+    
   },
   bullet: {
     display: "inline-block",
@@ -106,6 +107,7 @@ const RightCard = (props) => {
           min={15}
           max={50}
           valueLabelDisplay="auto"
+          style={{color:"#0075FF"}}
         />
         <br />
        <hr />

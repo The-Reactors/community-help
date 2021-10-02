@@ -147,7 +147,7 @@ const Register = () => {
    </form>
    <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}><hr/> OR</div>
    <div style = {{textAlign:"center"}}>
-    <a href = "/login">
+    <a href = {`${URL}/login/google`}>
       <button className = "btn1 btn1-googleSignIn" >
       <span>Sign Up With  <img  style= {{maxHeight:"20px",maxHeight:"20px"}}src={google}/></span>
       </button>
