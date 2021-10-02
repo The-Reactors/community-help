@@ -188,6 +188,7 @@ const RightCard = (props) => {
       <CardActions align = "center">
         <Box alignItems = "center">
           <Button
+          style={{backgroundColor:"#0075FF"}}
             color="primary"
             size="large"
             type="submit"

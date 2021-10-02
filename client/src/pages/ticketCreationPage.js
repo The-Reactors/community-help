@@ -3,21 +3,18 @@ import URL from '../URL';
 import {Modal} from "react-bootstrap"
 import swal from 'sweetalert';
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input"
-import FormHelperText from "@material-ui/core/FormHelperText"
 import { Redirect } from 'react-router'
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import ProfileNav from '../components/profileNav';
 import { MenuItem, MenuList } from '@material-ui/core';
+import "../assets/css/ticket-creation.css"
+import "animate.css"
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXN1ciIsImEiOiJja3Q2ZXhkYW4waHJwMm5xbHVrZnE2YjZ2In0.pQ-92peoEdKmKFJAi6DoSg';
+
 
 const useStyles = makeStyles({
   root: {
@@ -34,7 +31,7 @@ const useStyles = makeStyles({
     fontSize: 14
   },
   pos: {
-    marginBottom: 12
+    marginBottom: 10
   },
   heading: {
     fontWeight: "bolder"
@@ -62,7 +59,9 @@ const TicketCreationPage = () => {
     const [latitude, setLatitude] = useState(30.3420432)
     const [longitude, setLongitude] = useState(76.2895914)
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const[redirect,setRedirect] = useState(null)
+    const [redirect,setRedirect] = useState(null)
+    const [isSecondPage, setIsSecondPage] = useState("")
+    
     const classes = useStyles();
     const bull = <span className={classes.bullet}>•</span>;
   
@@ -168,6 +167,23 @@ const TicketCreationPage = () => {
       getLocation()
       
     }
+
+    const nextButtonHandler = (e) =>{
+      e.preventDefault();
+
+      if(userEnteredData.title === "" || userEnteredData.description === ""){
+        swal({
+          title: "Warning!",
+          text: "Please fill the details",
+          icon: "warning",
+          buttons: {cancel:"OK"}
+        });
+      }else{
+
+        setIsSecondPage("secondPage")
+      }
+    }
+
     const ticketConfirmHandler = (e) =>
     {
 
@@ -263,200 +279,274 @@ const TicketCreationPage = () => {
     }
     // const url="https://maps.google.com/maps?q=30.15787,84.20479&hl=es;z=14&amp;output=embed"
     return (
-        
-           <div id="content" className="p-4 p-md-5 pt-5">
-             {redirect}
-             <ProfileNav activePage="createTicket" getName={(name)=>getName(name)}/>
-          <Modal  data-aos="fade-up" data-aos-delay="300" show = {isModalOpen}
+      <div id="content" className="p-4 p-md-5 pt-5">
+        {redirect}
+        <ProfileNav
+          activePage="createTicket"
+          getName={(name) => getName(name)}
+        />
+        <Modal
+          data-aos="fade-up"
+          data-aos-delay="300"
+          show={isModalOpen}
           animation={false}
           size="lg"
           aria-labelledby="contained-modal-title-vcenter"
-          centered>
+          centered
+        >
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter">
+              <h2>Confirm Ticket</h2>
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div
+              data-aos="fade-up"
+              data-aos-delay="300"
+              style={{ textAlign: "center" }}
+            >
+              <br />
+              <div className="col-md-6" style={{ overflow: "hidden" }}>
+                <div
+                  ref={mapContainer}
+                  style={{
+                    overflow: "hidden",
+                    borderRadius: "10%",
+                    height: "345px",
+                    width: "345px",
+                  }}
+                />
+              </div>
+              <div className="col-md-6">
+                <p
+                  style={{
+                    textAlign: "left",
+                    marginLeft: "30px",
+                    fontSize: "20px",
+                  }}
+                >
+                  <b>Title</b> : {userEnteredData.title} <br />
+                  <b>Decription</b> : {userEnteredData.description}
+                  <br />
+                  <b>Location</b> : {userEnteredData.location}
+                  <br />
+                  <b>Status</b> : {userEnteredData.status}
+                  <br />
+                  <b>Priority</b> : {userEnteredData.priority}
+                  <br />
+                  <b>Category</b> : {userEnteredData.category}
+                  <br />
+                </p>
+              </div>
+              <br />
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={ticketConfirmHandler}>Accept</Button>
+            <Button
+              onClick={() => {
+                setIsModalOpen(false);
+              }}
+            >
+              Reject
+            </Button>
+          </Modal.Footer>
 
-<Modal.Header>
-        <Modal.Title id="contained-modal-title-vcenter">
-        <h2>Confirm Ticket</h2>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div data-aos="fade-up" data-aos-delay="300"  style={{textAlign:"center"}}>
-          <br/>
-          <div className= "col-md-6" style={{overflow:"hidden"}}>
-              <div ref={mapContainer} style={{overflow:"hidden",borderRadius:"10%",height:"345px",width:"345px"}}  />
-            </div>
-            <div className= "col-md-6" >
-            <p style= {{textAlign:"left", marginLeft:"30px",fontSize:"20px"}}>
-            <b>Title</b> : {userEnteredData.title} <br/>
-            <b>Decription</b> : {userEnteredData.description}<br/>
-            <b>Location</b> : {userEnteredData.location}<br/>
-            <b>Status</b> : {userEnteredData.status}<br/>
-            <b>Priority</b> : {userEnteredData.priority}<br/>
-            <b>Category</b> : {userEnteredData.category}<br/>
-            </p>
-            </div>
-        <br/>
-        </div>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick = {ticketConfirmHandler}>Accept</Button>
-        <Button onClick = {() =>{setIsModalOpen(false)}}>Reject</Button>
-      </Modal.Footer>
-            
-          
-            {/* <button onClick = {ticketConfirmHandler}>Confirm</button>
+          {/* <button onClick = {ticketConfirmHandler}>Confirm</button>
             <button onClick = {() =>{setIsModalOpen(false)}}>Reject</button> */}
-            </Modal>
-            
+        </Modal>
 
-            {/* raise a ticket card */}
+        {/* raise a ticket card */}
+
+        <div className="container-fluid">
+            <div className="row">
+              <div className="col-md-7 ml-3">
+                <h1 className="ticket-creation-heading">Raise a Ticket</h1>
+
+                <div className="ticket-creation-progress mt-5 ml-1">
+
+                  <div className={`ticket-creation-first ${isSecondPage}`}>
+
+                  </div>
+                  <div className="ticket-creation-dash">
+
+                  </div>
+                  <div className={`ticket-creation-second ${isSecondPage}`}>
+
+                  </div>
+                  
+
+                </div>
+                <h1 className="ticket-creation-subheading">Basic Ticket Info</h1>
+                <p className="ticket-creation-subheading-para mt-3">Fill in the details for the ticket. This will take couple of minutes</p>
+
+                <form>
+                <div  className={`ticket-creation-basic-container ${isSecondPage} mt-5 animate__animated animate__slideInRight animate__fast`}>
+                  <h2 className="ticket-creation-form-heading">Ticket Overview</h2>
+                  <p className="ticket-creation-form-subheading mt-1">Please provide correct data about the ticket</p>
+
+                  <label for="exampleFormControlInput1" class="form-label mt-4">Ticket Title</label>
+                  <input type="text"
+                    name="title"
+                    value={userEnteredData.title}
+                    onChange={handleInput} class="form-control" id="exampleFormControlInput1" placeholder="Eg). Bench broken in the nearby park" required></input>
+
+                  <label for="exampleFormControlTextarea1" class="form-label mt-4">Ticket Description</label>
+                  <textarea class="form-control ticket-creation-form-desc" 
+                    name="description"
+                    value={userEnteredData.description}
+                    onChange={handleInput} id="exampleFormControlTextarea1" placeholder=" Eg). Bench broken in the nearby park please help me i dont know what to do i am dying of this utter pain in my heart" required></textarea> 
+                </div>
+
+                <div className={`ticket-creation-second-container ${isSecondPage} mt-5 animate__animated animate__slideInRight animate__fast`}>
+                  <h2 className="ticket-creation-form-heading">Ticket Details</h2>
+                  <p className="ticket-creation-form-subheading mt-1">Please provide correct data about the ticket</p>
+
+                  <label for="exampleFormControlInput1" class="form-label mt-4">Ticket Location</label>
+                  <input type="text"
+                    name="location"
+                    value={userEnteredData.location}
+                    onChange={handleInput} class="form-control" id="exampleFormControlInput1" placeholder="Eg). Bench broken in the nearby park" required></input>
+                  
+                  <label class="form-label mt-4">Additional Information</label>
+                  <div className="row ">
+                    <div className = "col-md-6">
+                    <FormControl
+                
+                className={classes.formControl}
+                style={{
+                  minWidth: 150,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <InputLabel htmlFor="category">
+                   Select Category
+                </InputLabel>
+                <Select
+                  onChange={(e) => selectCategoryHandler(e)}
+                  
+                >
+                  <MenuItem value="none" name="category">
+                    None
+                  </MenuItem>
+                  <MenuItem value="land issue" name="category">
+                    Land Issue
+                  </MenuItem>
+                  <MenuItem value="water issue" name="category">
+                    Water Issue
+                  </MenuItem>
+                  <MenuItem value="public health" name="category">
+                    Public Health
+                  </MenuItem>
+                  <MenuItem value="sanitation" name="category">
+                    {" "}
+                    Sanitation
+                  </MenuItem>
+                  <MenuItem value="pollution" name="category">
+                    Pollution
+                  </MenuItem>
+                  <MenuItem value="healthcare issue" name="category">
+                    Healthcare Issue
+                  </MenuItem>
+                  <MenuItem value="electricity" name="category">
+                    Electricity
+                  </MenuItem>
+                  <MenuItem value="road blockage" name="category">
+                    Road Blockage
+                  </MenuItem>
+                  <MenuItem value="waste management" name="category">
+                    Waste Management
+                  </MenuItem>
+                </Select>
+              </FormControl>
+                    </div>
+                    <div className = "col-md-6">
+                    <FormControl
+                
+                className={classes.formControl}
+                style={{
+                  minWidth: 150,
+                  display: "flex",
+                  justifyContent: "center",
+                }}
+              >
+                <InputLabel htmlFor="priority">
+                  {" "}
+                  Select Priority
+                </InputLabel>
+                <Select
+                  onChange={(e) => selectPriorityHandler(e)}
+                  
+                >
+                  <MenuItem value="none" name="category">
+                    None
+                  </MenuItem>
+                  <MenuItem value="emergency" name="category">
+                    Emergency
+                  </MenuItem>
+                  <MenuItem value="urgent" name="category">
+                    Urgent
+                  </MenuItem>
+                  <MenuItem value="not urgent" name="category">
+                    Not Urgent
+                  </MenuItem>
+                </Select>
+                <br />
+              </FormControl>
+                    </div>
+                  </div>   
+
+                  <label class="form-label mt-4">Upload Upto 3 Images</label>  
+                  <formControl>
+                <form encType="multipart/form-data">
+                  <input
+                    type="file"
+                    id="uploads"
+                    name="uploads"
+                    accept=".jpg, .jpeg, .png, .svg, .gif"
+                    onChange={fileHandler}
+                    multiple
+                  />
+                </form>
+                
+              </formControl>
+                </div>
+
+
+                {isSecondPage === "" ? <Button
+                
+                color="primary"
+                size="large"
+                type="submit"
+                variant="contained"
+                onClick={nextButtonHandler}
+                style={{backgroundColor:"#0075FF", marginTop:"20px"}}
+              >
+                Go Next <i class="fa fa-arrow-right ml-2"></i>
+              </Button> : 
+              <Button
+              
+                color="primary"
+                size="large"
+                type="submit"
+                variant="contained"
+                onClick={fileSubmitHandler}
+                style={{backgroundColor:"#0075FF", marginTop:"20px"}}
+              >
+                Submit <i class="fa fa-check ml-2"></i>
+              </Button>}
+                
+                </form>
+              </div>
+            </div>
+        </div>
 
        
-            <Card data-aos="fade-up" data-aos-delay="300" className={classes.root}>
-      <CardContent>
-        <Typography className = {classes.heading} color="textDark" gutterBottom variant="h4">
-        <u> Raise a Ticket</u>
-        </Typography>
-        <br />
-        <hr/>
-        <Typography htmlFor="personal information" component="h2" >
-          Personal Information <br/> <span style={{color:"red"}}>*= Required</span><br/>
-        </Typography>
-        <Typography align = "center">
-        <FormControl>
-        <InputLabel  htmlFor="name">Name</InputLabel>
-        <Input className = {classes.formEntry} id="component-simple"/>
-      </FormControl>
-      <FormControl>
-        <InputLabel htmlFor="phone number">Phone Number</InputLabel>
-        <Input
-          id="component-helper"
-          aria-describedby="component-helper-text"
-          type = "number"
-
-        />
-        <FormHelperText id="component-helper-text">Enter the number of the Point of Contact</FormHelperText>
-      </FormControl>
-      </Typography>
-      <br/>
-      <hr/>
-        <Typography htmlFor="proximity" component="h2" >
-          Ticket Information
-          <br/> <span style={{color:"red"}}>* = Required</span><br/>
-        </Typography>
-        <Typography align = "center">
-        <FormControl>
-        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Title</InputLabel>
-        <Input 
-        className = {classes.formEntry} 
-        id="component-simple"  
-        type = "text"
-        name = "title"
-        value = {userEnteredData.title}
-        onChange = {handleInput}/>
-        <br/>
-        </FormControl>
-        <FormControl>
-        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Description</InputLabel>
-        <Input 
-        className = {classes.formEntry} 
-        id="component-simple"
-        type="text" 
-        autoComplete = "off"
-        value = {userEnteredData.description}
-        onChange = {handleInput}
-        name = "description"/>
-      </FormControl>
-      </Typography>
-      <br/>
-      <Typography align = "center">
-      <FormControl>
-        <InputLabel  htmlFor="component-simple"> <span style={{color:"red"}}>*</span> Location</InputLabel>
-        <Input 
-        className = {classes.formEntry} 
-        id="component-simple"
-        type="text" 
-        autoComplete = "off"
-        onChange = {handleInput}
-        value = {userEnteredData.location}
-        name = "location"/>
-      </FormControl>
-      </Typography>
-      <br/>
-        <Typography align = "center">
-        {/* <Typography htmlFor="category" component="h2" align="center">
-          Select the Category
-        </Typography> */}
-        <br />
-        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
-          <InputLabel htmlFor="category"><span style={{color:"red"}}>*</span> Select Category</InputLabel>
-          <Select
-            
-            onChange={(e) => selectCategoryHandler(e)}
-            align="center"
-          >
-          <MenuItem value="none" name="category">None</MenuItem>
-          <MenuItem value="land issue" name="category">Land Issue</MenuItem>
-          <MenuItem value="water issue" name="category">Water Issue</MenuItem>
-          <MenuItem value="public health" name="category">Public Health</MenuItem>
-          <MenuItem value="sanitation"  name="category"> Sanitation</MenuItem>
-          <MenuItem value="pollution" name="category">Pollution</MenuItem>
-          <MenuItem value="healthcare issue" name="category">Healthcare Issue</MenuItem>
-          <MenuItem value="electricity" name="category">Electricity</MenuItem>
-          <MenuItem value="road blockage" name="category">Road Blockage</MenuItem>
-          <MenuItem value="waste management" name="category">Waste Management</MenuItem>
-          </Select>
-          
-        </FormControl>
-        </Typography>
-        <br />
-        <Typography align = "center">
-        {/* <Typography htmlFor="priority" component="h2" align="center">
-          Select Priority
-        </Typography> */}
-    
-        <FormControl variant="filled" className={classes.formControl} style={{minWidth: 150,display:"flex",justifyContent:"center"}}>
-          <InputLabel htmlFor="priority"> <span style={{color:"red"}}>*</span> Select Priority</InputLabel>
-          <Select
-             
-            onChange={(e) => selectPriorityHandler(e)}
-            align="center"
-          >
-            <MenuItem value="none" name="category">None</MenuItem>
-            <MenuItem value="emergency" name="category">Emergency</MenuItem>
-            <MenuItem value="urgent" name="category">Urgent</MenuItem>
-            <MenuItem value="not urgent" name="category">Not Urgent</MenuItem>
-          </Select>
-          <br />
-        </FormControl>
-        </Typography>
-        <br/>
-        <Typography align = "center">
-          <formControl>
-            <form encType = "multipart/form-data">
-            <input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" onChange = {fileHandler} multiple />
-            </form>
-          <Typography className = {classes.helper}><br/>Upload Upto 3 Images</Typography>
-          </formControl>
-        </Typography>
-        <hr/> 
-      </CardContent>
-      <CardActions>
-        <Typography align = "center">
-          <Button
-            color="primary"
-            size="large"
-            type="submit"
-            variant="contained"
-            onClick={fileSubmitHandler}
-          >
-            Raise the ticket
-          </Button>
-        </Typography>
-      </CardActions>
-    </Card>
-    </div>
-         
-    )
+      </div>
+    );
 }
 
 export default TicketCreationPage
+
+
