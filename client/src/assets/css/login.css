@@ -27,7 +27,7 @@
  
   background-color: #ffffff;
   opacity: 0.9;
-  background-image:  radial-gradient(#3445b7 0.75px, transparent 0.75px), radial-gradient(#3445b7 0.75px, #ffffff 0.75px);
+  background-image:  radial-gradient(#0075FF 0.75px, transparent 0.75px), radial-gradient(#0075FF 0.75px, #ffffff 0.75px)!important;
   background-size: 30px 30px;
   /* background-position: 0 0,15px 15px; */
 }
@@ -75,7 +75,7 @@
 }
 
 .btn1:hover {
-  color: #3b4ec6;
+  color: #0075FF;
   background: #ffffff;
   border: 2px solid;
 }
@@ -89,7 +89,7 @@
 
 .col-left {
   width: 45%;
-  background: #3b4ec6;
+  background: #0075FF;
   -webkit-clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
   clip-path: polygon(98% 17%, 100% 34%, 98% 51%, 100% 68%, 98% 84%, 100% 100%, 0 100%, 0 0, 100% 0);
 }
@@ -128,7 +128,7 @@
 }
 
 .login-form p a {
-  color: #3b4ec6;
+  color: #0075FF;
   font-size: 14px;
   text-decoration: none;
 }
@@ -172,22 +172,22 @@
 
 .login-form input.btn1 {
   color: #ffffff;
-  background: #3b4ec6;
-  border-color: #3b4ec6;
+  background: #0075FF;
+  border-color: #0075FF;
   outline: none;
   cursor: pointer;
 }
 
 .login-form input.btn1:hover {
-  color: #3b4ec6;
+  color: #0075FF;
   background: #ffffff;
 }
 
 .btn1-googleSignIn{
-  background-color: #3b4ec6;
+  background-color: #0075FF;
 } 
 .btn1-googleSignIn:hover{
-  color: #3b4ec6;
+  color: #0075FF;
   background: #ffffff;
   border: 2px solid;
 }

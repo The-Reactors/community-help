@@ -389,13 +389,13 @@ const TicketCreationPage = () => {
                   <input type="text"
                     name="title"
                     value={userEnteredData.title}
-                    onChange={handleInput} class="form-control" id="exampleFormControlInput1" placeholder="Eg). Bench broken in the nearby park" required></input>
+                    onChange={handleInput} class="form-control" id="exampleFormControlInput1" placeholder="Enter Title" required></input>
 
                   <label for="exampleFormControlTextarea1" class="form-label mt-4">Ticket Description</label>
                   <textarea class="form-control ticket-creation-form-desc" 
                     name="description"
                     value={userEnteredData.description}
-                    onChange={handleInput} id="exampleFormControlTextarea1" placeholder=" Eg). Bench broken in the nearby park please help me i dont know what to do i am dying of this utter pain in my heart" required></textarea> 
+                    onChange={handleInput} id="exampleFormControlTextarea1" placeholder="Enter Description" required></textarea> 
                 </div>
 
                 <div className={`ticket-creation-second-container ${isSecondPage} mt-5 animate__animated animate__slideInRight animate__fast`}>

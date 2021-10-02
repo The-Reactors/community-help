@@ -18,16 +18,16 @@ const Navbar = (props) => {
         navElements=(
             <div>
                         <li name = "home" className={homeActiveClass}>
-                            <a href="/" ><span className="fa fa-home mr-3"></span> Home</a>
+                            <a href="/" ><span className="fa fa-home mr-3" style={{color:"#FFFF"}}></span> Home</a>
                         </li>
                         <li name = "raiseATicket" className={raiseTicketActiveClass}>
-                            <a href="/createTicket"><span className="fa fa-ticket mr-3"></span> Raise a Ticket</a>
+                            <a href="/createTicket"><span className="fa fa-ticket mr-3" style={{color:"#FFFF"}}></span> Raise a Ticket</a>
                         </li>
                         <li name = "myTickets" className={myTicketActiveClass}>
-                            <a href="/myTickets"><span className="fa fa-ticket mr-3"></span> My Tickets</a>
+                            <a href="/myTickets"><span className="fa fa-ticket mr-3" style={{color:"#FFFF"}}></span> My Tickets</a>
                         </li>
                         <li name = "myAccount" className={myAccountActiveClass}>
-                            <a href="/myAccount"><span className="fa fa-user mr-3"></span> My Account</a>
+                            <a href="/myAccount"><span className="fa fa-user mr-3" style={{color:"#FFFF"}}></span> My Account</a>
                         </li>
             </div>
         )
@@ -36,13 +36,13 @@ const Navbar = (props) => {
         navElements=(
             <div>
                   <li name = "home" className={homeActiveClass}>
-                            <a href="/"><span className="fa fa-home mr-3"></span> Home</a>
+                            <a href="/"><span className="fa fa-home mr-3" style={{color:"#FFFF"}}></span> Home</a>
                         </li>
                         <li name = "register" className={registerActiveClass}>
-                            <a href="/register"><span className="fa fa-user-plus mr-3"></span> Register</a>
+                            <a href="/register"><span className="fa fa-user-plus mr-3" style={{color:"#FFFF"}}></span> Register</a>
                         </li>
                         <li name = "login" className={loginActiveClass}>
-                            <a href="/login"><span className="fa fa-sign-in mr-3"></span> Login</a>
+                            <a href="/login"><span className="fa fa-sign-in mr-3" style={{color:"#FFFF"}}></span> Login</a>
                         </li>
             </div>
         )
