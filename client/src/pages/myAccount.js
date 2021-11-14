@@ -9,7 +9,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Card, CardContent, Typography,CardMedia, Input } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import silhouette from "../assets/images/profile.png"
-
+import "../assets/css/my-account.css"
 const MyAccount = () =>{
     
 
@@ -279,58 +279,30 @@ const MyAccount = () =>{
         updateImage =  <img style={{borderRadius: "50%",maxHeight:"300px",maxWidth:"300px"}} src={`data:image/png;base64,${profileImage}`} alt="profile_pic_NativePresent"/>
       }
     }
-    return <div>
+    return <div style={{overflowX:"hidden"}}>
      
       <div id="content" className="p-4 p-md-5 pt-5" style={{width:"210%"}}>
-        <form data-aos="fade-up" data-aos-delay="300"  action="" encType = "multipart/form-data">
-              
-        {/* <label htmlFor="name">Name</label>
-                <input 
-                type="text" 
-                autoComplete = "off"
-                value = {updatedName}
-                onChange = {handleInputName}
-                name = "description"
-                />
-                <button onClick = {fileUpdateNameHandler}>Update</button>
-        <label htmlFor="phoneNo">Phone Number</label>
-                <input 
-                type="text" 
-                autoComplete = "off"
-                value = {updatedPhoneNo}
-                onChange = {handleInputPhoneNo}
-                name = "description"
-                />
-                <button onClick = {fileUpdatePhoneNoHandler}>Update</button> */}
-              {/* <p>
-                <label htmlFor="uploads">
-                Update Your Profile Picture
-                </label>
-                <input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" onChange = {fileHandler} />
-                <button onClick = {fileSubmitHandler}>Upload</button>
-                </p> */}
-                
-           </form> 
-         <Card style={{marginLeft:"10px"}}>
-         <CardContent>
-         <Typography style = {{fontWeight:"bolder"}} color="textDark" gutterBottom variant="h2">
+         
+         
+         <Typography style = {{fontWeight:"bolder",fontFamily:"Poppins", height:"28px", marginLeft:"20px", marginBottom:"30px"}} color="textDark" gutterBottom variant="h2">
         My Account
         </Typography>
+
+
          
-    <Typography align="center">
-        
-               {updateImage}
-               {googleProfile ? null : <Typography htmlFor="uploads">
-               <h3 style={{marginTop:"20px"}}> Update Your Profile Picture by clicking on the edit icon </h3>
-                </Typography>}
-                {googleProfile?null:<IconButton onClick = {handleEditImage}>
-                <EditIcon />
-                </IconButton>}
-                {disabledImage && <div><Typography align = "center"><input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
-                <Button variant = "contained" color = "primary" onClick = {fileSubmitHandler}>Upload</Button></Typography></div>}
-                
-        <br /> <br />
-                <hr />
+    
+      
+        <Card className="my-account-card-container">
+          <CardContent>
+   <div className="row">
+      <div className="col-md-3">
+          <Typography align = "left" style = {{fontWeight:"bold",fontFamily:"Poppins"}} color="textDark" gutterBottom variant="h4">
+       Personal Data
+        </Typography>  
+        <Typography align = "left" style={{color:"#575F6E",fontFamily:"Poppins",marginBottom:"35px"}} gutterBottom variant="h6">
+        Please Provide Correct Data About Yourself
+        </Typography>       
+        <div style={{marginBottom:"1rem"}}>
                 <TextField
           disabled = {disabledName}
           id="outlined-disabled"
@@ -345,6 +317,8 @@ const MyAccount = () =>{
         <IconButton onClick = {handleEditName}>
           <EditIcon />
         </IconButton>
+      </div>
+        <br/>
         <TextField
           disabled = {disabledNumber}
           id="outlined-number"
@@ -364,23 +338,31 @@ const MyAccount = () =>{
         <Button hidden = {disabledName} variant = "contained" color = 'secondarary' onClick = {fileUpdateNameHandler} style = {{marginRight:'11rem'}}>Change Name</Button>
         <Button hidden = {disabledNumber} variant = "contained" color = 'secondarary' onClick = {fileUpdatePhoneNoHandler}>Change Number</Button>
         </Typography>
-        </Typography>   
-                </CardContent>
-          </Card>
+    </div>
+    <div className="col-md-2">
+               {updateImage}
+               {googleProfile ? null : <Typography htmlFor="uploads">
+               <h3 style={{marginTop:"20px"}}> Update Your Profile Picture by clicking on the edit icon </h3>
+                </Typography>}
+                {googleProfile?null:<IconButton onClick = {handleEditImage}>
+                <EditIcon />
+                </IconButton>}
+                {disabledImage && <div><Typography align = "center"><input type="file" id="uploads" name="uploads" accept=".jpg, .jpeg, .png, .svg, .gif" multiple onChange = {fileHandler} />
+                <Button variant = "contained" color = "primary" onClick = {fileSubmitHandler}>Upload</Button></Typography></div>}
+                
+        <br /> <br />
+      </div>
+    </div>
+        </CardContent>
+        </Card>
+      
+       
+                
+          
 
       </div>
            <div>
         </div>
-           {/* <Box
-      component="form"
-      sx={{
-        "& .MuiTextField-root": { m: 1, width: "25ch" }
-      }}
-      noValidate
-      autoComplete="off"
-    > */}
-        
-    {/* </Box> */}
            </div>
 
 }
