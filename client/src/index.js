@@ -16,13 +16,12 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import storageSession from 'redux-persist/lib/storage/session'
 import { PersistGate } from 'redux-persist/integration/react'
-
 const persistConfig = {
   key: 'root',
   version: 1,
-  storage,
+  storage: storageSession
 }
 
 const persistedProfileReducer = persistReducer(persistConfig, profileReducer)

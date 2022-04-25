@@ -111,6 +111,41 @@ const ProfileNav = (props) => {
             }
         }
        
+        const logoutHandler = (event) =>
+        {
+            dispatch(logout());
+            event.preventDefault()
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: "include"
+                };
+                fetch(`${URL}/users/logout`, requestOptions )
+                .then(async response => {
+                    
+                   
+                
+                    response.json().then(data =>  {
+                        
+                        if(response.ok){
+                            
+                          console.log(data);
+
+                        }
+                        else{
+                          
+                            //throw response.json();
+                        }
+                    });
+                    
+                })
+                .catch(async (error) => {
+                    const errorMessage = await error;
+                    console.log(errorMessage)
+                    
+                })
+         }
+
             
         
     return (
@@ -196,7 +231,7 @@ const ProfileNav = (props) => {
                 <div className="btn">My Account</div>
                 </a>
                 </li>
-                <li onClick={() => dispatch(logout())}><a className="logout" href={`${URL}/users/logout`}><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
+                <li onClick={logoutHandler}><a className="logout"><span className="picon"><i className="fa fa-sign-out"></i></span>Logout</a></li>
             </ul>
             </div>:null} 
         </div>

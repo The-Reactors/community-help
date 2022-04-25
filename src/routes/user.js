@@ -219,7 +219,7 @@ router.get('/users/me', auth, async (req, res) => {
     res.status(401).send(e)
   }
 })
-router.get('/users/logout', auth, async (req, res) => {
+router.post('/users/logout', auth, async (req, res) => {
   req.logout();
   res.redirect(`${process.env.CLIENT_URL}/`);
 })

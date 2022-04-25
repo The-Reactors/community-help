@@ -261,7 +261,7 @@ const downvoteProblem = () => {
                 else{
                   swal({
                     title: "Failed!",
-                    text: "Login Credentials Could Not Be Verified",
+                    text: "Please Login To Continue",
                     icon: "error",
                   });
                     throw response.json();

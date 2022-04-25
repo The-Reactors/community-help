@@ -12,6 +12,7 @@ const Navbar = (props) => {
     const myTicketActiveClass = props.activeElement.localeCompare("myTickets") === 0 ? "active":"";
     const myAccountActiveClass = props.activeElement.localeCompare("myAccount") === 0 ? "active":"";
     let navElements=null;
+    let date = new Date();
 
     if(JSON.stringify(profile) !== JSON.stringify({}))
     {
@@ -70,7 +71,7 @@ const Navbar = (props) => {
                 </div>
                 
                 <div className="footer" style={{margin:"10px",transform:"translateY(90vh)",position:"fixed"}}>
-                    <p  style={{color:"white"}}>Copyright ©2021 All rights reserved | <span><img style={{maxHeight:"20px",maxWidth:"20px",margin:"5px"}}src={nayakShort}/></span> Team </p>
+                    <p  style={{color:"white"}}>Copyright © {date.getFullYear()} All rights reserved | <span><img style={{maxHeight:"20px",maxWidth:"20px",margin:"5px"}}src={nayakShort}/></span> Team </p>
                 </div>
                 </div>   
             </nav>
