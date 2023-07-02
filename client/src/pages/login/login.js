@@ -69,10 +69,10 @@ const Login = () => {
           {redirect}
            <div id="content" className="p-4 p-md-5 pt-5 align-login" >
          
-           <div class="login-wrapper shadow" >
-    <div class="login-container">
-      <div class="col-left">
-        <div class="login-text">
+           <div className="login-wrapper shadow" >
+    <div className="login-container">
+      <div className="col-left">
+        <div className="login-text">
           <span><img style={{maxWidth:"200px",maxHeight:"200px"}}src={logoLong}/></span>
           <p>
            Take a step forward and be an active citizen. 
@@ -84,8 +84,8 @@ const Login = () => {
    
         
       </div>
-      <div class="col-right">
-        <div class="login-form">
+      <div className="col-right">
+        <div className="login-form">
           <h2 style = {{textAlign: "center",lineHeight:"4rem"}}>Login To Your Account</h2>
           <form>
             <p>
@@ -110,7 +110,7 @@ const Login = () => {
             </p>
             <p>
               <a onClick={submitHandler}>
-              <input class="btn1" type="submit" value="Sign In" />
+              <input className="btn1" type="submit" value="Sign In" id="signIn-btn-native"/>
               </a>
             </p>
             <p>
@@ -121,7 +121,7 @@ const Login = () => {
           <div style={{textAlign:"center",lineHeight:"3rem",fontSize:"15px",fontWeight:"bold"}}><hr/> OR </div>
           <div style = {{textAlign:"center"}}>
            <a href={`${URL}/login/google`}>
-           <button type = "submit" class = "btn1 btn1-googleSignIn">
+           <button type = "submit" className = "btn1 btn1-googleSignIn">
              <span> Sign In With <img style= {{maxHeight:"20px",maxHeight:"20px"}}src={google}/></span>
             </button>
            </a>
